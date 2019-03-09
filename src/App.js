@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
+import { TabContent, TabPane, Nav, NavItem, NavLink, Input, Button, Form, FormGroup, Label, Col } from 'reactstrap';
 import './App.css';
 import classnames from 'classnames';
 import Homepage from './Homepage';
@@ -14,7 +13,8 @@ class App extends Component {
 
     this.toggle = this.toggle.bind(this);
     this.state = {
-      activeTab: '1'
+      activeTab: '1',
+      login: false
     };
   }
 
@@ -26,6 +26,27 @@ class App extends Component {
     }
   }
   render() {
+    if (!this.login){
+      return(
+        <center>
+          <Col sm="6">
+            <Form  className='loginForm'>
+              <FormGroup>
+                <Label for="usernameText">User name:</Label>
+                <Input type="textarea" name="text" id="usernameText" />
+              </FormGroup>
+              <FormGroup>
+                <Label for="userPassword">Password</Label>
+                <Input type="password" name="password" id="userPassword" placeholder="password placeholder" />
+              </FormGroup>
+              <Button>Submit</Button>
+            </Form>
+          </Col>
+        </center>
+        
+        
+      );
+    }
     return (
       <div>
         <Nav tabs>
