@@ -6,8 +6,10 @@ import Homepage from './Homepage';
 import Friends from './Friends';
 import Settings from './Settings';
 
-var login_url = 'http://127.0.0.1:8000/api/auth/login';
-var logout_url = 'http://127.0.0.1:8000/api/auth/logout';
+var host_url = 'http://127.0.0.1:8000';
+var login_url = host_url+'/api/auth/login';
+var logout_url = host_url+'/api/auth/logout';
+var register_url = host_url+'/api/auth/register';
 
 class App extends Component {
   constructor(props) {
@@ -18,15 +20,17 @@ class App extends Component {
       activeTab: '1',
       login: false,
       token: 'null',
+      signup: false,
+      username: 'null',
     };
   }
 
   trylogin(){
-    
+
     // console.log(this.state);
-    
+
     var data = {"username": "yi", "email":"", "password":"1"};
-    
+
     fetch(login_url, {
       method: 'POST', // or 'PUT'
       body: JSON.stringify(data), // data can be `string` or {object}!
@@ -41,13 +45,13 @@ class App extends Component {
         this.setState({login:true, token: response["token"]});
         console.log(this.state.token);
       }
-      
+
     })
     .catch(error => console.error('Error:', error));
   }
 
   trylogout(){
-        
+
     fetch(logout_url, {
       method: 'POST', // or 'PUT'
       headers:{
@@ -56,6 +60,35 @@ class App extends Component {
       }
     });
     this.setState({login:false});
+  }
+
+  tryregister(){
+
+      // console.log(document.getElementById("usernameText").value);
+
+      var data = {
+          "username": document.getElementById("usernameText").value,
+          "email":document.getElementById("emailText").value,
+          "password":document.getElementById("userPassword").value,
+      };
+      console.log(data);
+      fetch(register_url, {
+        method: 'POST', // or 'PUT'
+        body: JSON.stringify(data), // data can be `string` or {object}!
+        headers:{
+          'Content-Type': 'application/json',
+        }
+      })
+      .then(res => res.json())
+      .then(response => {
+        console.log('Success:', JSON.stringify(response));
+        if (response.hasOwnProperty("token")){
+          this.setState({login:true, token: response["token"]});
+          console.log(this.state.token);
+        }
+
+      })
+      .catch(error => console.error('Error:', error));
   }
 
   toggle(tab) {
@@ -67,6 +100,31 @@ class App extends Component {
   }
   render() {
     if (!this.state.login){
+        if (this.state.signup){
+            return(
+                <center>
+                  <Col sm="6">
+                    <Form  className='registerForm'>
+                      <Spinner type="grow" color="primary" />
+                      <FormGroup>
+                        <Label for="usernameText">User name</Label>
+                        <Input name="text" id="usernameText" placeholder="Enter your user name" />
+                      </FormGroup>
+                      <FormGroup>
+                        <Label for="userPassword">Password</Label>
+                        <Input type="password" name="password" id="userPassword" placeholder="Enter your password" />
+                      </FormGroup>
+                      <FormGroup>
+                        <Label for="Text">Email</Label>
+                        <Input name="text" id="emailText" placeholder="Enter your user email" />
+                      </FormGroup>
+                      <Button onClick={()=> {this.setState({signup:false})}}>Go Back</Button>
+                      <Button onClick={()=> {this.tryregister();}}>Sign up</Button>
+                    </Form>
+                  </Col>
+                </center>
+            )
+        };
       return(
         <center>
           <Col sm="6">
@@ -81,6 +139,7 @@ class App extends Component {
                 <Input type="password" name="password" id="userPassword" placeholder="Enter your password" />
               </FormGroup>
               <Button onClick={()=> {this.trylogin();}}>Submit</Button>
+              <Button onClick={()=> {this.setState({signup: true});}}>Sign up</Button>
             </Form>
           </Col>
         </center>
