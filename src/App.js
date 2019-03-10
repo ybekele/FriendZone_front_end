@@ -18,6 +18,11 @@ class App extends Component {
     };
   }
 
+  trylogin(){
+    this.setState({login:true});
+    // console.log(this.state);
+  }
+
   toggle(tab) {
     if (this.state.activeTab !== tab) {
       this.setState({
@@ -26,27 +31,25 @@ class App extends Component {
     }
   }
   render() {
-    if (!this.login){
+    if (!this.state.login){
       return(
         <center>
           <Col sm="6">
             <Form  className='loginForm'>
               <FormGroup>
-                <Label for="usernameText">User name:</Label>
+                <Label for="usernameText">User name</Label>
                 <Input type="textarea" name="text" id="usernameText" />
               </FormGroup>
               <FormGroup>
                 <Label for="userPassword">Password</Label>
                 <Input type="password" name="password" id="userPassword" placeholder="password placeholder" />
               </FormGroup>
-              <Button>Submit</Button>
+              <Button onClick={()=> {this.trylogin();}}>Submit</Button>
             </Form>
           </Col>
         </center>
-        
-        
       );
-    }
+    };
     return (
       <div>
         <Nav tabs>
@@ -75,7 +78,7 @@ class App extends Component {
             </NavLink>
           </NavItem>
         </Nav>
-        <Button outline size='sm' className='logout' color="primary">Logout</Button>{' '}
+        <Button outline size='sm' className='logout' color="primary" onClick={()=>{this.setState({login:false});}}>Logout</Button>{' '}
         <TabContent activeTab={this.state.activeTab}>
           <TabPane tabId="1">
             <Homepage />
