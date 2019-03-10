@@ -6,6 +6,8 @@ import Homepage from './Homepage';
 import Friends from './Friends';
 import Settings from './Settings';
 
+var login_url = 'http://127.0.0.1:8000/api/auth/login';
+var logout_url = 'http://127.0.0.1:8000/api/auth/logout';
 
 class App extends Component {
   constructor(props) {
@@ -14,13 +16,46 @@ class App extends Component {
     this.toggle = this.toggle.bind(this);
     this.state = {
       activeTab: '1',
-      login: false
+      login: false,
+      token: 'null',
     };
   }
 
   trylogin(){
-    this.setState({login:true});
+    
     // console.log(this.state);
+    
+    var data = {"username": "yi", "email":"", "password":"1"};
+    
+    fetch(login_url, {
+      method: 'POST', // or 'PUT'
+      body: JSON.stringify(data), // data can be `string` or {object}!
+      headers:{
+        'Content-Type': 'application/json',
+      }
+    })
+    .then(res => res.json())
+    .then(response => {
+      // console.log('Success:', JSON.stringify(response));
+      if (response.hasOwnProperty("token")){
+        this.setState({login:true, token: response["token"]});
+        console.log(this.state.token);
+      }
+      
+    })
+    .catch(error => console.error('Error:', error));
+  }
+
+  trylogout(){
+        
+    fetch(logout_url, {
+      method: 'POST', // or 'PUT'
+      headers:{
+        'Content-Type': 'application/json',
+        'Authorization': 'token '+this.state.token,
+      }
+    });
+    this.setState({login:false});
   }
 
   toggle(tab) {
@@ -79,7 +114,7 @@ class App extends Component {
             </NavLink>
           </NavItem>
         </Nav>
-        <Button outline size='sm' className='logout' color="primary" onClick={()=>{this.setState({login:false});}}>Logout</Button>{' '}
+        <Button outline size='sm' className='logout' color="primary" onClick={()=>{this.trylogout()}}>Logout</Button>{' '}
         <TabContent activeTab={this.state.activeTab}>
           <TabPane tabId="1">
             <Homepage />
