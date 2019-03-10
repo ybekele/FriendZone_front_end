@@ -4,22 +4,18 @@ import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, Ca
 class Settings extends Component{
     render(){
         return(
-            <Row>
-              <Col sm="6">
-                <Card body>
-                  <CardTitle>Settings</CardTitle>
-                  <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                  <Button>Go somewhere</Button>
-                </Card>
-              </Col>
-              <Col sm="6">
-                <Card body>
-                  <CardTitle>Special Title Treatment</CardTitle>
-                  <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                  <Button>Go somewhere</Button>
-                </Card>
-              </Col>
-            </Row>
+          <Row>
+            <Col sm="12">
+            <h4>Setting</h4>
+            </Col>
+            <Col sm="6">
+            <Card body>
+              <CardTitle>Example</CardTitle>
+              <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
+              <Button>Go somewhere</Button>
+            </Card>
+          </Col>
+        </Row>
         );
         
     }

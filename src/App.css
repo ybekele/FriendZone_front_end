@@ -10,3 +10,7 @@
  border: solid 1px gray;
  border-radius: 15px;
 }
+
+li:hover {
+  color:blue;
+}

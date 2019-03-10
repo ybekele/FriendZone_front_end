@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TabContent, TabPane, Nav, NavItem, NavLink, Input, Button, Form, FormGroup, Label, Col } from 'reactstrap';
+import { TabContent, TabPane, Nav, NavItem, NavLink, Input, Button, Form, FormGroup, Label, Col, Spinner } from 'reactstrap';
 import './App.css';
 import classnames from 'classnames';
 import Homepage from './Homepage';
@@ -36,9 +36,10 @@ class App extends Component {
         <center>
           <Col sm="6">
             <Form  className='loginForm'>
+              <Spinner type="grow" color="primary" />
               <FormGroup>
                 <Label for="usernameText">User name</Label>
-                <Input type="textarea" name="text" id="usernameText" />
+                <Input name="text" id="usernameText" />
               </FormGroup>
               <FormGroup>
                 <Label for="userPassword">Password</Label>
