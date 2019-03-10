@@ -11,6 +11,15 @@
  border-radius: 15px;
 }
 
+/* .navtab {
+  position: fixed
+} */
+
+/* #card{
+  overflow: scroll;
+  height: 80%;
+} */
+
 li:hover {
   color:blue;
 }

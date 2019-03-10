@@ -10,10 +10,18 @@ class Homepage extends Component{
                 <h4>Homepage</h4>
                 </Col>
                 <Col sm="6">
-                <Card body>
+                <Card body id = 'card'>
                   <CardTitle>Example</CardTitle>
                   <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                  <Button>Go somewhere</Button>
+                  <Button onClick={
+                      ()=>{
+                        var card = document.getElementById('card');
+                        var item = document.createElement('h1');
+                        var content = document.createTextNode('content');
+                        item.appendChild(content);
+                        card.appendChild(item);
+                      }
+                  }>Go somewhere</Button>
                 </Card>
               </Col>
             </Row>

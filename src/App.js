@@ -39,11 +39,11 @@ class App extends Component {
               <Spinner type="grow" color="primary" />
               <FormGroup>
                 <Label for="usernameText">User name</Label>
-                <Input name="text" id="usernameText" />
+                <Input name="text" id="usernameText" placeholder="Enter your user name" />
               </FormGroup>
               <FormGroup>
                 <Label for="userPassword">Password</Label>
-                <Input type="password" name="password" id="userPassword" placeholder="password placeholder" />
+                <Input type="password" name="password" id="userPassword" placeholder="Enter your password" />
               </FormGroup>
               <Button onClick={()=> {this.trylogin();}}>Submit</Button>
             </Form>
@@ -53,7 +53,7 @@ class App extends Component {
     };
     return (
       <div>
-        <Nav tabs>
+        <Nav tabs className='navtab'>
           <NavItem>
             <NavLink
               className={classnames({ active: this.state.activeTab === '1' })}
