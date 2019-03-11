@@ -11,6 +11,24 @@
  border-radius: 15px;
 }
 
+.postForm{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 20px;
+  border: solid 1px rgb(71, 74, 255);
+  border-radius: 5px;
+}
+
+.loginbuttons{
+  margin: 20px;
+}
+
+#post {
+  position: fixed;
+  right: 80px;
+  top: 5px;
+}
+
 /* .navtab {
   position: fixed
 } */
