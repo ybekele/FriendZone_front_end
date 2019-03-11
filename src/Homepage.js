@@ -2,6 +2,9 @@
 import React, { Component } from 'react';
 import { InputGroup, InputGroupAddon, Input, Form, FormGroup, Collapse, Card, CardBody, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 
+import { Layout, Menu, Breadcrumb } from 'antd';
+
+const { Header, Content, Footer } = Layout;
 class Homepage extends Component{
 
     constructor(props) {
@@ -16,46 +19,36 @@ class Homepage extends Component{
 
     render(){
         return(
-            <center>
-                <Button id='post' size='sm' color="primary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>Make Post!</Button>
-                
-                <Col sm="9">
-                    <Collapse isOpen={this.state.collapse}>
-                    <Form className="postForm">
-                        <FormGroup>
-                            <InputGroup>
-                                <Input placeholder="Image URL" />
-                                <InputGroupAddon addonType="append">
-                                <Input type="file" name="file" id="exampleFile" />
-                                </InputGroupAddon>
-                            </InputGroup>
-                        </FormGroup>
-                        <FormGroup>
-                            <InputGroup>
-                                <Input placeholder="Tell us something!" />
-                                <InputGroupAddon addonType="append">
-                                <Button color="secondary">Post!</Button>
-                                </InputGroupAddon>
-                            </InputGroup> 
-                        </FormGroup>
-                    </Form>
-                    </Collapse>
-                    <h4>Your available posts:</h4>
-                    <Card body id = 'card'>
-                    <CardTitle>Example</CardTitle>
-                    <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                    <Button onClick={
-                        ()=>{
-                            var card = document.getElementById('card');
-                            var item = document.createElement('h1');
-                            var content = document.createTextNode('content');
-                            item.appendChild(content);
-                            card.appendChild(item);
-                        }
-                    }>Go somewhere</Button>
-                    </Card>
-                </Col>
-            </center>
+
+               <Layout className="layout">
+                    <Header>
+                    <div className="logo" />
+                    <Menu
+                        theme="dark"
+                        mode="horizontal"
+                        defaultSelectedKeys={['2']}
+                        style={{ lineHeight: '64px' }}
+                    >
+                        <Menu.Item key="1">Homepage</Menu.Item>
+                        <Menu.Item key="2">Network</Menu.Item>
+                        <Menu.Item key="3">Settings</Menu.Item>
+                        <Menu.Item> <Button outline size='sm' className='logout' color="primary" onClick={()=>{this.trylogout()}}>Logout</Button>{' '}</Menu.Item>
+                    </Menu>
+                    
+                    </Header>
+                    <Content style={{ padding: '0 50px' }}>
+                    <Breadcrumb style={{ margin: '16px 0' }}>
+                        {/* <Breadcrumb.Item>Home</Breadcrumb.Item>
+                        <Breadcrumb.Item>List</Breadcrumb.Item>
+                        <Breadcrumb.Item>App</Breadcrumb.Item> */}
+                    </Breadcrumb>
+                    <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>Content</div>
+                    </Content>
+                    <Footer style={{ textAlign: 'center' }}>
+                    Ant Design ©2018 Created by Ant UED
+                    </Footer>
+                </Layout>
+            
             
         );
         
@@ -63,3 +56,4 @@ class Homepage extends Component{
 }
 
 export default Homepage;
+
