@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
-import { InputGroup, InputGroupAddon, Input, Form, FormGroup, Collapse, Card, CardBody, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
+import { CardImg, CardSubtitle, CustomInput, InputGroup, InputGroupAddon, Input, Form, FormGroup, Collapse, Card, CardBody, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
+import Post from './Post'
 
 class Homepage extends Component{
 
@@ -26,13 +27,35 @@ class Homepage extends Component{
                             <InputGroup>
                                 <Input placeholder="Image URL" />
                                 <InputGroupAddon addonType="append">
-                                <Input type="file" name="file" id="exampleFile" />
+                                <Button color="secondary">Upload from local(not available)</Button>
                                 </InputGroupAddon>
+                                {/* <InputGroupAddon addonType="append">
+                                <Input type="file" name="file" id="exampleFile" />
+                                </InputGroupAddon> */}
                             </InputGroup>
                         </FormGroup>
                         <FormGroup>
+                            <CustomInput type="select" id="exampleCustomSelect" name="customSelect">
+                                <option value="">Who can view?</option>
+                                <option>Me only</option>
+                                <option>Another author</option>
+                                <option>My friends</option>
+                                <option>Friends of friends</option>
+                                <option>Only friends on my host</option>
+                                <option>Public</option>
+                            </CustomInput>
+                            <CustomInput type="select" id="exampleCustomMutlipleSelect" name="customSelect" disabled>
+                                <option value="">Which auther can view?</option>
+                                <option>Author 1</option>
+                                <option>Author 2</option>
+                                <option>Author 3</option>
+                                <option>Author 4</option>
+                                <option>Author 5</option>
+                            </CustomInput>
+                        </FormGroup>
+                        <FormGroup>
                             <InputGroup>
-                                <Input placeholder="Tell us something!" />
+                                <Input type="textarea" name="text" id="exampleText" placeholder="Tell us something!" />
                                 <InputGroupAddon addonType="append">
                                 <Button color="secondary">Post!</Button>
                                 </InputGroupAddon>
@@ -41,19 +64,16 @@ class Homepage extends Component{
                     </Form>
                     </Collapse>
                     <h4>Your available posts:</h4>
-                    <Card body id = 'card'>
-                    <CardTitle>Example</CardTitle>
-                    <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                    <Button onClick={
-                        ()=>{
-                            var card = document.getElementById('card');
-                            var item = document.createElement('h1');
-                            var content = document.createTextNode('content');
-                            item.appendChild(content);
-                            card.appendChild(item);
-                        }
-                    }>Go somewhere</Button>
-                    </Card>
+                    <Col sm="6">
+                        <div>
+                            <Post />
+                            <Post />
+                            <Post />
+                            <Post />
+                        </div>
+                        
+                    </Col>
+                    
                 </Col>
             </center>
             
