@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { CardImg, CardSubtitle, CustomInput, InputGroup, InputGroupAddon, Input, Form, FormGroup, Collapse, Card, CardBody, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import Post from './Post'
-
+ 
 class Homepage extends Component{
 
     constructor(props) {
