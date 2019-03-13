@@ -60,3 +60,16 @@ li:hover {
   background: rgba(255,255,255,.2);
   margin: 16px;
 }
+
+.load-more{ 
+  display: block;
+  border: 0;
+  margin: 1em auto;
+  padding: .75em 1em;
+  font-size: 1em;
+  background-color: #c34d41;
+  color: #fff;
+  font-weight: 500;
+  text-transform: uppercase;
+  cursor: pointer;
+}

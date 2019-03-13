@@ -6,12 +6,41 @@ import Homepage from './Homepage';
 import Friends from './Friends';
 import Settings from './Settings';
 
+// import Pagination from rest_framework;
+
 import { Layout, Menu, Icon } from 'antd';
 import { List, Avatar } from 'antd';
 
+
 const { Header, Sider, Content } = Layout;
 
+const data = [
+  {
+    title: 'Ant Design Title 1',
+  },
+  {
+    title: 'Ant Design Title 2',
+  },
+  {
+    title: 'Ant Design Title 3',
+  },
+  {
+    title: 'Ant Design Title 4',
+  },
 
+  {
+    title: 'Ant Design Title 5',
+  },
+  {
+    title: 'Ant Design Title 6',
+  },
+  {
+    title: 'Ant Design Title 7',
+  },
+  {
+    title: 'Ant Design Title 8',
+  },
+];
 
 
 var host_url = 'http://127.0.0.1:8000';
@@ -32,6 +61,13 @@ class App extends Component {
       signup: false,
     };
   }
+
+  handlePageChange(pageNumber) {
+    console.log(`active page is ${pageNumber}`);
+    this.setState({activePage: pageNumber});
+  }
+
+  
  
 state = {
     collapsed: false,
@@ -126,6 +162,7 @@ state = {
       });
     }
   }
+  
 
   // This is the Sign Up functionality 
   render() {
@@ -218,7 +255,41 @@ state = {
           margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280,
         }}
         >
-          Content
+        
+        
+
+
+
+      <List
+        itemLayout="horizontal"
+        dataSource={data}
+        renderItem={item => (
+          <List.Item>
+            <List.Item.Meta
+              avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+              title={<a href="https://ant.design">{item.title}</a>}
+              description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+            />
+            {/* <Pagination
+          activePage={this.state.activePage}
+          itemsCountPerPage={10}
+          totalItemsCount={450}
+          pageRangeDisplayed={5}
+          onChange={this.handlePageChange}
+        /> */}
+            
+          </List.Item>
+          
+          
+          
+          
+        )}
+        
+
+        
+      />
+     
+      
         </Content>
       </Layout>
     </Layout>
