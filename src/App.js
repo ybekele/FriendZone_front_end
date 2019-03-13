@@ -7,7 +7,7 @@ import Friends from './Friends';
 import Settings from './Settings';
 
 // import Pagination from rest_framework;
-
+import { CardImg, CardSubtitle, CustomInput, InputGroup, InputGroupAddon, Collapse, Card, CardBody, CardTitle, CardText, Row } from 'reactstrap';
 import { Layout, Menu, Icon } from 'antd';
 import { List, Avatar } from 'antd';
 
@@ -43,12 +43,14 @@ const data = [
 ];
 
 
+
+
 var host_url = 'http://127.0.0.1:8000';
 host_url = 'https://project-cmput404.herokuapp.com';
 var login_url = host_url+'/api/auth/login';
 var logout_url = host_url+'/api/auth/logout';
 var register_url = host_url+'/api/auth/register';
-
+var getposts_url = host_url+'/api/auth'
 class App extends Component {
   constructor(props) {
     super(props);
@@ -60,6 +62,11 @@ class App extends Component {
       token: 'null',
       signup: false,
     };
+  }
+
+  getItems() {
+    fetch('getposts_url' + '/posts') //(+<pk>)
+    .then(results => results.json())
   }
 
   handlePageChange(pageNumber) {
@@ -155,6 +162,29 @@ state = {
       .catch(error => console.error('Error:', error));
   }
 
+  try_get() {
+    
+  fetch(getposts_url, {
+    method: 'GET',
+    headers:{
+      'Content-Type': 'application/json',
+    }
+  })
+  .then(res => res.json())
+  .then(response => {
+    console.log('Success:', JSON.stringify(response));
+    if (response.hasOwnProperty("token")){
+      this.setState({login:true, token: response["token"]});
+      console.log(this.state.token);
+    } else{
+      document.getElementById('alert').innerHTML = JSON.stringify(response);
+    }
+
+  })
+  .catch(error => console.error('Error:', error));
+}
+  
+
   toggle(tab) {
     if (this.state.activeTab !== tab) {
       this.setState({
@@ -215,7 +245,7 @@ state = {
       );
     };
 
-    
+    //<Menu.Item key="4" className='logout' onClick={()=>{this.trylogout()}}></Menu.Item>
     return (
       <Layout>
       <Sider
@@ -225,17 +255,22 @@ state = {
       >
         <div className="logo" />
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-          <Menu.Item key="1">
+          <Menu.Item key="1" className={classnames({ active: this.state.activeTab === '1' })} onClick={() => { this.toggle('1'); }}>
           <Icon type="home" />
-            <span>Home</span>
+
+            <span>Home</span>    
+            
           </Menu.Item>
-          <Menu.Item key="2">
+          <Menu.Item key="2" className={classnames({ active: this.state.activeTab === '2' })} onClick={() => { this.toggle('2'); }}>
           <Icon type="team" />
             <span>Friends</span>
+            
           </Menu.Item>
-          <Menu.Item key="3">
+          <Menu.Item key="3" className={classnames({ active: this.state.activeTab === '3' })} onClick={() => { this.toggle('3'); }}>
            <Icon type="user" />
-            <span>Profile</span>
+
+            <span>Profile</span>      
+            
           </Menu.Item>
           <Menu.Item key="4" className='logout' onClick={()=>{this.trylogout()}}>
            <Icon type="logout"/>
@@ -258,9 +293,68 @@ state = {
         
         
 
+{/* const {data} = this.props;
+const contentList = data.map(post => {
+  return(
+    <li>{data.title, data.content, data.author}</li>
+    */}
+    
+  {/* )
+}) */}
+<center>
 
+<Button id = 'refresh' size='sm' color="primary" onClick={()=> {this.try_get();}}>Refresh!</Button>
+<Button id='post' size='sm' color="primary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>Make Post!</Button>
+                
+                <Col sm="9">
+                    <Collapse isOpen={this.state.collapse}>
+                    <Form className="postForm">
+                        <FormGroup>
+                            <InputGroup>
+                                <Input placeholder="Image URL" />
+                                <InputGroupAddon addonType="append">
+                                <Button color="secondary">Upload from local(not available)</Button>
+                                </InputGroupAddon>
+                                {/* <InputGroupAddon addonType="append">
+                                <Input type="file" name="file" id="exampleFile" />
+                                </InputGroupAddon> */}
+                            </InputGroup>
+                        </FormGroup>
+                        <FormGroup>
+                            <CustomInput type="select" id="exampleCustomSelect" name="customSelect">
+                                <option value="">Who can view?</option>
+                                <option>Me only</option>
+                                <option>Another author</option>
+                                <option>My friends</option>
+                                <option>Friends of friends</option>
+                                <option>Only friends on my host</option>
+                                <option value="P">Public</option>
+                            </CustomInput>
+                            <CustomInput type="select" id="exampleCustomMutlipleSelect" name="customSelect" disabled>
+                                <option value="">Which auther can view?</option>
+                                <option>Author 1</option>
+                                <option>Author 2</option>
+                                <option>Author 3</option>
+                                <option>Author 4</option>
+                                <option>Author 5</option>
+                            </CustomInput>
+                        </FormGroup>
+                        <FormGroup>
+                            <InputGroup>
+                                <Input type="textarea" name="text" id="exampleText" placeholder="Tell us something!" />
+                                <InputGroupAddon addonType="append">
+                                <Button color="secondary" onClick={()=> {this.send_post();}}>Post!</Button>
+                                </InputGroupAddon>
+                            </InputGroup> 
+                        </FormGroup>
+                    </Form>
+                    </Collapse>
+                    <h4>Your available posts:</h4>
+                    <Col sm="6">
+                        <div>
+                        <List
+        
 
-      <List
         itemLayout="horizontal"
         dataSource={data}
         renderItem={item => (
@@ -288,6 +382,16 @@ state = {
 
         
       />
+                        </div>
+                        
+                    </Col>
+                    
+                </Col>
+
+</center>
+
+      
+      
      
       
         </Content>
