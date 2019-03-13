@@ -1,8 +1,13 @@
-
 import React, { Component } from 'react';
 import { CardImg, CardSubtitle, CustomInput, InputGroup, InputGroupAddon, Input, Form, FormGroup, Collapse, Card, CardBody, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import Post from './Post'
- 
+
+var host_url = 'http://127.0.0.1:8000';
+host_url = 'https://project-cmput404.herokuapp.com';
+var post_url = host_url+'/api/author/posts';
+
+
+
 class Homepage extends Component{
 
     constructor(props) {
@@ -11,11 +16,42 @@ class Homepage extends Component{
         this.state = { collapse: false };
     }
     
+    send_post(){
+        
+        var data = {
+            "permission": document.getElementById("exampleCustomSelect").value,
+            "content":document.getElementById("exampleText").value,
+            "title":"This title is hardcoded",
+          };
+          console.log(data);
+
+          fetch(post_url, {
+            method: 'POST', // or 'PUT'
+            body: JSON.stringify(data), // data can be `string` or {object}!
+            headers:{
+              'Content-Type': 'application/json',
+              'Authorization': 'token '+this.props.author_state.token,
+            }
+          })
+          .then(res => res.json())
+          .then(response => {
+            // console.log('Success:', JSON.stringify(response));
+            if (response.hasOwnProperty("success")){
+              
+              console.log(response);
+            }
+      
+          })
+          .catch(error => console.error('Error:', error));
+    }
+    
     toggle() {
     this.setState(state => ({ collapse: !state.collapse }));
     }
 
     render(){
+        console.log("this is the prop")
+        console.log(this.props.author_state.token)
         return(
             <center>
                 <Button id='post' size='sm' color="primary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>Make Post!</Button>
@@ -42,7 +78,7 @@ class Homepage extends Component{
                                 <option>My friends</option>
                                 <option>Friends of friends</option>
                                 <option>Only friends on my host</option>
-                                <option>Public</option>
+                                <option value="P">Public</option>
                             </CustomInput>
                             <CustomInput type="select" id="exampleCustomMutlipleSelect" name="customSelect" disabled>
                                 <option value="">Which auther can view?</option>
@@ -57,7 +93,7 @@ class Homepage extends Component{
                             <InputGroup>
                                 <Input type="textarea" name="text" id="exampleText" placeholder="Tell us something!" />
                                 <InputGroupAddon addonType="append">
-                                <Button color="secondary">Post!</Button>
+                                <Button color="secondary" onClick={()=> {this.send_post();}}>Post!</Button>
                                 </InputGroupAddon>
                             </InputGroup> 
                         </FormGroup>
