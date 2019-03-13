@@ -114,7 +114,7 @@ class App extends Component {
             return(
                 <center>
                   <Col sm="6">
-                  <h1>Sing Up</h1>
+                  <h1>Sign Up</h1>
                     <Form  className='loginForm'>
                       <FormGroup>
                         <Label for="usernameText">User name</Label>
@@ -188,7 +188,7 @@ class App extends Component {
         <Button outline size='sm' className='logout' color="primary" onClick={()=>{this.trylogout()}}>Logout</Button>{' '}
         <TabContent activeTab={this.state.activeTab}>
           <TabPane tabId="1">
-            <Homepage />
+            <Homepage author_state={this.state}/>
           </TabPane>
           <TabPane tabId="2">
             <Friends />
