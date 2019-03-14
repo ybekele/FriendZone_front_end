@@ -50,7 +50,11 @@ host_url = 'https://project-cmput404.herokuapp.com';
 var login_url = host_url+'/api/auth/login';
 var logout_url = host_url+'/api/auth/logout';
 var register_url = host_url+'/api/auth/register';
-var getposts_url = host_url+'/api/auth'
+var getposts_url = host_url+'/api/auth/post'
+var gitfeed_url = 'https://api.github.com/users/'
+// must put user in the middle
+var events_url = '/events'
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -65,7 +69,7 @@ class App extends Component {
   }
 
   getItems() {
-    fetch('getposts_url' + '/posts') //(+<pk>)
+    fetch('getposts_url') //(+<pk>)
     .then(results => results.json())
   }
 
@@ -85,6 +89,7 @@ state = {
       collapsed: !this.state.collapsed,
     });
   }
+  
 
   trylogin(){
 
@@ -168,6 +173,7 @@ state = {
     method: 'GET',
     headers:{
       'Content-Type': 'application/json',
+      Authorization: 'token ' + this.state.token
     }
   })
   .then(res => res.json())
