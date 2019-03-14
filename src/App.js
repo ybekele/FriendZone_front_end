@@ -50,7 +50,8 @@ host_url = 'https://project-cmput404.herokuapp.com';
 var login_url = host_url+'/api/auth/login';
 var logout_url = host_url+'/api/auth/logout';
 var register_url = host_url+'/api/auth/register';
-var getposts_url = host_url+'/api/auth/post'
+var getposts_url = host_url+'/api/posts'
+//var getposts_url = host_url+'/api/auth/posts'
 var gitfeed_url = 'https://api.github.com/users/'
 // must put user in the middle
 var events_url = '/events'
@@ -173,7 +174,7 @@ state = {
     method: 'GET',
     headers:{
       'Content-Type': 'application/json',
-      Authorization: 'token ' + this.state.token
+      Authorization: 'token ' + this.state.token,
     }
   })
   .then(res => res.json())
