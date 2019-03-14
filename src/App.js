@@ -174,7 +174,7 @@ state = {
     method: 'GET',
     headers:{
       'Content-Type': 'application/json',
-      Authorization: 'token ' + this.state.token,
+      'Authorization': 'token ' + this.state.token,
     }
   })
   .then(res => res.json())
