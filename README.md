@@ -15,6 +15,7 @@ Friendzone is a social web app that allows you to connect to other authors in si
 - Django Documentation, https://docs.djangoproject.com/en/2.1/
 - Django REST Framework https://www.django-rest-framework.org/ Copyright © 2011-present, Encode OSS Ltd. All rights reserved.
 - React Bootstrap 4 components https://reactstrap.github.io/components/form/, Copyright (c) 2016-Present Eddy Hernandez, Chris Burrell, Evan Sharp
+- Facebook React Tutorial https://github.com/facebook/create-react-app, Copyright (c) 2013-present, Facebook, Inc.
 
 
 ## Available Scripts
