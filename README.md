@@ -1,5 +1,5 @@
-- This repository serves as a Front End to https://github.com/cmput404-ahyyy/FriendZone2
-- This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## This repos serves as a Front End to https://github.com/cmput404-ahyyy/FriendZone2
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
