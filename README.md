@@ -1,5 +1,6 @@
-## This repo serves as a Front End to https://github.com/cmput404-ahyyy/FriendZone2
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# This project is hosted on Heroku at https://friendzone-404.herokuapp.com/
+This repo serves as a Front End to https://github.com/cmput404-ahyyy/FriendZone2
+
 
 ## Available Scripts
 
@@ -67,3 +68,4 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
