@@ -6,11 +6,12 @@ import Homepage from './Homepage';
 import Friends from './Friends';
 import Settings from './Settings';
 
-var host_url = 'http://127.0.0.1:8000';
-host_url = 'https://project-cmput404.herokuapp.com';
+//var host_url = 'http://127.0.0.1:8000';
+var host_url = 'https://project-cmput404.herokuapp.com';
 var login_url = host_url+'/api/auth/login';
 var logout_url = host_url+'/api/auth/logout';
 var register_url = host_url+'/api/auth/register';
+
 
 class App extends Component {
   constructor(props) {
@@ -22,6 +23,8 @@ class App extends Component {
       login: true,
       token: 'null',
       signup: false,
+      username: 'null',
+      githubURL: 'null',
     };
   }
 
@@ -34,6 +37,7 @@ class App extends Component {
       "email":"",
       "password":document.getElementById("userPassword").value,
     };
+    this.setState({username: data["username"]});
 
     // var data = {"username": "yi", "email":"", "password":"1"};
 
@@ -56,6 +60,10 @@ class App extends Component {
 
     })
     .catch(error => console.error('Error:', error));
+  }
+
+  try_getinfo() {
+
   }
 
   trylogout(){
@@ -100,6 +108,11 @@ class App extends Component {
       })
       .catch(error => console.error('Error:', error));
   }
+
+  
+  
+
+  
 
   toggle(tab) {
     if (this.state.activeTab !== tab) {
@@ -203,3 +216,5 @@ class App extends Component {
 }
 
 export default App;
+
+
