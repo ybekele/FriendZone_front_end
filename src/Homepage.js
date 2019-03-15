@@ -16,7 +16,12 @@ class Homepage extends Component{
     constructor(props) {
         super(props);
         this.toggle = this.toggle.bind(this);
-        this.state = { collapse: false };
+        this.state = { 
+            collapse: false,
+            items: null, 
+                        
+                    };
+
     }
 
      
@@ -54,8 +59,6 @@ class Homepage extends Component{
     }
 
     get_posts() {
-        console.log("in get posts " + this.props.author_state.token); 
-    
         fetch(getposts_url, {
             method: 'GET',
             headers:{
@@ -66,6 +69,14 @@ class Homepage extends Component{
           .then(res => res.json())
           .then(response => {
             console.log('Success:', JSON.stringify(response));
+            this.state.items = JSON.stringify(response);
+            console.log("these are the keys");
+            console.log(
+                Object.keys(this.state.items).map(function(key, index) {
+                    this.state.items[key] *= 2;
+                }));
+            console.log("These are the items " + this.state.items);
+            console.log("INDEXING ITEM 0 = " + this.state.items[1]);
             if (response.hasOwnProperty("token")){
                 this.setState({login:true, token: response["token"]});
                 console.log(this.props.author_state.token);
@@ -81,7 +92,6 @@ class Homepage extends Component{
         console.log('this is using author state' + this.props.author_state.token);
         console.log('this is using global state ' + global_state);
         console.log('this is using global state name ' + global_state.username);
-        console.log("asfasfsfdfasfsfs");
         console.log('this is the state ' + this.props.author_state);
         console.log('this is the author ' + this.props.author_state.username);
         // Nested function that gets github of user
