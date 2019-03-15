@@ -18,6 +18,8 @@ Friendzone is a social web app that allows you to connect to other authors in si
 - React Bootstrap 4 components https://reactstrap.github.io/components/form/, Copyright (c) 2016-Present Eddy Hernandez, Chris Burrell, Evan Sharp
 - Facebook React Tutorial https://github.com/facebook/create-react-app, Copyright (c) 2013-present, Facebook, Inc.
 
+API Information can be found at https://github.com/cmput404-ahyyy/FriendZone2/wiki/API-Documentation. 
+
 
 ## Available Scripts
 
