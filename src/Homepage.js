@@ -4,8 +4,8 @@ import { CardImg, CardSubtitle, CustomInput, InputGroup, InputGroupAddon, Input,
 import Post from './Post'
 import App from './App'
 
-var host_url = 'http://127.0.0.1:8000';
-//var host_url = 'https://project-cmput404.herokuapp.com';
+//var host_url = 'http://127.0.0.1:8000';
+var host_url = 'https://project-cmput404.herokuapp.com';
 var post_url = host_url+'/api/author/posts';
 var user_url = host_url+'/api/authors/';
 var getposts_url = host_url+'/api/posts'; 
