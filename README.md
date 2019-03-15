@@ -20,6 +20,13 @@ Friendzone is a social web app that allows you to connect to other authors in si
 
 API Information can be found at https://github.com/cmput404-ahyyy/FriendZone2/wiki/API-Documentation. 
 
+cmput404-ahyy group members are:
+* Abdul Hersi
+* Hamdi Yusuf
+* Yi Zhang
+* Yonael Bekele
+* Yuqi Zhang
+
 
 ## Available Scripts
 
