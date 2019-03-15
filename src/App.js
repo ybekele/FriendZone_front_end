@@ -7,7 +7,7 @@ import Friends from './Friends';
 import Settings from './Settings';
 
 var host_url = 'http://127.0.0.1:8000';
-host_url = 'https://project-cmput404.herokuapp.com';
+//host_url = 'https://project-cmput404.herokuapp.com';
 var login_url = host_url+'/api/auth/login';
 var logout_url = host_url+'/api/auth/logout';
 var register_url = host_url+'/api/auth/register';
@@ -22,11 +22,13 @@ class App extends Component {
       login: true,
       token: 'null',
       signup: false,
+      username:'null',
     };
   }
 
   trylogin(){
-
+    console.log("this should be user name in app")
+    console.log(document.getElementById("usernameText").value)
     // console.log(this.state);
 
     var data = {
@@ -48,7 +50,7 @@ class App extends Component {
     .then(response => {
       // console.log('Success:', JSON.stringify(response));
       if (response.hasOwnProperty("token")){
-        this.setState({login:true, token: response["token"]});
+        this.setState({login:true, token: response["token"],username:document.getElementById("usernameText").value});
         console.log(this.state.token);
       }else{
         document.getElementById('alert').innerHTML = 'username & password do not match!!!';
@@ -67,7 +69,7 @@ class App extends Component {
         'Authorization': 'token '+this.state.token,
       }
     });
-    this.setState({login:false, signup:false});
+    this.setState({login:false, signup:false,username:'null'});
   }
 
   tryregister(){
@@ -91,7 +93,7 @@ class App extends Component {
       .then(response => {
         console.log('Success:', JSON.stringify(response));
         if (response.hasOwnProperty("token")){
-          this.setState({login:true, token: response["token"]});
+          this.setState({login:true, token: response["token"],username:document.getElementById("usernameText").value});
           console.log(this.state.token);
         } else{
           document.getElementById('alert').innerHTML = JSON.stringify(response);
@@ -191,7 +193,7 @@ class App extends Component {
             <Homepage author_state={this.state}/>
           </TabPane>
           <TabPane tabId="2">
-            <Friends />
+            <Friends author_state={this.state}/>
           </TabPane>
           <TabPane tabId="3">
             <Settings />
