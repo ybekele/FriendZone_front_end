@@ -6,8 +6,8 @@ import Homepage from './Homepage';
 import Friends from './Friends';
 import Settings from './Settings';
 
-var host_url = 'http://127.0.0.1:8000';
-host_url = 'https://project-cmput404.herokuapp.com';
+//var host_url = 'http://127.0.0.1:8000';
+var host_url = 'https://project-cmput404.herokuapp.com';
 var login_url = host_url+'/api/auth/login';
 var logout_url = host_url+'/api/auth/logout';
 var register_url = host_url+'/api/auth/register';
@@ -63,7 +63,7 @@ class App extends Component {
   }
 
   try_getinfo() {
-    
+
   }
 
   trylogout(){
