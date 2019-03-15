@@ -62,6 +62,10 @@ class App extends Component {
     .catch(error => console.error('Error:', error));
   }
 
+  try_getinfo() {
+    
+  }
+
   trylogout(){
 
     fetch(logout_url, {

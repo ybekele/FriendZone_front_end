@@ -5,7 +5,7 @@ import Post from './Post'
 import App from './App'
 
 var host_url = 'http://127.0.0.1:8000';
-//host_url = 'https://project-cmput404.herokuapp.com';
+//var host_url = 'https://project-cmput404.herokuapp.com';
 var post_url = host_url+'/api/author/posts';
 var user_url = host_url+'/api/authors/';
 var getposts_url = host_url+'/api/posts'; 
@@ -60,12 +60,12 @@ class Homepage extends Component{
             method: 'GET',
             headers:{
               'Content-Type': 'application/json',
-              'Authorization': 'token ' + this.props.author_state.token,
+              //'Authorization': 'token ' + this.props.author_state.token,
             }
           })
           .then(res => res.json())
           .then(response => {
-            // console.log('Success:', JSON.stringify(response));
+            console.log('Success:', JSON.stringify(response));
             if (response.hasOwnProperty("token")){
                 this.setState({login:true, token: response["token"]});
                 console.log(this.props.author_state.token);
