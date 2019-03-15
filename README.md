@@ -6,6 +6,7 @@ Friendzone is a social web app that allows you to connect to other authors in si
 ## Technologies
 - React (Front end)
 - Django (Back end)
+- Heroku (Deployment)
 
 ## Languages 
 - Python, Javascript, CSS, HTML 
