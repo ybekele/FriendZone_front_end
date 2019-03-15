@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Breadcrumb,BreadcrumbItem,Form,FormGroup,FormText,Input,Label,TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 
 var host_url = 'http://127.0.0.1:8000';
-//host_url = 'https://project-cmput404.herokuapp.com';
+host_url = 'https://project-cmput404.herokuapp.com';
 var post_url = host_url+'/api/authors';
 
 var ajax_response=["uuu","asdf","uuu","asdf","uuu","asdf","uuu","asdf","uuu","asdf","uuu","asdf",];
