@@ -4,11 +4,11 @@ import { CardImg, CardSubtitle, CustomInput, InputGroup, InputGroupAddon, Input,
 import Post from './Post'
 import App from './App'
 
-//var host_url = 'http://127.0.0.1:8000';
-var host_url = 'https://project-cmput404.herokuapp.com';
-var post_url = host_url+'/api/author/posts';
+var host_url = 'http://127.0.0.1:8000';
+host_url = 'https://project-cmput404.herokuapp.com';
+var post_url = host_url+'/api/author/posts/';
 var user_url = host_url+'/api/authors/';
-var getposts_url = host_url+'/api/posts'; 
+var getposts_url = host_url+'/api/posts/'; 
 
 var global_state = null;
 class Homepage extends Component{
@@ -166,11 +166,11 @@ class Homepage extends Component{
                         <FormGroup>
                             <CustomInput type="select" id="exampleCustomSelect" name="customSelect">
                                 <option value="">Who can view?</option>
-                                <option>Me only</option>
-                                <option>Another author</option>
-                                <option>My friends</option>
-                                <option>Friends of friends</option>
-                                <option>Only friends on my host</option>
+                                <option value="M">Me only</option>
+                                <option value="L">Another author</option>
+                                <option value="F">My friends</option>
+                                <option value="FF">Friends of friends</option>
+                                <option value="FH">Only friends on my host</option>
                                 <option value="P">Public</option>
                             </CustomInput>
                             <CustomInput type="select" id="exampleCustomMutlipleSelect" name="customSelect" disabled>
