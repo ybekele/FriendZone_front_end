@@ -16,11 +16,25 @@ class Homepage extends Component{
     constructor(props) {
         super(props);
         this.toggle = this.toggle.bind(this);
-        this.state = { collapse: false };
+        this.get_posts = this.get_posts.bind(this);
+        this.state = { collapse: false, posts: [] };
+        // this.get_posts();
     }
 
      
     global_state = this.props.author_state; 
+
+    render_post(i){
+        if (this.state.posts.length == 0){
+            console.log("before get posts")
+            return <Post value={{"title": "this is title test!!!!!!!!!!!!!"}}/>
+            
+        } else{
+            console.log("pass actual post")
+            return <Post value={this.state.posts[i]}/>
+        }
+    }
+
     send_post(){
         
         var data = {
@@ -66,6 +80,7 @@ class Homepage extends Component{
           .then(res => res.json())
           .then(response => {
             console.log('Success:', JSON.stringify(response));
+            this.setState({posts: response});
             if (response.hasOwnProperty("token")){
                 this.setState({login:true, token: response["token"]});
                 console.log(this.props.author_state.token);
@@ -196,11 +211,11 @@ class Homepage extends Component{
 
                     <h4>Your available posts:</h4>
                     
-                    <Button id='get_posts' size='sm' color="primary" onClick={this.get_posts()} style={{ marginBottom: '1rem' }}>Get Posts</Button>
+                    <Button id='get_posts' size='sm' color="primary" onClick={this.get_posts} style={{ marginBottom: '1rem' }}>Get Posts</Button>
                     <Button id='get_stream' size='sm' color="primary" onClick={this.get_events} style={{ marginBottom: '1rem' }}>Get Git Events</Button>
                     <Col sm="6">
                         <div>
-                            <Post />
+                            {this.render_post(0)}
                             <Post />
                             <Post />
                             <Post />
