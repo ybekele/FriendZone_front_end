@@ -147,8 +147,7 @@ class Friends extends Component{
             <Col sm="12">
               <h4>List of Authors</h4>
             </Col>
-            {author_list}
-            {author_list2}
+            {author_list}}
 
             
 
