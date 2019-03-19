@@ -26,6 +26,9 @@ class App extends Component {
       githubURL: 'null',
     };
   }
+  componentDidMount(){
+    this.setState({login:false})
+  }
 
   trylogin(){
     console.log("this should be user name in app")
@@ -50,12 +53,12 @@ class App extends Component {
     })
     .then(res => res.json())
     .then(response => {
-      // console.log('Success:', JSON.stringify(response));
+      console.log('Success:', JSON.stringify(response));
       if (response.hasOwnProperty("token")){
         this.setState({login:true, token: response["token"],username:document.getElementById("usernameText").value});
-        console.log(this.state.token);
+        console.log(response);
       }else{
-        document.getElementById('alert').innerHTML = 'username & password do not match!!!';
+        document.getElementById('alert').innerHTML = response.non_field_errors;
       }
 
     })
@@ -98,13 +101,9 @@ class App extends Component {
       .then(res => res.json())
       .then(response => {
         console.log('Success:', JSON.stringify(response));
-        if (response.hasOwnProperty("token")){
-          this.setState({login:true, token: response["token"],username:document.getElementById("usernameText").value});
-          console.log(this.state.token);
-        } else{
-          document.getElementById('alert').innerHTML = JSON.stringify(response);
+        if (response.isActive==false){
+          this.setState({login:false, signup:false});
         }
-
       })
       .catch(error => console.error('Error:', error));
   }

@@ -69,9 +69,7 @@ class Homepage extends Component{
             if (response.hasOwnProperty("token")){
                 this.setState({login:true, token: response["token"]});
                 console.log(this.props.author_state.token);
-              } else{
-                document.getElementById('alert').innerHTML = JSON.stringify(response);
-              }
+              } 
 
           })
           .catch(error => console.error('Error:', error));
