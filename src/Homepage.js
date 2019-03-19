@@ -5,7 +5,7 @@ import Post from './Post'
 import App from './App'
 
 
-host_url = 'https://project-cmput404.herokuapp.com';
+var host_url = 'https://project-cmput404.herokuapp.com';
 var post_url = host_url+'/api/author/posts/';
 var user_url = host_url+'/api/authors/';
 var getposts_url = host_url+'/api/posts/';
