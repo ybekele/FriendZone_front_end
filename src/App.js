@@ -101,9 +101,7 @@ class App extends Component {
       .then(res => res.json())
       .then(response => {
         console.log('Success:', JSON.stringify(response));
-        if (response.isActive==false){
-          this.setState({login:false, signup:false});
-        }
+        this.setState({login:false, signup:false});
       })
       .catch(error => console.error('Error:', error));
   }
