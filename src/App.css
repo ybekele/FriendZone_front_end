@@ -29,6 +29,10 @@
   top: 5px;
 }
 
+.cardstyle {
+  margin-bottom: 30px;
+  box-shadow: 2px;
+}
 /* .navtab {
   position: fixed
 } */

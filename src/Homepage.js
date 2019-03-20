@@ -25,13 +25,15 @@ class Homepage extends Component{
     global_state = this.props.author_state; 
 
     render_post(i){
-        if (this.state.posts.length == 0){
-            console.log("before get posts")
-            return <Post value={{"title": "this is title test!!!!!!!!!!!!!"}}/>
-            
+        if (this.state.posts.length == 0 || i > this.state.posts.length-1){
+            return <div></div>
         } else{
-            console.log("pass actual post")
-            return <Post value={this.state.posts[i]}/>
+            return (
+                <div className = 'cardstyle'>
+                    <Post id='cardstyle' value={this.state.posts[i]}/>
+                </div>
+            )
+            
         }
     }
 
@@ -153,7 +155,8 @@ class Homepage extends Component{
   }
     
     toggle() {
-    this.setState(state => ({ collapse: !state.collapse }));
+        window.scrollTo(0, 0);
+        this.setState(state => ({ collapse: !state.collapse }));
     }
 
     render(){
@@ -216,9 +219,13 @@ class Homepage extends Component{
                     <Col sm="6">
                         <div>
                             {this.render_post(0)}
+                            {this.render_post(1)}
+                            {this.render_post(2)}
+                            {this.render_post(3)}
+                            {this.render_post(4)}
+                            {/* <Post />
                             <Post />
-                            <Post />
-                            <Post />
+                            <Post /> */}
                         </div>
                         
                     </Col>
