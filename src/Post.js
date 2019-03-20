@@ -76,14 +76,12 @@ class Post extends Component{
                     <CardText>{this.state.data.content}</CardText>
                     {/* <CardText>{JSON.stringify(this.state.comments)}</CardText> */}
                     <CommentList comments = {this.state.comments} />
-                    <Form>
-                        <InputGroup>
-                            <Input type="textarea" name="text" id="exampleText" placeholder="Leave a comment!" />
-                            <InputGroupAddon addonType="append">
-                            <Button color="secondary">Post!</Button>
-                            </InputGroupAddon>
-                        </InputGroup>
-                    </Form>
+                    <InputGroup>
+                        <Input type="textarea" name="text" id="exampleText" placeholder="Leave a comment!" />
+                        <InputGroupAddon addonType="append">
+                        <Button color="secondary">Post!</Button>
+                        </InputGroupAddon>
+                    </InputGroup>
                 </CardBody>
             </Card>
         )
