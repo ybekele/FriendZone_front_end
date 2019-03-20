@@ -4,10 +4,11 @@ import './App.css';
 import classnames from 'classnames';
 import Homepage from './Homepage';
 import Friends from './Friends';
-import Settings from './Settings';
+import Profile from './Profile';
+
 
 var host_url = 'http://localhost:8000'
-//var host_url = 'https://project-cmput404.herokuapp.com';
+host_url = 'https://project-cmput404.herokuapp.com';
 var login_url = host_url+'/api/auth/login';
 var logout_url = host_url+'/api/auth/logout';
 var register_url = host_url+'/api/auth/register';
@@ -119,6 +120,7 @@ class App extends Component {
       });
     }
   }
+  
   render() {
     if (!this.state.login){
         if (this.state.signup){
@@ -192,7 +194,7 @@ class App extends Component {
               className={classnames({ active: this.state.activeTab === '3' })}
               onClick={() => { this.toggle('3'); }}
             >
-              Settings
+              MyProfile
             </NavLink>
           </NavItem>
         </Nav>
@@ -205,7 +207,7 @@ class App extends Component {
             <Friends author_state={this.state}/>
           </TabPane>
           <TabPane tabId="3">
-            <Settings />
+            <Profile author_state={this.state} />
           </TabPane>
         </TabContent>
       </div>
