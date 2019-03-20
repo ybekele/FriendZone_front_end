@@ -27,6 +27,8 @@ class Post extends Component{
                 "unlisted": false,
                 "visibleTo": []
             },
+            comments: [],
+            getComment: true,
         };
     }
     
@@ -35,6 +37,22 @@ class Post extends Component{
         // this.setState({data: this.props.value});
         this.state.data = this.props.value
         console.log(this.state.data);
+        console.log(this.state.getComment);
+        if (this.state.getComment){
+            var url = "https://project-cmput404.herokuapp.com/api/posts/"+this.state.data.postid+"/comments/";
+            fetch(url, {
+                method: 'GET',
+                headers:{
+                'Content-Type': 'application/json',
+                }
+            })
+            .then(res => res.json())
+            .then(response => {
+            this.setState({comments: response.comments, getComment: false});
+            console.log(this.state.comments);
+            })
+            .catch(error => console.error('Error:', error));
+        }
         return (
             <Card>
                 <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" />
@@ -42,6 +60,7 @@ class Post extends Component{
                 <CardBody>
                     <CardText>{"Author: "+this.state.data.author.userName}</CardText> 
                     <CardText>{this.state.data.content}</CardText>
+                    <CardText>{JSON.stringify(this.state.comments)}</CardText>
                     <Form>
                         <InputGroup>
                             <Input type="textarea" name="text" id="exampleText" placeholder="Leave a comment!" />

@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import { CardImg, CardSubtitle, CustomInput, InputGroup, InputGroupAddon, Input, Form, FormGroup, Collapse, Card, CardBody, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import Post from './Post'
-import App from './App'
 
 var host_url = 'http://127.0.0.1:8000';
 host_url = 'https://project-cmput404.herokuapp.com';
@@ -44,29 +43,29 @@ class Homepage extends Component{
             "content": document.getElementById("contentText").value,
             "title": document.getElementById("titleText").value,
           };
-          console.log(data);
-          console.log("this is the token " + this.props.author_state.token);
-          console.log("this is the username " + this.props.author_state.username);
-          console.log("this is the props author state " + this.props.author_state);
-          console.log("this is the props " + this.props);
-          fetch(post_url, {
-            method: 'POST', // or 'PUT'
-            body: JSON.stringify(data), // data can be `string` or {object}!
-            headers:{
-              'Content-Type': 'application/json',
-              'Authorization': 'token '+this.props.author_state.token,
-            }
-          })
-          .then(res => res.json())
-          .then(response => {
-            // console.log('Success:', JSON.stringify(response));
-            if (response.hasOwnProperty("success")){
-              
-              console.log(response);
-            }
-      
-          })
-          .catch(error => console.error('Error:', error));
+        console.log(data);
+        console.log("this is the token " + this.props.author_state.token);
+        console.log("this is the username " + this.props.author_state.username);
+        console.log("this is the props author state " + this.props.author_state);
+        console.log("this is the props " + this.props);
+        fetch(post_url, {
+        method: 'POST', // or 'PUT'
+        body: JSON.stringify(data), // data can be `string` or {object}!
+        headers:{
+            'Content-Type': 'application/json',
+            'Authorization': 'token '+this.props.author_state.token,
+        }
+        })
+        .then(res => res.json())
+        .then(response => {
+        console.log('Success:', JSON.stringify(response));
+        if (response.hasOwnProperty("success")){
+            
+            console.log(response);
+        }
+    
+        })
+        .catch(error => console.error('Error:', error));
     }
 
     get_posts() {
@@ -78,19 +77,19 @@ class Homepage extends Component{
               'Content-Type': 'application/json',
               'Authorization': 'token ' + this.props.author_state.token,
             }
-          })
-          .then(res => res.json())
-          .then(response => {
-            console.log(response);
-            if (response.hasOwnProperty("posts")){
-                this.setState({posts: response.posts[0]});
-            }
-            else{
-                this.setState({posts: response})
-            }
-      
-          })
-          .catch(error => console.error('Error:', error));
+        })
+        .then(res => res.json())
+        .then(response => {
+        console.log(response);
+        if (response.hasOwnProperty("posts")){
+            this.setState({posts: response.posts[0]});
+        }
+        else{
+            this.setState({posts: response})
+        }
+    
+        })
+        .catch(error => console.error('Error:', error));
     }
     
     get_events(){
