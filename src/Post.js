@@ -43,16 +43,18 @@ class Post extends Component{
             },
             comments: [],
             getComment: true,
+            author_state: {"user":{"id":4,"username":"","email":""},"token":"","isActive":true}
         };
     }
     
 
     render(){
         // this.setState({data: this.props.value});
-        this.state.data = this.props.value
+        this.state.data = this.props.value;
+        this.state.author_state = this.props.author_state;
         console.log(this.state.data);
-        console.log(this.state.getComment);
-        if (this.state.getComment){
+        
+        if (this.state.getComment && this.state.data.title !== "Github Event"){
             var url = "https://project-cmput404.herokuapp.com/api/posts/"+this.state.data.postid+"/comments/";
             fetch(url, {
                 method: 'GET',

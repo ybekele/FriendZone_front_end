@@ -16,6 +16,7 @@ class Homepage extends Component{
         super(props);
         this.toggle = this.toggle.bind(this);
         this.get_posts = this.get_posts.bind(this);
+        this.get_events = this.getGithubEvent.bind(this);
         this.state = { collapse: false, posts: [] };
         // this.get_posts();
     }
@@ -29,7 +30,7 @@ class Homepage extends Component{
         } else{
             return (
                 <div className = 'cardstyle'>
-                    <Post id='cardstyle' value={this.state.posts[i]}/>
+                    <Post id='cardstyle' author_state={this.props.author_state} value={this.state.posts[i]}/>
                 </div>
             )
             
@@ -152,6 +153,47 @@ class Homepage extends Component{
       } 
   }
     
+    getGithubEvent(){
+        fetch('https://api.github.com/users/abramhindle/events', {
+        method: 'GET', // or 'PUT'
+        headers:{
+          'Content-Type': 'application/json',
+        }
+        })
+        .then(res => res.json())
+        .then(response => {
+        console.log(response);
+        for (var i = 0; i< 10; i++){
+            this.state.posts.push({
+                "postid": "",
+                "publicationDate": "",
+                "title": "Github Event",
+                "source": "",
+                "origin": "",
+                "contentType": "",
+                "author": {
+                  "url": "",
+                  "pk": "",
+                  "firstName": null,
+                  "lastName": "",
+                  "userName": response[i].actor.login,
+                  "hostName": "",
+                  "githubUrl": ""
+                },
+                "content": response[i].type + " on url: "+response[i].repo.url,
+                "permission": "",
+                "categories": [],
+                "unlisted": false,
+                "visibleTo": []
+            }) 
+        };
+        this.setState({});
+        console.log(this.state.posts);
+        })
+      . catch(error => console.error('Error:', error));
+    }
+
+
     toggle() {
         window.scrollTo(0, 0);
         this.setState(state => ({ collapse: !state.collapse }));
