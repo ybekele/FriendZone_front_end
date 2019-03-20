@@ -52,7 +52,7 @@ class Homepage extends Component{
         console.log('Success:', JSON.stringify(response));
         if (response.hasOwnProperty("success")){
             
-            console.log(response);
+            this.get_posts()
         }
     
         })
