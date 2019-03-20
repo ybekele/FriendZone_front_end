@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Breadcrumb,BreadcrumbItem,Form,FormGroup,FormText,Input,Label,TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 
-
-var host_url = 'https://project-cmput404.herokuapp.com';
+var host_url = 'http://localhost:8000'
+//var host_url = 'https://project-cmput404.herokuapp.com';
 var post_url = host_url+'/api/authors/';
 
-var ajax_response=["uuu","asdf","uuu","asdf","uuu","asdf","uuu","asdf","uuu","asdf","uuu","asdf",];
+var ajax_response=["","asdf","uuu","asdf","uuu","asdf","uuu","asdf","uuu","asdf","uuu","asdf",];
 
 class Friends extends Component{
 
@@ -61,8 +61,12 @@ class Friends extends Component{
     render(){
       console.log(this.props)
       console.log("this is the second ajax response")
-      console.log(ajax_response)
-      const author_list = Object.keys(ajax_response[0]).map((to_display,i) => {
+      console.log(ajax_response[1][0].author1)
+      console.log(ajax_response[0].firstName)
+      console.log(ajax_response[0]!="")
+      if(ajax_response[0]!=""){
+        console.log("came into the first if condition")
+      var author_list = Object.keys(ajax_response[0]).map((to_display,i) => {
         return(
           //console.log(to_display.userName)
           //console.log(ajax_response[0][to_display].userName)
@@ -82,6 +86,42 @@ class Friends extends Component{
         )
 
       })
+    }
+    else{
+      console.log("entered else")
+      console.log(author_list)
+      var author_list=""
+    }
+
+
+    //ajax_response[1]).map
+    //ajax_response[1][to_display].author1.userName
+     if(ajax_response[0]!=""){
+        console.log("came into the first if condition")
+      var author_list2 = Object.keys(ajax_response[1]).map((to_display,i) => {
+        return(
+          //console.log(to_display.userName)
+          //console.log(ajax_response[0][to_display].userName)
+           
+           
+
+           <Col sm="8" md={{size:8,offset:2}}>
+         
+               <Card body>
+                 <CardTitle><h1>{ajax_response[1][to_display].author1.userName}</h1></CardTitle>
+                 <CardText>{ajax_response[0][to_display].firstName} {ajax_response[0][to_display].lastName}</CardText>
+                 <Button>Follow</Button>
+               </Card>
+               <br/>
+             </Col>
+             
+        ) 
+
+      })
+    } 
+      
+      
+      
 
 
 
@@ -90,7 +130,7 @@ class Friends extends Component{
 
 
       return(
-
+        
         <center>
 
           <FormGroup style={{width:"300px"}} >
@@ -111,7 +151,7 @@ class Friends extends Component{
             <Col sm="12">
               <h4>List of Authors</h4>
             </Col>
-            {author_list}
+            {author_list}}
 
 
 
