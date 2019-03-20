@@ -8,7 +8,7 @@ var host_url = 'http://127.0.0.1:8000';
 host_url = 'https://project-cmput404.herokuapp.com';
 var post_url = host_url+'/api/author/posts/';
 var user_url = host_url+'/api/authors/';
-var getposts_url = host_url+'/api/posts/'; 
+var getposts_url = host_url+'/api/author/posts/'; 
 
 var global_state = null;
 class Homepage extends Component{
@@ -41,8 +41,8 @@ class Homepage extends Component{
         
         var data = {
             "permission": document.getElementById("exampleCustomSelect").value,
-            "content":document.getElementById("exampleText").value,
-            "title":"This title is hardcoded",
+            "content": document.getElementById("contentText").value,
+            "title": document.getElementById("titleText").value,
           };
           console.log(data);
           console.log("this is the token " + this.props.author_state.token);
@@ -76,19 +76,18 @@ class Homepage extends Component{
             method: 'GET',
             headers:{
               'Content-Type': 'application/json',
-              //'Authorization': 'token ' + this.props.author_state.token,
+              'Authorization': 'token ' + this.props.author_state.token,
             }
           })
           .then(res => res.json())
           .then(response => {
-            console.log('Success:', JSON.stringify(response));
-            this.setState({posts: response});
-            if (response.hasOwnProperty("token")){
-                this.setState({login:true, token: response["token"]});
-                console.log(this.props.author_state.token);
-              } else{
-                document.getElementById('alert').innerHTML = JSON.stringify(response);
-              }
+            console.log(response);
+            if (response.hasOwnProperty("posts")){
+                this.setState({posts: response.posts[0]});
+            }
+            else{
+                this.setState({posts: response})
+            }
       
           })
           .catch(error => console.error('Error:', error));
@@ -201,8 +200,11 @@ class Homepage extends Component{
                             </CustomInput>
                         </FormGroup>
                         <FormGroup>
+                            <Input type="textarea" name="text" id="titleText" placeholder="What's your title?" />
+                        </FormGroup>
+                        <FormGroup>
                             <InputGroup>
-                                <Input type="textarea" name="text" id="exampleText" placeholder="Tell us something!" />
+                                <Input type="textarea" name="text" id="contentText" placeholder="Tell us something!" />
                                 <InputGroupAddon addonType="append">
                                 <Button color="secondary" onClick={()=> {this.send_post();}}>Post!</Button>
                                 </InputGroupAddon>
@@ -223,9 +225,11 @@ class Homepage extends Component{
                             {this.render_post(2)}
                             {this.render_post(3)}
                             {this.render_post(4)}
-                            {/* <Post />
-                            <Post />
-                            <Post /> */}
+                            {this.render_post(5)}
+                            {this.render_post(6)}
+                            {this.render_post(7)}
+                            {this.render_post(8)}
+                            {this.render_post(9)}
                         </div>
                         
                     </Col>
