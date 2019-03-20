@@ -1,6 +1,20 @@
 import React, { Component } from 'react';
 import { CardImg, CardSubtitle, CustomInput, InputGroup, InputGroupAddon, Input, Form, FormGroup, CardHeader, Card, CardBody, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 
+function CommentList(props){
+    const comments = props.comments;
+    const commentItems = comments.map(
+        (comment) =>
+        <li className="comment">
+            <p>{"Author: "+comment.author}</p>
+            <p>{"Comment: "+ comment.comment}</p>
+        </li>
+    );
+    return(
+        <ul>{commentItems}</ul>
+    )
+}
+
 class Post extends Component{
     constructor(props) {
         super(props);
@@ -60,7 +74,8 @@ class Post extends Component{
                 <CardBody>
                     <CardText>{"Author: "+this.state.data.author.userName}</CardText> 
                     <CardText>{this.state.data.content}</CardText>
-                    <CardText>{JSON.stringify(this.state.comments)}</CardText>
+                    {/* <CardText>{JSON.stringify(this.state.comments)}</CardText> */}
+                    <CommentList comments = {this.state.comments} />
                     <Form>
                         <InputGroup>
                             <Input type="textarea" name="text" id="exampleText" placeholder="Leave a comment!" />

@@ -33,14 +33,15 @@
   margin-bottom: 30px;
   box-shadow: 2px;
 }
-/* .navtab {
-  position: fixed
-} */
+.comment {
+  margin: 5px;
+  border: solid 1px rgb(71, 74, 255);
+  border-radius: 2px;
+}
 
-/* #card{
-  overflow: scroll;
-  height: 80%;
-} */
+ul {
+  list-style-type: none;
+  }
 
 li:hover {
   color:blue;
