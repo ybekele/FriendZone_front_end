@@ -31,7 +31,7 @@ class Comments extends Component{
     render(){
         console.log("Im in comments")
         console.log(this.state.comments)
-        if(this.state.comments[0]){
+        if(this.state.comments){
             return(
                 <div>
                 {this.state.comments.map(function(comment, index) {
