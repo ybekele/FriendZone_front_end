@@ -30,7 +30,7 @@ class Post extends Component{
                 "contentType": "",
                 "author": {
                   "url": "",
-                  "pk": "",
+                  "author_id": "",
                   "firstName": null,
                   "lastName": "",
                   "userName": "",
@@ -50,11 +50,15 @@ class Post extends Component{
     }
     
     postComment(){
+        console.log(document.getElementById("commentText").value);
         var data = {
             "comment": document.getElementById("commentText").value,
-            "contentTypeChoice": "text/plain",
+            "contentType": "text/plain",
+            "authorid": this.state.data.author.author_id,
+            "postid": this.state.data.postid,
+
         };
-        fetch(host_url+'/posts/'+this.state.data.postid+'/comments/', {
+        fetch(host_url+'/api/posts/'+this.state.data.postid+'/comments/', {
             method: 'POST', // or 'PUT'
             body: JSON.stringify(data), // data can be `string` or {object}!
             headers:{
