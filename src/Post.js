@@ -19,6 +19,7 @@ function CommentList(props){
 class Post extends Component{
     constructor(props) {
         super(props);
+        this.postComment = this.postComment.bind(this);
         this.state = {
             data:{
                 "postid": "",
@@ -48,6 +49,30 @@ class Post extends Component{
         };
     }
     
+    postComment(){
+        var data = {
+            "comment": document.getElementById("commentText").value,
+            "contentTypeChoice": "text/plain",
+        };
+        fetch(host_url+'/posts/'+this.state.data.postid+'/comments/', {
+            method: 'POST', // or 'PUT'
+            body: JSON.stringify(data), // data can be `string` or {object}!
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization': 'token '+this.props.author_state.token,
+            }
+            })
+            .then(res => res.json())
+            .then(response => {
+            console.log('Success:', JSON.stringify(response));
+            if (response.hasOwnProperty("success")){
+                
+                console.log(response);
+            }
+        
+            })
+            .catch(error => console.error('Error:', error));
+    }
 
     render(){
         // this.setState({data: this.props.value});
@@ -81,9 +106,9 @@ class Post extends Component{
                         {/* <CardText>{JSON.stringify(this.state.comments)}</CardText> */}
                         <CommentList comments = {this.state.comments} />
                         <InputGroup>
-                            <Input type="textarea" name="text" id="exampleText" placeholder="Leave a comment!" />
+                            <Input type="textarea" name="text" id="commentText" placeholder="Leave a comment!" />
                             <InputGroupAddon addonType="append">
-                            <Button color="secondary">Post!</Button>
+                            <Button onClick={this.postComment} color="secondary">Post!</Button>
                             </InputGroupAddon>
                         </InputGroup>
                     </CardBody>
