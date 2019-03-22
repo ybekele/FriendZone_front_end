@@ -4,9 +4,10 @@ import './App.css';
 import classnames from 'classnames';
 import Homepage from './Homepage';
 import Friends from './Friends';
-import Settings from './Settings';
+import Profile from './Profile';
 
-var host_url = 'http://127.0.0.1:8000';
+
+var host_url = 'http://localhost:8000'
 host_url = 'https://project-cmput404.herokuapp.com';
 var login_url = host_url+'/api/auth/login';
 var logout_url = host_url+'/api/auth/logout';
@@ -26,6 +27,9 @@ class App extends Component {
       username: 'null',
       githubURL: 'null',
     };
+  }
+  componentDidMount(){
+    this.setState({login:false})
   }
 
   trylogin(){
@@ -54,9 +58,9 @@ class App extends Component {
       console.log('Success:', JSON.stringify(response));
       if (response.hasOwnProperty("token")){
         this.setState({login:true, token: response["token"],username:document.getElementById("usernameText").value});
-        console.log(this.state.token);
+        console.log(response);
       }else{
-        document.getElementById('alert').innerHTML = 'username & password do not match!!!';
+        document.getElementById('alert').innerHTML = response.non_field_errors;
       }
 
     })
@@ -99,21 +103,15 @@ class App extends Component {
       .then(res => res.json())
       .then(response => {
         console.log('Success:', JSON.stringify(response));
-        if (response.hasOwnProperty("token")){
-          this.setState({login:true, token: response["token"],username:document.getElementById("usernameText").value});
-          console.log(this.state.token);
-        } else{
-          document.getElementById('alert').innerHTML = JSON.stringify(response);
-        }
-
+        this.setState({login:false, signup:false});
       })
       .catch(error => console.error('Error:', error));
   }
 
-  
-  
 
-  
+
+
+
 
   toggle(tab) {
     if (this.state.activeTab !== tab) {
@@ -122,6 +120,7 @@ class App extends Component {
       });
     }
   }
+  
   render() {
     if (!this.state.login){
         if (this.state.signup){
@@ -195,7 +194,7 @@ class App extends Component {
               className={classnames({ active: this.state.activeTab === '3' })}
               onClick={() => { this.toggle('3'); }}
             >
-              Settings
+              MyProfile
             </NavLink>
           </NavItem>
         </Nav>
@@ -208,7 +207,7 @@ class App extends Component {
             <Friends author_state={this.state}/>
           </TabPane>
           <TabPane tabId="3">
-            <Settings />
+            <Profile author_state={this.state} />
           </TabPane>
         </TabContent>
       </div>
@@ -217,5 +216,3 @@ class App extends Component {
 }
 
 export default App;
-
-

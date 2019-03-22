@@ -1,21 +1,8 @@
 import React, { Component } from 'react';
 import { CardImg, CardSubtitle, CustomInput, InputGroup, InputGroupAddon, Input, Form, FormGroup, CardHeader, Card, CardBody, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
+import Comments from './Comment'
+
 var host_url = 'https://project-cmput404.herokuapp.com';
-
-function CommentList(props){
-    const comments = props.comments;
-    const commentItems = comments.map(
-        (comment) =>
-        <li className="comment">
-            <p>{"Author: "+comment.author}</p>
-            <p>{"Comment: "+ comment.comment}</p>
-        </li>
-    );
-    return(
-        <ul>{commentItems}</ul>
-    )
-}
-
 class Post extends Component{
     constructor(props) {
         super(props);
@@ -108,7 +95,7 @@ class Post extends Component{
                         <CardText>{"Author: "+this.state.data.author.userName}</CardText> 
                         <CardText>{this.state.data.content}</CardText>
                         {/* <CardText>{JSON.stringify(this.state.comments)}</CardText> */}
-                        <CommentList comments = {this.state.comments} />
+                        <CardText><Comments data={this.state.data}></Comments></CardText>
                         <InputGroup>
                             <Input type="textarea" name="text" id="commentText" placeholder="Leave a comment!" />
                             <InputGroupAddon addonType="append">

@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import { CardImg, CardSubtitle, CustomInput, InputGroup, InputGroupAddon, Input, Form, FormGroup, Collapse, Card, CardBody, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import Post from './Post'
@@ -36,6 +35,12 @@ class Homepage extends Component{
             
         }
     }
+    componentDidMount(){
+        this.get_posts()
+    }
+    
+    
+    
 
     send_post(){
         
@@ -63,6 +68,7 @@ class Homepage extends Component{
         if (response.hasOwnProperty("success")){
             
             console.log(response);
+            this.get_posts()
         }
     
         })
@@ -202,6 +208,20 @@ class Homepage extends Component{
     render(){
         console.log("this is the prop")
         console.log(this.props.author_state.token)
+        console.log(this.state.get_posts)
+        console.log(this.state.posts)
+        if(this.state.posts){
+        var posts= this.state.posts.map(post =>{
+            return(
+                <Col sm="6">
+                    <Post id='cardstyle' value={post}/>
+                </Col>
+            )
+        })
+        }
+        else{
+            var posts="NO POSTS";
+        }
         return(
             <center>
                 <Button id='post' size='sm' color="primary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>Make Post!</Button>
