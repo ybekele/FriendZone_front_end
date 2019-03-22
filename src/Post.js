@@ -70,24 +70,38 @@ class Post extends Component{
             })
             .catch(error => console.error('Error:', error));
         }
-        return (
-            <Card>
-                <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" />
-                <CardHeader tag="h3">{this.state.data.title}</CardHeader>
-                <CardBody>
-                    <CardText>{"Author: "+this.state.data.author.userName}</CardText> 
-                    <CardText>{this.state.data.content}</CardText>
-                    {/* <CardText>{JSON.stringify(this.state.comments)}</CardText> */}
-                    <CommentList comments = {this.state.comments} />
-                    <InputGroup>
-                        <Input type="textarea" name="text" id="exampleText" placeholder="Leave a comment!" />
-                        <InputGroupAddon addonType="append">
-                        <Button color="secondary">Post!</Button>
-                        </InputGroupAddon>
-                    </InputGroup>
-                </CardBody>
-            </Card>
-        )
+        if (this.state.data.title !== "Github Event"){
+            return (
+                <Card>
+                    <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" />
+                    <CardHeader tag="h3">{this.state.data.title}</CardHeader>
+                    <CardBody>
+                        <CardText>{"Author: "+this.state.data.author.userName}</CardText> 
+                        <CardText>{this.state.data.content}</CardText>
+                        {/* <CardText>{JSON.stringify(this.state.comments)}</CardText> */}
+                        <CommentList comments = {this.state.comments} />
+                        <InputGroup>
+                            <Input type="textarea" name="text" id="exampleText" placeholder="Leave a comment!" />
+                            <InputGroupAddon addonType="append">
+                            <Button color="secondary">Post!</Button>
+                            </InputGroupAddon>
+                        </InputGroup>
+                    </CardBody>
+                </Card>
+            )
+        } else {
+            return (
+                <Card>
+                    <CardImg top width="100%" src="https://github.githubassets.com/images/modules/open_graph/github-mark.png" alt="Card image cap" />
+                    <CardHeader tag="h3">{this.state.data.title}</CardHeader>
+                    <CardBody>
+                        <CardText>{"Author: "+this.state.data.author.userName}</CardText> 
+                        <CardText>{this.state.data.content}</CardText>
+                    </CardBody>
+                </Card>
+            )
+        }
+        
     }
 }
 
