@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { CardImg, CardSubtitle, CustomInput, InputGroup, InputGroupAddon, Input, Form, FormGroup, CardHeader, Card, CardBody, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import Comments from './Comment'
+import Markdown from 'markdown-to-jsx';
 
 var host_url = 'https://project-cmput404.herokuapp.com';
 
@@ -81,6 +82,18 @@ class Post extends Component{
             .catch(error => console.error('Error:', error));
     }
 
+    markdownSelector() {
+        if (this.state.data.textType == "M") {
+            return <CardText><Markdown>{this.state.data.content}</Markdown></CardText>
+            }
+        else {
+            return <CardText>{this.state.data.content}</CardText>
+            }
+        }
+
+
+    
+
     render(){
         // this.setState({data: this.props.value});
         this.state.data = this.props.value;
@@ -109,7 +122,9 @@ class Post extends Component{
                     <CardHeader tag="h3">{this.state.data.title}</CardHeader>
                     <CardBody>
                         <CardText>{"Author: "+this.state.data.author.userName}</CardText> 
-                        <CardText>{this.state.data.content}</CardText>
+                        {this.markdownSelector()}
+                            
+
                         {/* <CardText>{JSON.stringify(this.state.comments)}</CardText> */}
                         {/* <CardText><Comments data={this.state.data}></Comments></CardText> */}
                         <CommentList comments = {this.state.comments} />

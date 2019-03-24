@@ -5,6 +5,8 @@ import classnames from 'classnames';
 import Homepage from './Homepage';
 import Friends from './Friends';
 import Profile from './Profile';
+//import Background from 'Rose-Petals.svg';
+
 
 
 var host_url = 'http://localhost:8000'
@@ -28,9 +30,12 @@ class App extends Component {
       githubURL: 'null',
     };
   }
+
+  
   componentDidMount(){
     this.setState({login:false})
   }
+  
 
   trylogin(){
     console.log("this should be user name in app")
@@ -119,6 +124,11 @@ class App extends Component {
         activeTab: tab
       });
     }
+    /*
+    return(
+      <img src={Background} alt="background-image"/>
+    )
+    */
   }
   
   render() {

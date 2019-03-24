@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { CardImg, CardSubtitle, CustomInput, InputGroup, InputGroupAddon, Input, Form, FormGroup, Collapse, Card, CardBody, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import Post from './Post'
+import Markdown from 'markdown-to-jsx';
 
 var host_url = 'http://127.0.0.1:8000';
 host_url = 'https://project-cmput404.herokuapp.com';
@@ -44,9 +45,11 @@ class Homepage extends Component{
 
     send_post(){
         
+        
         var data = {
             "permission": document.getElementById("exampleCustomSelect").value,
             "content": document.getElementById("contentText").value,
+            "textSelect": document.getElementById("textSelect").value, 
             "title": document.getElementById("titleText").value,
           };
         console.log(data);
@@ -260,6 +263,15 @@ class Homepage extends Component{
                                 <option>Author 5</option>
                             </CustomInput>
                         </FormGroup>
+                        <FormGroup>
+                        <CustomInput type="select" id="textSelect" name="customSelect">
+                                <option value="">What Type of Text?</option>
+                                <option value="S">Simple Plain Text</option>
+                                <option value="M">Markdown</option>
+                            </CustomInput>
+
+                        </FormGroup>
+                        
                         <FormGroup>
                             <Input type="textarea" name="text" id="titleText" placeholder="What's your title?" />
                         </FormGroup>
