@@ -49,7 +49,7 @@ class Homepage extends Component{
         var data = {
             "permission": document.getElementById("exampleCustomSelect").value,
             "content": document.getElementById("contentText").value,
-            "textSelect": document.getElementById("textSelect").value, 
+            "contentType": document.getElementById("textType").value,
             "title": document.getElementById("titleText").value,
           };
         console.log(data);
@@ -264,10 +264,10 @@ class Homepage extends Component{
                             </CustomInput>
                         </FormGroup>
                         <FormGroup>
-                        <CustomInput type="select" id="textSelect" name="customSelect">
+                        <CustomInput type="select" id="textType" name="customSelect">
                                 <option value="">What Type of Text?</option>
-                                <option value="S">Simple Plain Text</option>
-                                <option value="M">Markdown</option>
+                                <option value="text/plain">Simple Plain Text</option>
+                                <option value="text/markdown">Markdown</option>
                             </CustomInput>
 
                         </FormGroup>
