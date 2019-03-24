@@ -83,7 +83,7 @@ class Post extends Component{
     }
     // Checks whether data is in markdown or simple text. 
     markdownSelector() {
-        if (this.state.data.textType == "M") {
+        if (this.state.data.textType === "M") {
             return <CardText><Markdown>{this.state.data.content}</Markdown></CardText>
             }
         else {
