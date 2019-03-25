@@ -156,12 +156,12 @@ class Homepage extends Component{
             console.log("im here")
             console.log(this.state.posts)
             var posts= this.state.posts.map(post =>{
-            console.log(post)
             return(
                 <Col sm="6">
                     <Post id='cardstyle' value={post}/>
                 </Col>
-            )})}
+            )})
+        }
         else{
             var posts="NO POSTS";
         }
