@@ -6,7 +6,7 @@ var host_url = 'http://localhost:8000'
 var post_url = host_url+'/api/authors/';
 
 var ajax_response=["","asdf","uuu","asdf","uuu","asdf","uuu","asdf","uuu","asdf","uuu","asdf",];
-
+var options=[];
 class Friends extends Component{
 
   search(){
@@ -56,12 +56,61 @@ class Friends extends Component{
       .catch(error => console.error('Error:', error));
 }
 
+  follows(){
+
+  this.state = {
+    users_token: this.props.author_state.token,
+    ajax_response:[],
+    usersname:this.props.author_state.username,
+  };
+
+  var user_data = {
+      "users_search": document.getElementById("search_for_author").value,
+      "firstName": document.getElementById("search_for_author").value,
+      "githubUrl": 'http://github.com/kkk',
+      "hostName": 'http://127.0.0.1:8000',
+      "lastName": document.getElementById("search_for_author").value,
+      "userName": this.state.usersname,
+    };
+    console.log(user_data);
+
+    fetch(post_url, {
+      method: 'POST', // or 'PUT'
+      body: JSON.stringify(user_data), // data can be `string` or {object}!
+      headers:{
+        'Content-Type': 'application/json',
+        'Authorization': 'token '+this.state.users_token,
+      }
+    })
+    .then(res => res.json())
+    .then(response => {
+      // console.log('Success:', JSON.stringify(response));
+
+      //if (response.hasOwnProperty("success")){
+        console.log("here is the response from server")
+        console.log(response);
+        ajax_response=response;
+        console.log("this is the first ajax response")
+        console.log(ajax_response)
+        this.setState({ajax_response:response})
+        //this.setState.ajax_response=response
+
+
+      //}
+
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+ 
+
 
 
     render(){
+
       console.log(this.props)
       console.log("this is the second ajax response")
-      console.log(ajax_response[1][0].author1)
+      console.log(ajax_response[1])
       console.log(ajax_response[0].firstName)
       console.log(ajax_response[0]!="")
       if(ajax_response[0]!=""){
@@ -74,11 +123,11 @@ class Friends extends Component{
 
 
            <Col sm="8" md={{size:8,offset:2}}>
-
+              
                <Card body>
                  <CardTitle><h1>{ajax_response[0][to_display].userName}</h1></CardTitle>
                  <CardText>{ajax_response[0][to_display].firstName} {ajax_response[0][to_display].lastName}</CardText>
-                 <Button>Follow</Button>
+                 <Button onClick={()=> {this.follows()}}>Follow</Button>
                </Card>
                <br/>
              </Col>
@@ -96,7 +145,7 @@ class Friends extends Component{
 
     //ajax_response[1]).map
     //ajax_response[1][to_display].author1.userName
-     if(ajax_response[0]!=""){
+     /* if(ajax_response[0]!=""){
         console.log("came into the first if condition")
       var author_list2 = Object.keys(ajax_response[1]).map((to_display,i) => {
         return(
@@ -110,7 +159,9 @@ class Friends extends Component{
                <Card body>
                  <CardTitle><h1>{ajax_response[1][to_display].author1.userName}</h1></CardTitle>
                  <CardText>{ajax_response[0][to_display].firstName} {ajax_response[0][to_display].lastName}</CardText>
+                 {ajax_response[1][to_display].author1.userName in options
                  <Button>Follow</Button>
+                 }
                </Card>
                <br/>
              </Col>
@@ -118,7 +169,7 @@ class Friends extends Component{
         ) 
 
       })
-    } 
+    }  */
       
       
       
