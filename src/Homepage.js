@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import { CardImg, CardSubtitle, CustomInput, InputGroup, InputGroupAddon, Input, Form, FormGroup, Collapse, Card, CardBody, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import Post from './Post'
+<<<<<<< HEAD
 import Markdown from 'markdown-to-jsx';
+=======
+import FileBase64 from 'react-file-base64';
+>>>>>>> master
 
-var host_url = 'http://127.0.0.1:8000';
-host_url = 'https://project-cmput404.herokuapp.com';
+//var host_url = 'http://127.0.0.1:8000';
+var host_url = 'https://project-cmput404.herokuapp.com';
 var post_url = host_url+'/api/author/posts/';
 var user_url = host_url+'/api/authors/';
 var getposts_url = host_url+'/api/author/posts/'; 
@@ -16,9 +20,13 @@ class Homepage extends Component{
         super(props);
         this.toggle = this.toggle.bind(this);
         this.get_posts = this.get_posts.bind(this);
+<<<<<<< HEAD
         this.get_events = this.getGithubEvent.bind(this);
         this.state = { collapse: false, posts: [] };
         // this.get_posts();
+=======
+        this.state = { collapse: false, posts:[],files: [] };
+>>>>>>> master
     }
 
      
@@ -40,7 +48,9 @@ class Homepage extends Component{
         this.get_posts()
     }
     
-    
+    getFiles(files){
+        this.setState({ files: files })
+    }
     
 
     send_post(){
@@ -51,7 +61,14 @@ class Homepage extends Component{
             "content": document.getElementById("contentText").value,
             "contentType": document.getElementById("textType").value,
             "title": document.getElementById("titleText").value,
+            "images":null,
+            "contentType":document.getElementById("textType").value
           };
+        
+        if (this.state.files){
+            console.log(this.state.files)
+            data['images']=this.state.files
+        }
         console.log(data);
         console.log("this is the token " + this.props.author_state.token);
         console.log("this is the username " + this.props.author_state.username);
@@ -69,8 +86,11 @@ class Homepage extends Component{
         .then(response => {
         console.log('Success:', JSON.stringify(response));
         if (response.hasOwnProperty("success")){
+<<<<<<< HEAD
             
             console.log(response);
+=======
+>>>>>>> master
             this.get_posts()
         }
     
@@ -90,14 +110,9 @@ class Homepage extends Component{
         })
         .then(res => res.json())
         .then(response => {
-        console.log(response);
-        if (response.hasOwnProperty("posts")){
-            this.setState({posts: response.posts[0]});
-        }
-        else{
-            this.setState({posts: response})
-        }
-    
+            if(response.hasOwnProperty("posts")){
+                this.setState({posts: response['posts']});
+            }
         })
         .catch(error => console.error('Error:', error));
     }
@@ -209,18 +224,15 @@ class Homepage extends Component{
     }
 
     render(){
-        console.log("this is the prop")
-        console.log(this.props.author_state.token)
-        console.log(this.state.get_posts)
-        console.log(this.state.posts)
-        if(this.state.posts){
-        var posts= this.state.posts.map(post =>{
+        if(this.state.posts.length > 0){
+            console.log("im here")
+            console.log(this.state.posts)
+            var posts= this.state.posts.map(post =>{
             return(
                 <Col sm="6">
                     <Post id='cardstyle' value={post}/>
                 </Col>
-            )
-        })
+            )})
         }
         else{
             var posts="NO POSTS";
@@ -234,15 +246,7 @@ class Homepage extends Component{
                     <Collapse isOpen={this.state.collapse}>
                     <Form className="postForm">
                         <FormGroup>
-                            <InputGroup>
-                                <Input placeholder="Image URL" />
-                                <InputGroupAddon addonType="append">
-                                <Button color="secondary">Upload from local(not available)</Button>
-                                </InputGroupAddon>
-                                {/* <InputGroupAddon addonType="append">
-                                <Input type="file" name="file" id="exampleFile" />
-                                </InputGroupAddon> */}
-                            </InputGroup>
+                                <FileBase64 multiple={ true } onDone={ this.getFiles.bind(this)} />
                         </FormGroup>
                         <FormGroup>
                             <CustomInput type="select" id="exampleCustomSelect" name="customSelect">
@@ -254,13 +258,13 @@ class Homepage extends Component{
                                 <option value="FH">Only friends on my host</option>
                                 <option value="P">Public</option>
                             </CustomInput>
-                            <CustomInput type="select" id="exampleCustomMutlipleSelect" name="customSelect" disabled>
-                                <option value="">Which auther can view?</option>
-                                <option>Author 1</option>
-                                <option>Author 2</option>
-                                <option>Author 3</option>
-                                <option>Author 4</option>
-                                <option>Author 5</option>
+                            <CustomInput type="select" id="textType" name="customSelect">
+                                <option value="">Type of Post?</option>
+                                <option value="text/plain">Simple Plain Text</option>
+                                <option value="text/markdown">Markdown</option>
+                                <option value="application/base64">application/base64</option>
+                                <option value="image/png;base64">image/png;base64</option>
+                                <option value="image/jpeg;base64">image/jpeg;base64</option>
                             </CustomInput>
                         </FormGroup>
                         <FormGroup>
@@ -287,6 +291,7 @@ class Homepage extends Component{
                     
                     </Collapse>
 
+<<<<<<< HEAD
                     <h4>Your available posts:</h4>
                     
                     <Button id='get_posts' size='sm' color="primary" onClick={this.get_posts} style={{ marginBottom: '1rem' }}>Get Posts</Button>
@@ -306,6 +311,11 @@ class Homepage extends Component{
                         </div>
                         
                     </Col>
+=======
+                    <h4>Your Stream:</h4>
+                    
+                    {posts}
+>>>>>>> master
                     
                 </Col>
             </center>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { CardImg, CardSubtitle, CustomInput, InputGroup, InputGroupAddon, Input, Form, FormGroup, CardHeader, Card, CardBody, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 
-
+const url="https://project-cmput404.herokuapp.com/api/posts/"+this.props.data.postid+'/comments/'
 class Comments extends Component{
     constructor(props) {
         super(props);
@@ -11,7 +11,6 @@ class Comments extends Component{
     };
 
     componentDidMount(){
-        const url="https://project-cmput404.herokuapp.com/api/posts/"+this.props.data.postid+'/comments/'
         fetch(url, {
             method: 'GET',
             headers:{

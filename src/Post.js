@@ -41,6 +41,7 @@ class Post extends Component{
                   "githubUrl": ""
                 },
                 "content": "content",
+                "images":[],
                 "permission": "",
                 "categories": [],
                 "unlisted": false,
@@ -128,29 +129,35 @@ class Post extends Component{
                         {/* <CardText>{JSON.stringify(this.state.comments)}</CardText> */}
                         {/* <CardText><Comments data={this.state.data}></Comments></CardText> */}
                         <CommentList comments = {this.state.comments} />
-                        <InputGroup>
-                            <Input type="textarea" name="text" id="commentText" placeholder="Leave a comment!" />
-                            <InputGroupAddon addonType="append">
-                            <Button onClick={this.postComment} color="secondary">Post!</Button>
-                            </InputGroupAddon>
-                        </InputGroup>
                     </CardBody>
                 </Card>
-            )
-        } else {
-            return (
-                <Card>
-                    <CardImg top width="100%" src="https://github.githubassets.com/images/modules/open_graph/github-mark.png" alt="Card image cap" />
-                    <CardHeader tag="h3">{this.state.data.title}</CardHeader>
-                    <CardBody>
-                        <CardText>{"Author: "+this.state.data.author.userName}</CardText> 
-                        <CardText>{this.state.data.content}</CardText>
-                    </CardBody>
-                </Card>
-            )
+            )}}
+                  
+
+            render(){
+                console.log(this.props.value);
+                this.state.data=this.props.value[0];
+                return (
+                    <Card>
+                        <CardImg top width="100%" src={this.state.data.images[0]['img']} alt="Card image cap" />
+                        <CardHeader tag="h3">{this.state.data.title}</CardHeader>
+                        <CardBody>
+                            <CardText>{"Author: "+this.state.data.author.userName}</CardText> 
+                            <CardText>{this.state.data.content}</CardText>
+                            <CardText><Comments data={this.state.data}></Comments></CardText>
+                            <Form>
+                                <InputGroup>
+                                    <Input type="textarea" name="text" id="exampleText" placeholder="Leave a comment!" />
+                                    <InputGroupAddon addonType="append">
+                                    <Button color="secondary">Post!</Button>
+                                    </InputGroupAddon>
+                                </InputGroup>
+                            </Form>
+                        </CardBody>
+                    </Card>
+                )
+            }
         }
         
-    }
-}
 
 export default Post;
