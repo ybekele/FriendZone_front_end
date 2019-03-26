@@ -4,7 +4,7 @@ import Comments from './Comment';
 import Markdown from 'markdown-to-jsx';
 
 var host_url = 'https://project-cmput404.herokuapp.com';
-
+//var host_url = 'http://localhost:8000'
 function CommentList(props){
     const comments = props.comments;
     const commentItems = comments.map(
