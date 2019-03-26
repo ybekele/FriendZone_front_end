@@ -22,6 +22,7 @@ class Post extends Component{
                   "githubUrl": ""
                 },
                 "content": "content",
+                "images":[],
                 "permission": "",
                 "categories": [],
                 "unlisted": false,
@@ -31,19 +32,13 @@ class Post extends Component{
             getComment: true,
         };
     }
-    componentDidMount(){
-        
-    }
 
     render(){
-        console.log("this is the props in posts");
         console.log(this.props.value);
-        console.log("this is the ")
-        console.log(this.state.data);
-        this.state.data=this.props.value;
+        this.state.data=this.props.value[0];
         return (
             <Card>
-                <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" />
+                <CardImg top width="100%" src={this.state.data.images[0]['img']} alt="Card image cap" />
                 <CardHeader tag="h3">{this.state.data.title}</CardHeader>
                 <CardBody>
                     <CardText>{"Author: "+this.state.data.author.userName}</CardText> 
