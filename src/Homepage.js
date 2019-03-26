@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { CardImg, CardSubtitle, CustomInput, InputGroup, InputGroupAddon, Input, Form, FormGroup, Collapse, Card, CardBody, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
-import Post from './Post'
-<<<<<<< HEAD
+import Post from './Post';
 import Markdown from 'markdown-to-jsx';
-=======
 import FileBase64 from 'react-file-base64';
->>>>>>> master
 
 //var host_url = 'http://127.0.0.1:8000';
 var host_url = 'https://project-cmput404.herokuapp.com';
@@ -20,13 +17,9 @@ class Homepage extends Component{
         super(props);
         this.toggle = this.toggle.bind(this);
         this.get_posts = this.get_posts.bind(this);
-<<<<<<< HEAD
         this.get_events = this.getGithubEvent.bind(this);
-        this.state = { collapse: false, posts: [] };
         // this.get_posts();
-=======
         this.state = { collapse: false, posts:[],files: [] };
->>>>>>> master
     }
 
      
@@ -86,11 +79,8 @@ class Homepage extends Component{
         .then(response => {
         console.log('Success:', JSON.stringify(response));
         if (response.hasOwnProperty("success")){
-<<<<<<< HEAD
             
             console.log(response);
-=======
->>>>>>> master
             this.get_posts()
         }
     
@@ -291,31 +281,9 @@ class Homepage extends Component{
                     
                     </Collapse>
 
-<<<<<<< HEAD
-                    <h4>Your available posts:</h4>
-                    
-                    <Button id='get_posts' size='sm' color="primary" onClick={this.get_posts} style={{ marginBottom: '1rem' }}>Get Posts</Button>
-                    <Button id='get_stream' size='sm' color="primary" onClick={this.get_events} style={{ marginBottom: '1rem' }}>Get Git Events</Button>
-                    <Col sm="6">
-                        <div>
-                            {this.render_post(0)}
-                            {this.render_post(1)}
-                            {this.render_post(2)}
-                            {this.render_post(3)}
-                            {this.render_post(4)}
-                            {this.render_post(5)}
-                            {this.render_post(6)}
-                            {this.render_post(7)}
-                            {this.render_post(8)}
-                            {this.render_post(9)}
-                        </div>
-                        
-                    </Col>
-=======
                     <h4>Your Stream:</h4>
                     
                     {posts}
->>>>>>> master
                     
                 </Col>
             </center>
