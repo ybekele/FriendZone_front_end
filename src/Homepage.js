@@ -70,7 +70,7 @@ class Homepage extends Component{
             this.setState({posts: response.posts[0]});
         }
         else{
-            this.setState({posts: response})
+            this.setState({posts: []})
         }
     
         })
@@ -148,7 +148,7 @@ class Homepage extends Component{
         console.log("this is the prop")
         console.log(this.props.author_state.token)
         console.log(this.state.posts)
-        if(this.state.posts){
+        if(this.state.posts.length > 0){
         var posts= this.state.posts.map(post =>{
             return(
                 <Col sm="6">
