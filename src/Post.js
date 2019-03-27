@@ -85,11 +85,12 @@ class Post extends Component{
         // this.setState({data: this.props.value});
         this.state.data = this.props.value;
         this.state.author_state = this.props.author_state;
+        // console.log(this.state.data)
         if (this.state.useOldComments){
             this.state.comments = this.props.value.comments;
         }
         
-        if (this.state.getComment && this.state.data.title !== "Github Event"){
+        if (this.state.getComment){
             this.state.comments = [];
             var url = "https://project-cmput404.herokuapp.com/api/posts/"+this.state.data.postid+"/comments/";
             fetch(url, {

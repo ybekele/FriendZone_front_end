@@ -39,11 +39,11 @@ class Homepage extends Component{
             console.log(this.state.files)
             data['images']=this.state.files
         }
-        console.log(data);
-        console.log("this is the token " + this.props.author_state.token);
-        console.log("this is the username " + this.props.author_state.username);
-        console.log("this is the props author state " + this.props.author_state);
-        console.log("this is the props " + this.props);
+        // console.log(data);
+        // console.log("this is the token " + this.props.author_state.token);
+        // console.log("this is the username " + this.props.author_state.username);
+        // console.log("this is the props author state " + this.props.author_state);
+        // console.log("this is the props " + this.props);
         fetch(post_url, {
         method: 'POST', // or 'PUT'
         body: JSON.stringify(data), // data can be `string` or {object}!
@@ -66,7 +66,7 @@ class Homepage extends Component{
     }
 
     get_posts() {
-        console.log("in get posts " + this.props.author_state.token); 
+        // console.log("in get posts " + this.props.author_state.token); 
     
         fetch(getposts_url, {
             method: 'GET',
@@ -123,7 +123,7 @@ class Homepage extends Component{
         .then(response => {
         console.log(response);
         for (var i = 0; i< 10; i++){
-            this.state.posts.push({
+            this.state.posts.push([{
                 "postid": "",
                 "publicationDate": "",
                 "title": "Github Event",
@@ -144,7 +144,7 @@ class Homepage extends Component{
                 "categories": [],
                 "unlisted": false,
                 "visibleTo": []
-            }) 
+            }]) 
         };
         this.setState({});
         console.log(this.state.posts);
@@ -159,9 +159,9 @@ class Homepage extends Component{
     }
 
     render(){
-        console.log("this is the prop")
-        console.log(this.props.author_state.token)
-        console.log(this.state.posts)
+        // console.log("this is the prop")
+        // console.log(this.props.author_state.token)
+        // console.log(this.state.posts)
         if(this.state.posts.length > 0){
         var posts= this.state.posts.map(post =>{
             return(
