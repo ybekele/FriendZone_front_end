@@ -164,7 +164,6 @@ class Homepage extends Component{
         console.log(this.state.posts)
         if(this.state.posts.length > 0){
         var posts= this.state.posts.map(post =>{
-            console.log(post);
             return(
                 <Col sm="6">
                     <div className = 'cardstyle'>
@@ -188,7 +187,7 @@ class Homepage extends Component{
                     <Form className="postForm">
                         <FormGroup>
                             <Label for="exampleCustomFileBrowser">File Browser</Label>
-                            <CustomInput type="file" id="exampleCustomFileBrowser" name="customFile" onDone={this.getFiles}/>
+                            <CustomInput type="file" id="exampleCustomFileBrowser" name="customFile"/>
                         </FormGroup>
                         <FormGroup>
                             <CustomInput type="select" id="exampleCustomSelect" name="customSelect">
