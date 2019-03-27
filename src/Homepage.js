@@ -17,30 +17,8 @@ class Homepage extends Component{
         this.get_posts = this.get_posts.bind(this);
         this.get_events = this.getGithubEvent.bind(this);
         this.state = { collapse: false, posts: [] };
-        // this.get_posts();
+        this.get_posts();
     }
-
-     
-    global_state = this.props.author_state; 
-
-    render_post(i){
-        if (this.state.posts.length == 0 || i > this.state.posts.length-1){
-            return <div></div>
-        } else{
-            return (
-                <div className = 'cardstyle'>
-                    <Post id='cardstyle' author_state={this.props.author_state} value={this.state.posts[i]}/>
-                </div>
-            )
-            
-        }
-    }
-    componentDidMount(){
-        this.get_posts()
-    }
-    
-    
-    
 
     send_post(){
         
@@ -99,67 +77,28 @@ class Homepage extends Component{
         .catch(error => console.error('Error:', error));
     }
     
-    get_events(){
-        console.log('this is using author state' + this.props.author_state.token);
-        console.log('this is using global state ' + global_state);
-        console.log('this is using global state name ' + global_state.username);
-        console.log("asfasfsfdfasfsfs");
-        console.log('this is the state ' + this.props.author_state);
-        console.log('this is the author ' + this.props.author_state.username);
-        // Nested function that gets github of user
-        var name = this.props.author_state.username;
-        var user_token = this.props.author_state.token; 
-        console.log('in get events global state' + global_state.username);
-            function get_git(global_state) {
-                fetch(user_url+'/'+global_state.username+'/', {
-                method: 'GET',
-                headers:{
-                    'Content-Type': 'application/json',
-                    'Authorization': 'token ' + global_state.token,
-                    'username': global_state.username, 
-                }
-                })
-                .then(res => res.json())
-                .then(response => {
-                console.log('Success:', JSON.stringify(response));
-                if (response.hasOwnProperty("githubUrl")){
-                    //this.setState({login:true, githubUrl: response["githubUrl"]});
-                    console.log(global_state.token);
-                    author_git = response["githubUrl"];
-                } else{
-                    document.getElementById('alert').innerHTML = JSON.stringify(response);
-                    console.log("couldn't find git for" + global_state.username)
-                    author_git = null; 
-                }
-            
-                })
-                .catch(error => console.error('Error:', error));
-                return author_git
-            }
-  
-      var author_git = get_git(); 
-      if (author_git === false) { 
-        console.log("couldn't pass author's git");
-        return; 
-      }
-  
-      else {
-        fetch('https://api.github.com/users/' + author_git + '/events', {
-        method: 'GET', // or 'PUT'
-        headers:{
-          'Content-Type': 'application/json',
-        }
-      })
-      .then(res => res.json())
-      .then(response => {
-        console.log('Success:', JSON.stringify(response));
-      })
-      .catch(error => console.error('Error:', error));
-  
-      } 
-  }
-    
     getGithubEvent(){
+        var githubUsername;
+        // get user profile
+        fetch("https://project-cmput404.herokuapp.com/api/author/profile/", {
+            method: 'GET',
+            headers:{
+            'Content-Type': 'application/json',
+            'Authorization': 'token '+this.props.author_state.token,
+            }
+        })
+        .then(res => res.json())
+        .then(response => {
+            console.log(response);
+            githubUsername = response.githubUrl.split('/');
+            githubUsername = githubUsername[githubUsername.length-1]
+            console.log(githubUsername);
+
+            // console.log(this.state.comments);
+        })
+        .catch(error => console.error('Error:', error));
+        
+
         fetch('https://api.github.com/users/abramhindle/events', {
         method: 'GET', // or 'PUT'
         headers:{
@@ -208,13 +147,15 @@ class Homepage extends Component{
     render(){
         console.log("this is the prop")
         console.log(this.props.author_state.token)
-        console.log(this.state.get_posts)
         console.log(this.state.posts)
         if(this.state.posts){
         var posts= this.state.posts.map(post =>{
             return(
                 <Col sm="6">
-                    <Post id='cardstyle' value={post}/>
+                    <div className = 'cardstyle'>
+                    <Post id='cardstyle' author_state={this.props.author_state} value={post}/>
+                    </div>
+                    {/* <Post id='cardstyle' author_state={this.props.author_state} value={post}/> */}
                 </Col>
             )
         })
@@ -275,25 +216,12 @@ class Homepage extends Component{
                     
                     </Collapse>
 
-                    <h4>Your available posts:</h4>
+                    <h4>Your Stream:</h4>
                     
                     <Button id='get_posts' size='sm' color="primary" onClick={this.get_posts} style={{ marginBottom: '1rem' }}>Get Posts</Button>
                     <Button id='get_stream' size='sm' color="primary" onClick={this.get_events} style={{ marginBottom: '1rem' }}>Get Git Events</Button>
-                    <Col sm="6">
-                        <div>
-                            {this.render_post(0)}
-                            {this.render_post(1)}
-                            {this.render_post(2)}
-                            {this.render_post(3)}
-                            {this.render_post(4)}
-                            {this.render_post(5)}
-                            {this.render_post(6)}
-                            {this.render_post(7)}
-                            {this.render_post(8)}
-                            {this.render_post(9)}
-                        </div>
-                        
-                    </Col>
+                    
+                    {posts}
                     
                 </Col>
             </center>

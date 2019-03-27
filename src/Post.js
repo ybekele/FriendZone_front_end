@@ -42,17 +42,18 @@ class Post extends Component{
                 "content": "content",
                 "permission": "",
                 "categories": [],
+                "comments": [],
                 "unlisted": false,
                 "visibleTo": []
             },
             comments: [],
-            getComment: true,
-            author_state: {"user":{"id":4,"username":"","email":""},"token":"","isActive":true}
+            getComment: false,
+            useOldComments: true
         };
     }
     
     postComment(){
-        console.log(document.getElementById("commentText").value);
+        // console.log(document.getElementById("commentText").value);
         var data = {
             "comment": document.getElementById("commentText").value,
             "contentType": "text/plain",
@@ -70,10 +71,10 @@ class Post extends Component{
             })
             .then(res => res.json())
             .then(response => {
-            console.log('Success:', JSON.stringify(response));
+            // console.log('Success:', JSON.stringify(response));
             if (response.hasOwnProperty("success")){
                 
-                console.log(response);
+                // console.log(response);
                 this.setState({getComment: true});
             }
         
@@ -85,9 +86,12 @@ class Post extends Component{
         // this.setState({data: this.props.value});
         this.state.data = this.props.value;
         this.state.author_state = this.props.author_state;
-        console.log(this.state.data);
+        if (this.state.useOldComments){
+            this.state.comments = this.props.value.comments;
+        }
         
         if (this.state.getComment && this.state.data.title !== "Github Event"){
+            this.state.comments = [];
             var url = "https://project-cmput404.herokuapp.com/api/posts/"+this.state.data.postid+"/comments/";
             fetch(url, {
                 method: 'GET',
@@ -97,8 +101,11 @@ class Post extends Component{
             })
             .then(res => res.json())
             .then(response => {
-            this.setState({comments: response.comments, getComment: false});
-            console.log(this.state.comments);
+                // console.log(response);
+                var textbox = document.getElementById("commentText");
+                textbox.value = 'Leave a comment!';
+                this.setState({comments: response.comments, getComment: false, useOldComments: false});
+                // console.log(this.state.comments);
             })
             .catch(error => console.error('Error:', error));
         }
@@ -125,7 +132,7 @@ class Post extends Component{
         } else {
             return (
                 <Card>
-                    <CardImg top width="100%" src="https://github.githubassets.com/images/modules/open_graph/github-mark.png" alt="Card image cap" />
+                    {/* <CardImg top width="100%" src="https://github.githubassets.com/images/modules/open_graph/github-mark.png" alt="Card image cap" /> */}
                     <CardHeader tag="h3">{this.state.data.title}</CardHeader>
                     <CardBody>
                         <CardText>{"Author: "+this.state.data.author.userName}</CardText> 
