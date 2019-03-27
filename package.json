@@ -13,6 +13,7 @@
     "popper.js": "^1.14.7",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
+    "react-file-base64": "^1.0.3",
     "react-scripts": "2.1.5",
     "reactstrap": "^7.1.0",
     "yarn": "^1.13.0"

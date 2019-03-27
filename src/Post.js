@@ -119,7 +119,7 @@ class Post extends Component{
                         <CardText>{"Author: "+this.state.data.author.userName}</CardText> 
                         <Markdown>{this.state.data.content}</Markdown>
                         {/* <CardText>{JSON.stringify(this.state.comments)}</CardText> */}
-                        {/* <CardText><Comments data={this.state.data}></Comments></CardText> */}
+                        <CardText>{"Publication Date: " + this.state.data.publicationDate}</CardText>
                         <CommentList comments = {this.state.comments} />
                         <InputGroup>
                             <Input type="textarea" name="text" id={this.state.data.postid} placeholder="Leave a comment!" />

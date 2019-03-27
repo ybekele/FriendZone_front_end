@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { CardImg, Label, CustomInput, InputGroup, InputGroupAddon, Input, Form, FormGroup, Collapse, Card, CardBody, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import Post from './Post'
-
+import FileBase64 from 'react-file-base64';
 var host_url = 'http://127.0.0.1:8000';
 host_url = 'https://project-cmput404.herokuapp.com';
 var post_url = host_url+'/api/author/posts/';
@@ -21,9 +21,8 @@ class Homepage extends Component{
         this.get_posts();
     }
 
-    getFiles(e){
-        console.log(e.target.files);
-        this.state.files = [e.target.files[0]];
+    getFiles(files){
+        this.setState({ files: files })
     }
 
     send_post(){
@@ -188,7 +187,7 @@ class Homepage extends Component{
                     <Form className="postForm">
                         <FormGroup>
                             <Label for="exampleCustomFileBrowser">File Browser</Label>
-                            <CustomInput type="file" id="exampleCustomFileBrowser" name="customFile" onChange={this.getFiles}/>
+                            <FileBase64 multiple={ true } onDone={ this.getFiles.bind(this)} />
                         </FormGroup>
                         <FormGroup>
                             <CustomInput type="select" id="exampleCustomSelect" name="customSelect">
