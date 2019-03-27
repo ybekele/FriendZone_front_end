@@ -21,8 +21,9 @@ class Homepage extends Component{
         this.get_posts();
     }
 
-    getFiles(files){
-        this.setState({ files: files })
+    getFiles(e){
+        console.log(e.target.files);
+        this.state.files = [e.target.files[0]];
     }
 
     send_post(){
@@ -187,7 +188,7 @@ class Homepage extends Component{
                     <Form className="postForm">
                         <FormGroup>
                             <Label for="exampleCustomFileBrowser">File Browser</Label>
-                            <CustomInput type="file" id="exampleCustomFileBrowser" name="customFile"/>
+                            <CustomInput type="file" id="exampleCustomFileBrowser" name="customFile" onChange={this.getFiles}/>
                         </FormGroup>
                         <FormGroup>
                             <CustomInput type="select" id="exampleCustomSelect" name="customSelect">
