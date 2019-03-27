@@ -8,7 +8,7 @@ function CommentList(props){
     const comments = props.comments;
     const commentItems = comments.map(
         (comment) =>
-        <li className="comment" value = {comment.pk}>
+        <li className="comment" >
             <p>{"Author: "+comment.author}</p>
             <p>{"Comment: "+ comment.comment}</p>
         </li>

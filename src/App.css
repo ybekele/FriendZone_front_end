@@ -36,7 +36,7 @@
 .comment {
   margin: 5px;
   border-bottom: solid 1px rgb(71, 157, 255);
-  border-radius: 2px;
+  border-top: solid 1px rgb(71, 157, 255); 
 }
 
 ul {
@@ -44,5 +44,5 @@ ul {
   }
 
 li:hover {
-  color:blue;
+  color:rgb(71, 157, 255);
 }
