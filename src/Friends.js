@@ -2,12 +2,38 @@ import React, { Component } from 'react';
 import { Breadcrumb,BreadcrumbItem,Form,FormGroup,FormText,Input,Label,TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 
 var host_url = 'http://localhost:8000'
-var host_url = 'https://project-cmput404.herokuapp.com';
+//var host_url = 'https://project-cmput404.herokuapp.com';
 var post_url = host_url+'/api/authors/';
+var url_follow=host_url+'/api/friendRequest/';
+var url_for_authorId=host_url+'/api/author/profile/';
+var users_id="";
 
 var ajax_response=["","asdf","uuu","asdf","uuu","asdf","uuu","asdf","uuu","asdf","uuu","asdf",];
 var options=[];
 class Friends extends Component{
+
+  componentDidMount(){
+    this.setState({users_token:this.props.author_state.token})
+    fetch(url_for_authorId, {
+      method: 'GET',
+      headers:{
+      'Content-Type': 'application/json',
+      'Authorization': 'token '+this.props.author_state.token,
+      }
+  })
+  .then(res => res.json())
+  .then(response => {
+    console.log(response.author_id)
+    this.setState({
+      authorsId:response.author_id
+  });
+
+
+  })
+  .catch(error => console.error('Error:', error));
+
+
+  }
 
   search(){
     console.log("her eis the passwed username")
@@ -16,8 +42,11 @@ class Friends extends Component{
       users_token: this.props.author_state.token,
       ajax_response:[],
       usersname:this.props.author_state.username,
+      authorsId:"",
     };
+
     console.log(this.state.usersname)
+    console.log(this.state.users_token)
     var user_data = {
         "users_search": document.getElementById("search_for_author").value,
         "firstName": document.getElementById("search_for_author").value,
@@ -56,50 +85,47 @@ class Friends extends Component{
       .catch(error => console.error('Error:', error));
 }
 
-  follows(){
+  follows(userToFollow){
 
-  this.state = {
-    users_token: this.props.author_state.token,
-    ajax_response:[],
-    usersname:this.props.author_state.username,
-  };
+    var user_data = {
+        "to_author": userToFollow,
+        "from_author":this.state.authorsId,
+      };
+      console.log(this.state.authorsId);
+      console.log("here is the token");
+      console.log(this.state.users_token);
+      console.log("here is the token from props");
+      console.log(this.props.author_state.token);
 
-  var user_data = {
-      "users_search": document.getElementById("search_for_author").value,
-      "firstName": document.getElementById("search_for_author").value,
-      "githubUrl": 'http://github.com/kkk',
-      "hostName": 'http://127.0.0.1:8000',
-      "lastName": document.getElementById("search_for_author").value,
-      "userName": this.state.usersname,
-    };
-    console.log(user_data);
+      fetch(url_follow, {
+        method: 'POST', // or 'PUT'
+        body: JSON.stringify(user_data), // data can be `string` or {object}!
+        headers:{
+          'Content-Type': 'application/json',
+          'Authorization': 'token '+this.props.author_state.token,
+        }
+      })
+      .then(res => res.text())
+      .then(response => {
+        // console.log('Success:', JSON.stringify(response));
 
-    fetch(post_url, {
-      method: 'POST', // or 'PUT'
-      body: JSON.stringify(user_data), // data can be `string` or {object}!
-      headers:{
-        'Content-Type': 'application/json',
-        'Authorization': 'token '+this.state.users_token,
-      }
-    })
-    .then(res => res.json())
-    .then(response => {
-      // console.log('Success:', JSON.stringify(response));
-
-      //if (response.hasOwnProperty("success")){
-        console.log("here is the response from server")
-        console.log(response);
-        ajax_response=response;
-        console.log("this is the first ajax response")
-        console.log(ajax_response)
-        this.setState({ajax_response:response})
-        //this.setState.ajax_response=response
+        //if (response.hasOwnProperty("success")){
+          console.log("here is the response for follow")
+          console.log(response);
 
 
-      //}
 
-    })
-    .catch(error => console.error('Error:', error));
+          //this.setState.ajax_response=response
+
+
+        //}
+
+      })
+      .catch(error => console.error('Error:', error));
+   
+
+  
+
 }
 
  
@@ -110,24 +136,35 @@ class Friends extends Component{
 
       console.log(this.props)
       console.log("this is the second ajax response")
-      console.log(ajax_response[1])
-      console.log(ajax_response[0].firstName)
+      if(ajax_response[1]!="asdf"){
+        console.log("entered the if condition after render");
+        //console.log(typeof ajax_response[1][0].author_id);
+        //console.log(typeof ajax_response[1].author_id);
+        //console.log(ajax_response[1][0].author1.author_id);
+        //this.setState({author_id:ajax_response[1][0].author1.author_id});
+        console.log("here is chceking the state authorid");
+        //console.log(this.state.author_id);
+
+      }
+      //console.log(ajax_response[1])
+      //console.log(ajax_response[0])
       console.log(ajax_response[0]!="")
       if(ajax_response[0]!=""){
         console.log("came into the first if condition")
-      var author_list = Object.keys(ajax_response[0]).map((to_display,i) => {
+        console.log(ajax_response)
+      var author_list = Object.keys(ajax_response).map((to_display,i) => {
         return(
           //console.log(to_display.userName)
           //console.log(ajax_response[0][to_display].userName)
 
 
 
-           <Col sm="8" md={{size:8,offset:2}}>
+           <Col class="flex" sm="8" md={{size:8,offset:2}}>
               
                <Card body>
-                 <CardTitle><h1>{ajax_response[0][to_display].userName}</h1></CardTitle>
-                 <CardText>{ajax_response[0][to_display].firstName} {ajax_response[0][to_display].lastName}</CardText>
-                 <Button onClick={()=> {this.follows()}}>Follow</Button>
+                 <CardTitle><h1>{ajax_response[to_display].userName}</h1></CardTitle>
+                 <CardText>{ajax_response[to_display].firstName} {ajax_response[to_display].lastName}</CardText>
+                 <Button onClick={()=> {this.follows(ajax_response[to_display].author_id)}}>Follow</Button>
                </Card>
                <br/>
              </Col>
@@ -202,7 +239,7 @@ class Friends extends Component{
             <Col sm="12">
               <h4>List of Authors</h4>
             </Col>
-            {author_list}}
+            {author_list}
 
 
 

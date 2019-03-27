@@ -3,7 +3,7 @@ import { CardImg, CardSubtitle, CustomInput, InputGroup, InputGroupAddon, Input,
 import Post from './Post'
 
 var host_url = 'http://127.0.0.1:8000';
-host_url = 'https://project-cmput404.herokuapp.com';
+//host_url = 'https://project-cmput404.herokuapp.com';
 var post_url = host_url+'/api/author/posts/';
 var user_url = host_url+'/api/authors/';
 var getposts_url = host_url+'/api/author/posts/'; 
@@ -72,8 +72,11 @@ class Homepage extends Component{
         .then(res => res.json())
         .then(response => {
         console.log(response);
+        console.log("in get posts her are the posts")
+        console.log(response)
         if (response.hasOwnProperty("posts")){
-            this.setState({posts: response.posts[0]});
+            console.log("after the rsponse")
+            this.setState({posts: response.posts});
         }
         else{
             this.setState({posts: response})
@@ -152,8 +155,9 @@ class Homepage extends Component{
         console.log("this is the prop")
         console.log(this.props.author_state.token)
         console.log(this.state.get_posts)
+        console.log("this si the posts")
         console.log(this.state.posts)
-        if(this.state.posts){
+        if(this.state.posts.length>0){
         var posts= this.state.posts.map(post =>{
             return(
                 <Col sm="6">
