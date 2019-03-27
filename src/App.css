@@ -34,7 +34,7 @@
   box-shadow: 2px;
 }
 .comment {
-  margin: 5px;
+  margin: -1px;
   border-bottom: solid 1px rgb(71, 157, 255);
   border-top: solid 1px rgb(71, 157, 255); 
 }
@@ -46,3 +46,10 @@ ul {
 li:hover {
   color:rgb(71, 157, 255);
 }
+
+.flex {
+  display: flex;
+}
+
+
+
