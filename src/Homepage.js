@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { CardImg, CardSubtitle, CustomInput, InputGroup, InputGroupAddon, Input, Form, FormGroup, Collapse, Card, CardBody, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
+import { CardImg, Label, CustomInput, InputGroup, InputGroupAddon, Input, Form, FormGroup, Collapse, Card, CardBody, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import Post from './Post'
 
 var host_url = 'http://127.0.0.1:8000';
@@ -16,8 +16,13 @@ class Homepage extends Component{
         this.toggle = this.toggle.bind(this);
         this.get_posts = this.get_posts.bind(this);
         this.get_events = this.getGithubEvent.bind(this);
-        this.state = { collapse: false, posts: [] };
+        this.getFiles = this.getFiles.bind(this);
+        this.state = { collapse: false, posts: [], files: [] };
         this.get_posts();
+    }
+
+    getFiles(files){
+        this.setState({ files: files })
     }
 
     send_post(){
@@ -26,7 +31,14 @@ class Homepage extends Component{
             "permission": document.getElementById("exampleCustomSelect").value,
             "content": document.getElementById("contentText").value,
             "title": document.getElementById("titleText").value,
-          };
+            "images":[],
+            "contentType":document.getElementById("textType").value
+        };
+        
+        if (this.state.files){
+            console.log(this.state.files)
+            data['images']=this.state.files
+        }
         console.log(data);
         console.log("this is the token " + this.props.author_state.token);
         console.log("this is the username " + this.props.author_state.username);
@@ -65,9 +77,11 @@ class Homepage extends Component{
         })
         .then(res => res.json())
         .then(response => {
-        console.log(response);
+        // console.log(response);
         if (response.hasOwnProperty("posts")){
-            this.setState({posts: response.posts[0]});
+            // console.log(response);
+            this.setState({posts: response.posts});
+            // this.state.posts = 
         }
         else{
             this.setState({posts: []})
@@ -150,10 +164,11 @@ class Homepage extends Component{
         console.log(this.state.posts)
         if(this.state.posts.length > 0){
         var posts= this.state.posts.map(post =>{
+            console.log(post);
             return(
                 <Col sm="6">
                     <div className = 'cardstyle'>
-                    <Post id='cardstyle' author_state={this.props.author_state} value={post}/>
+                    <Post id='cardstyle' author_state={this.props.author_state} value={post[0]}/>
                     </div>
                     {/* <Post id='cardstyle' author_state={this.props.author_state} value={post}/> */}
                 </Col>
@@ -172,15 +187,8 @@ class Homepage extends Component{
                     <Collapse isOpen={this.state.collapse}>
                     <Form className="postForm">
                         <FormGroup>
-                            <InputGroup>
-                                <Input placeholder="Image URL" />
-                                <InputGroupAddon addonType="append">
-                                <Button color="secondary">Upload from local(not available)</Button>
-                                </InputGroupAddon>
-                                {/* <InputGroupAddon addonType="append">
-                                <Input type="file" name="file" id="exampleFile" />
-                                </InputGroupAddon> */}
-                            </InputGroup>
+                            <Label for="exampleCustomFileBrowser">File Browser</Label>
+                            <CustomInput type="file" id="exampleCustomFileBrowser" name="customFile" onDone={this.getFiles}/>
                         </FormGroup>
                         <FormGroup>
                             <CustomInput type="select" id="exampleCustomSelect" name="customSelect">
@@ -199,6 +207,16 @@ class Homepage extends Component{
                                 <option>Author 3</option>
                                 <option>Author 4</option>
                                 <option>Author 5</option>
+                            </CustomInput>
+                        </FormGroup>
+                        <FormGroup>
+                            <CustomInput type="select" id="textType" name="customSelect">
+                                <option value="">Type of Post?</option>
+                                <option value="text/plain">Simple Plain Text</option>
+                                <option value="text/markdown">Markdown</option>
+                                <option value="application/base64">application/base64</option>
+                                <option value="image/png;base64">image/png;base64</option>
+                                <option value="image/jpeg;base64">image/jpeg;base64</option>
                             </CustomInput>
                         </FormGroup>
                         <FormGroup>

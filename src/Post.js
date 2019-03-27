@@ -8,7 +8,7 @@ function CommentList(props){
     const comments = props.comments;
     const commentItems = comments.map(
         (comment) =>
-        <li className="comment">
+        <li className="comment" value = {comment.pk}>
             <p>{"Author: "+comment.author}</p>
             <p>{"Comment: "+ comment.comment}</p>
         </li>
@@ -55,7 +55,7 @@ class Post extends Component{
     postComment(){
         // console.log(document.getElementById("commentText").value);
         var data = {
-            "comment": document.getElementById("commentText").value,
+            "comment": document.getElementById(this.state.data.postid).value,
             "contentType": "text/plain",
             "authorid": this.state.data.author.author_id,
             "postid": this.state.data.postid,
@@ -102,7 +102,7 @@ class Post extends Component{
             .then(res => res.json())
             .then(response => {
                 // console.log(response);
-                var textbox = document.getElementById("commentText");
+                var textbox = document.getElementById(this.state.data.postid);
                 textbox.value = 'Leave a comment!';
                 this.setState({comments: response.comments, getComment: false, useOldComments: false});
                 // console.log(this.state.comments);
@@ -112,7 +112,7 @@ class Post extends Component{
         if (this.state.data.title !== "Github Event"){
             return (
                 <Card>
-                    <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" />
+                    {/* <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" /> */}
                     <CardHeader tag="h3">{this.state.data.title}</CardHeader>
                     <CardBody>
                         <CardText>{"Author: "+this.state.data.author.userName}</CardText> 
@@ -121,7 +121,7 @@ class Post extends Component{
                         {/* <CardText><Comments data={this.state.data}></Comments></CardText> */}
                         <CommentList comments = {this.state.comments} />
                         <InputGroup>
-                            <Input type="textarea" name="text" id="commentText" placeholder="Leave a comment!" />
+                            <Input type="textarea" name="text" id={this.state.data.postid} placeholder="Leave a comment!" />
                             <InputGroupAddon addonType="append">
                             <Button onClick={this.postComment} color="secondary">Post!</Button>
                             </InputGroupAddon>
