@@ -78,7 +78,7 @@ class Homepage extends Component{
         })
         .then(res => res.json())
         .then(response => {
-        // console.log(response);
+        console.log(response);
         if (response.hasOwnProperty("posts")){
             // console.log(response);
             this.setState({posts: response.posts});

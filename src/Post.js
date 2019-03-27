@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { CardImg, CardSubtitle, CustomInput, InputGroup, InputGroupAddon, Input, Form, FormGroup, CardHeader, Card, CardBody, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
+import Markdown from 'markdown-to-jsx';
 
 var host_url = 'https://project-cmput404.herokuapp.com';
 
@@ -116,7 +117,7 @@ class Post extends Component{
                     <CardHeader tag="h3">{this.state.data.title}</CardHeader>
                     <CardBody>
                         <CardText>{"Author: "+this.state.data.author.userName}</CardText> 
-                        <CardText>{this.state.data.content}</CardText>
+                        <Markdown>{this.state.data.content}</Markdown>
                         {/* <CardText>{JSON.stringify(this.state.comments)}</CardText> */}
                         {/* <CardText><Comments data={this.state.data}></Comments></CardText> */}
                         <CommentList comments = {this.state.comments} />
