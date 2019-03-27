@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import Homepage from './Homepage';
 import Friends from './Friends';
 import Profile from './Profile';
+import Notifications from './Notifications';
 
 
 //var host_url = 'http://localhost:8000'
@@ -21,7 +22,7 @@ class App extends Component {
     this.toggle = this.toggle.bind(this);
     this.state = {
       activeTab: '1',
-      login: true,
+      login: false,
       token: 'null',
       signup: false,
       username: 'null',
@@ -58,6 +59,7 @@ class App extends Component {
       console.log('Success:', JSON.stringify(response));
       if (response.hasOwnProperty("token")){
         this.setState({login:true, token: response["token"],username:document.getElementById("usernameText").value});
+        console.log("here is the login response")
         console.log(response);
       }else{
         document.getElementById('alert').innerHTML = response.non_field_errors;
@@ -197,6 +199,14 @@ class App extends Component {
               MyProfile
             </NavLink>
           </NavItem>
+          <NavItem>
+            <NavLink
+              className={classnames({ active: this.state.activeTab === '4' })}
+              onClick={() => { this.toggle('4'); }}
+            >
+              Notifications
+            </NavLink>
+          </NavItem>
         </Nav>
         <Button outline size='sm' className='logout' color="primary" onClick={()=>{this.trylogout()}}>Logout</Button>{' '}
         <TabContent activeTab={this.state.activeTab}>
@@ -208,6 +218,9 @@ class App extends Component {
           </TabPane>
           <TabPane tabId="3">
             <Profile author_state={this.state} />
+          </TabPane>
+          <TabPane tabId="4">
+            <Notifications author_state={this.state} />
           </TabPane>
         </TabContent>
       </div>

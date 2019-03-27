@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { CardImg, CardSubtitle, CustomInput, InputGroup, InputGroupAddon, Input, Form, FormGroup, Collapse, Card, CardBody, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
+import { CardImg, Label, CustomInput, InputGroup, InputGroupAddon, Input, Form, FormGroup, Collapse, Card, CardBody, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import Post from './Post'
 import FileBase64 from 'react-file-base64';
-
-//var host_url = 'http://127.0.0.1:8000';
-var host_url = 'https://project-cmput404.herokuapp.com';
+var host_url = 'http://127.0.0.1:8000';
+host_url = 'https://project-cmput404.herokuapp.com';
 var post_url = host_url+'/api/author/posts/';
 var user_url = host_url+'/api/authors/';
 var getposts_url = host_url+'/api/author/posts/'; 
@@ -16,18 +15,15 @@ class Homepage extends Component{
         super(props);
         this.toggle = this.toggle.bind(this);
         this.get_posts = this.get_posts.bind(this);
-        this.state = { collapse: false, posts:[],files: [] };
+        this.get_events = this.getGithubEvent.bind(this);
+        this.getFiles = this.getFiles.bind(this);
+        this.state = { collapse: false, posts: [], files: [] };
+        this.get_posts();
     }
 
-     
-    componentDidMount(){
-        this.get_posts()
-    }
-    
     getFiles(files){
         this.setState({ files: files })
     }
-    
 
     send_post(){
         
@@ -35,19 +31,19 @@ class Homepage extends Component{
             "permission": document.getElementById("exampleCustomSelect").value,
             "content": document.getElementById("contentText").value,
             "title": document.getElementById("titleText").value,
-            "images":null,
+            "images":[],
             "contentType":document.getElementById("textType").value
-          };
+        };
         
         if (this.state.files){
             console.log(this.state.files)
             data['images']=this.state.files
         }
-        console.log(data);
-        console.log("this is the token " + this.props.author_state.token);
-        console.log("this is the username " + this.props.author_state.username);
-        console.log("this is the props author state " + this.props.author_state);
-        console.log("this is the props " + this.props);
+        // console.log(data);
+        // console.log("this is the token " + this.props.author_state.token);
+        // console.log("this is the username " + this.props.author_state.username);
+        // console.log("this is the props author state " + this.props.author_state);
+        // console.log("this is the props " + this.props);
         fetch(post_url, {
         method: 'POST', // or 'PUT'
         body: JSON.stringify(data), // data can be `string` or {object}!
@@ -60,6 +56,8 @@ class Homepage extends Component{
         .then(response => {
         console.log('Success:', JSON.stringify(response));
         if (response.hasOwnProperty("success")){
+            this.toggle();
+            console.log(response);
             this.get_posts()
         }
     
@@ -68,7 +66,7 @@ class Homepage extends Component{
     }
 
     get_posts() {
-        console.log("in get posts " + this.props.author_state.token); 
+        // console.log("in get posts " + this.props.author_state.token); 
     
         fetch(getposts_url, {
             method: 'GET',
@@ -79,86 +77,99 @@ class Homepage extends Component{
         })
         .then(res => res.json())
         .then(response => {
-            if(response.hasOwnProperty("posts")){
-                this.setState({posts: response['posts']});
-            }
+        console.log(response);
+        if (response.hasOwnProperty("posts")){
+            // console.log(response);
+            this.setState({posts: response.posts});
+            // this.state.posts = 
+        }
+        else{
+            this.setState({posts: []})
+        }
+    
         })
         .catch(error => console.error('Error:', error));
     }
     
-    get_events(){
-        console.log('this is using author state' + this.props.author_state.token);
-        console.log('this is using global state ' + global_state);
-        console.log('this is using global state name ' + global_state.username);
-        console.log("asfasfsfdfasfsfs");
-        console.log('this is the state ' + this.props.author_state);
-        console.log('this is the author ' + this.props.author_state.username);
-        // Nested function that gets github of user
-        var name = this.props.author_state.username;
-        var user_token = this.props.author_state.token; 
-        console.log('in get events global state' + global_state.username);
-            function get_git(global_state) {
-                fetch(user_url+'/'+global_state.username+'/', {
-                method: 'GET',
-                headers:{
-                    'Content-Type': 'application/json',
-                    'Authorization': 'token ' + global_state.token,
-                    'username': global_state.username, 
-                }
-                })
-                .then(res => res.json())
-                .then(response => {
-                console.log('Success:', JSON.stringify(response));
-                if (response.hasOwnProperty("githubUrl")){
-                    //this.setState({login:true, githubUrl: response["githubUrl"]});
-                    console.log(global_state.token);
-                    author_git = response["githubUrl"];
-                } else{
-                    document.getElementById('alert').innerHTML = JSON.stringify(response);
-                    console.log("couldn't find git for" + global_state.username)
-                    author_git = null; 
-                }
-            
-                })
-                .catch(error => console.error('Error:', error));
-                return author_git
+    getGithubEvent(){
+        var githubUsername;
+        // get user profile
+        fetch("https://project-cmput404.herokuapp.com/api/author/profile/", {
+            method: 'GET',
+            headers:{
+            'Content-Type': 'application/json',
+            'Authorization': 'token '+this.props.author_state.token,
             }
-  
-      var author_git = get_git(); 
-      if (author_git === false) { 
-        console.log("couldn't pass author's git");
-        return; 
-      }
-  
-      else {
-        fetch('https://api.github.com/users/' + author_git + '/events', {
+        })
+        .then(res => res.json())
+        .then(response => {
+            console.log(response);
+            githubUsername = response.githubUrl.split('/');
+            githubUsername = githubUsername[githubUsername.length-1]
+            console.log(githubUsername);
+
+            // console.log(this.state.comments);
+        })
+        .catch(error => console.error('Error:', error));
+        
+
+        fetch('https://api.github.com/users/abramhindle/events', {
         method: 'GET', // or 'PUT'
         headers:{
           'Content-Type': 'application/json',
         }
-      })
-      .then(res => res.json())
-      .then(response => {
-        console.log('Success:', JSON.stringify(response));
-      })
-      .catch(error => console.error('Error:', error));
-  
-      } 
-  }
-    
+        })
+        .then(res => res.json())
+        .then(response => {
+        console.log(response);
+        for (var i = 0; i< 10; i++){
+            this.state.posts.push([{
+                "postid": "",
+                "publicationDate": "",
+                "title": "Github Event",
+                "source": "",
+                "origin": "",
+                "contentType": "",
+                "author": {
+                  "url": "",
+                  "pk": "",
+                  "firstName": null,
+                  "lastName": "",
+                  "userName": response[i].actor.login,
+                  "hostName": "",
+                  "githubUrl": ""
+                },
+                "content": response[i].type + " on url: "+response[i].repo.url,
+                "permission": "",
+                "categories": [],
+                "unlisted": false,
+                "visibleTo": []
+            }]) 
+        };
+        this.setState({});
+        console.log(this.state.posts);
+        })
+      . catch(error => console.error('Error:', error));
+    }
+
+
     toggle() {
         window.scrollTo(0, 0);
         this.setState(state => ({ collapse: !state.collapse }));
     }
 
     render(){
+        // console.log("this is the prop")
+        // console.log(this.props.author_state.token)
+        // console.log(this.state.posts)
         if(this.state.posts.length > 0){
-            console.log("im here")
-            console.log(this.state.posts)
-            var posts= this.state.posts.map(post =>{
+        var posts= this.state.posts.map(post =>{
             return(
                 <Col sm="6">
-                    <Post id='cardstyle' value={post}/>
+                    <div className = 'cardstyle'>
+                    <Post id='cardstyle' author_state={this.props.author_state} value={post[0]}/>
+                    </div>
+                    {/* <Post id='cardstyle' author_state={this.props.author_state} value={post}/> */}
                 </Col>
             )})
         }
@@ -174,7 +185,8 @@ class Homepage extends Component{
                     <Collapse isOpen={this.state.collapse}>
                     <Form className="postForm">
                         <FormGroup>
-                                <FileBase64 multiple={ true } onDone={ this.getFiles.bind(this)} />
+                            <Label for="exampleCustomFileBrowser">File Browser</Label>
+                            <FileBase64 multiple={ true } onDone={ this.getFiles.bind(this)} />
                         </FormGroup>
                         <FormGroup>
                             <CustomInput type="select" id="exampleCustomSelect" name="customSelect">
@@ -186,6 +198,16 @@ class Homepage extends Component{
                                 <option value="FH">Only friends on my host</option>
                                 <option value="P">Public</option>
                             </CustomInput>
+                            <CustomInput type="select" id="exampleCustomMutlipleSelect" name="customSelect" disabled>
+                                <option value="">Which auther can view?</option>
+                                <option>Author 1</option>
+                                <option>Author 2</option>
+                                <option>Author 3</option>
+                                <option>Author 4</option>
+                                <option>Author 5</option>
+                            </CustomInput>
+                        </FormGroup>
+                        <FormGroup>
                             <CustomInput type="select" id="textType" name="customSelect">
                                 <option value="">Type of Post?</option>
                                 <option value="text/plain">Simple Plain Text</option>
@@ -211,6 +233,9 @@ class Homepage extends Component{
                     </Collapse>
 
                     <h4>Your Stream:</h4>
+                    
+                    <Button id='get_posts' size='sm' color="primary" onClick={this.get_posts} style={{ marginBottom: '1rem' }}>Get Posts</Button>
+                    <Button id='get_stream' size='sm' color="primary" onClick={this.get_events} style={{ marginBottom: '1rem' }}>Get Git Events</Button>
                     
                     {posts}
                     
