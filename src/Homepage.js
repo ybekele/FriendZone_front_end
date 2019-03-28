@@ -2,11 +2,16 @@ import React, { Component } from 'react';
 import { CardImg, Label, CustomInput, InputGroup, InputGroupAddon, Input, Form, FormGroup, Collapse, Card, CardBody, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import Post from './Post'
 import FileBase64 from 'react-file-base64';
+import base64 from 'react-native-base64'
+
 var host_url = 'http://127.0.0.1:8000';
 host_url = 'https://project-cmput404.herokuapp.com';
 var post_url = host_url+'/api/author/posts/';
 var user_url = host_url+'/api/authors/';
 var getposts_url = host_url+'/api/author/posts/'; 
+
+var foreign_url = 'https://cmput404-front-test.herokuapp.com';
+var getforeignposts_url = foreign_url+'/api/posts/';
 
 var global_state = null;
 class Homepage extends Component{
@@ -90,6 +95,45 @@ class Homepage extends Component{
         })
         .catch(error => console.error('Error:', error));
     }
+
+
+get_foreignposts() {
+    // console.log("in get posts " + this.props.author_state.token); 
+
+    fetch('https://cmput404-front-test.herokuapp.com/api/posts', {
+        method: 'GET',
+        headers:{
+          'Content-Type': 'application/json',
+          'Authorization': 'Basic ' + base64.encode('yonael_team' + ':' + 'EBXxU&qyW$687cMb%mmB'),
+        }
+    })
+    .then(res => res.json())
+    .then(response => {
+    console.log('this is the response from teh foreign server');   
+    console.log(response);
+    //console.log('exact number = ' + response.posts.length);
+    if (response.hasOwnProperty("posts")){
+        console.log('it has its own property posts');
+        this.setState({
+            foreign_posts: response.posts
+                 
+        });
+        // this.state.posts = 
+        console.log('this is the foreign posts prop');
+        console.log(this.foreign_posts)
+    }
+    
+
+    else{
+        console.log('failed to retrieve')
+        console.log(response);
+        //this.setState({foreign_posts: []})
+    }
+
+    })
+    .catch(error => console.error('Error:', error));
+}
+
     
     getGithubEvent(){
         var githubUsername;
@@ -236,6 +280,7 @@ class Homepage extends Component{
                     
                     <Button id='get_posts' size='sm' color="primary" onClick={this.get_posts} style={{ marginBottom: '1rem' }}>Get Posts</Button>
                     <Button id='get_stream' size='sm' color="primary" onClick={this.get_events} style={{ marginBottom: '1rem' }}>Get Git Events</Button>
+                    <Button id='get_stream' size='sm' color="primary" onClick={this.get_foreignposts} style={{ marginBottom: '1rem' }}>Get Foreign Posts</Button> <Button id='get_stream' size='sm' color="primary" onClick={this.get_foreignposts} style={{ marginBottom: '1rem' }}>Get Foreign Posts</Button>
                     
                     {posts}
                     
