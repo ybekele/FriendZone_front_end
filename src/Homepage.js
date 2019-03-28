@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { CardImg, Label, CustomInput, InputGroup, InputGroupAddon, Input, Form, FormGroup, Collapse, Card, CardBody, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
-import Post from './Post'
+import Post from './Post';
+import Pagination from "react-js-pagination";
 
 var host_url = 'http://127.0.0.1:8000';
 host_url = 'https://project-cmput404.herokuapp.com';
@@ -8,7 +9,6 @@ var post_url = host_url+'/api/author/posts/';
 var user_url = host_url+'/api/authors/';
 var getposts_url = host_url+'/api/author/posts/'; 
 
-var global_state = null;
 class Homepage extends Component{
 
     constructor(props) {
@@ -17,9 +17,22 @@ class Homepage extends Component{
         this.get_posts = this.get_posts.bind(this);
         this.get_events = this.getGithubEvent.bind(this);
         this.getFiles = this.getFiles.bind(this);
-        this.state = { collapse: false, posts: [], files: [] };
+        this.state = { 
+            collapse: false, 
+            posts: [], 
+            files: [], 
+            activePage:1, 
+            itemsCountPerPage:5, 
+            totalItemsCount: null,
+        };
+
         this.get_posts();
     }
+
+    handlePageChange(pageNumber) {
+        console.log(`active page is ${pageNumber}`);
+        this.setState({activePage: pageNumber});
+      }
 
     getFiles(e){
         console.log(e.target.files);
@@ -78,10 +91,17 @@ class Homepage extends Component{
         })
         .then(res => res.json())
         .then(response => {
+        console.log('this is the response #');   
         console.log(response);
+        console.log('exact number = ' + response.posts.length);
         if (response.hasOwnProperty("posts")){
             // console.log(response);
-            this.setState({posts: response.posts});
+            this.setState({
+                posts: response.posts,
+                totalItemsCount: response.posts.length
+                
+            
+            });
             // this.state.posts = 
         }
         else{
@@ -238,8 +258,23 @@ class Homepage extends Component{
                     
                     <Button id='get_posts' size='sm' color="primary" onClick={this.get_posts} style={{ marginBottom: '1rem' }}>Get Posts</Button>
                     <Button id='get_stream' size='sm' color="primary" onClick={this.get_events} style={{ marginBottom: '1rem' }}>Get Git Events</Button>
+                    <div>
+                        <Pagination className="posts-pagination" 
+
+                        activePage={this.state.activePage}
+                        itemsCountPerPage={this.state.itemsCountPerPage}
+                        totalItemsCount={this.state.totalItemsCount}
+                        pageRangeDisplayed={5}
+                        onChange={this.handlePageChange}
+                        />
+                      
+
+                        {posts}
+   
+                        
+                        
+                    </div>
                     
-                    {posts}
                     
                 </Col>
             </center>
