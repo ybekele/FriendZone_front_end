@@ -27,13 +27,29 @@ class Homepage extends Component{
              posts: [], 
              files: [],
              github: null, 
+             organized_posts: null 
              };
         
         this.get_posts();
     }
 
+    
+
     getFiles(files){
         this.setState({ files: files })
+    }
+
+    organize_posts(posts) {
+        this.state.organized_posts = posts
+        this.setState({
+            posts: this.state.organized_posts.sort((a,b) => a.publicationDate > b.publicationDate)
+        })
+        console.log('this is organized post after')
+        console.log(this.state.organized_posts)
+        console.log('this is posts after')
+        console.log(this.state.posts)
+
+
     }
 
     send_post(){
@@ -210,6 +226,9 @@ get_foreignposts() {
         };
         this.setState({});
         console.log(this.state.posts);
+        {this.organize_posts(this.state.posts)};
+        console.log('this organizes the posts');
+        console.log(this.state.organized_posts);
         })
       . catch(error => console.error('Error:', error));
     }
