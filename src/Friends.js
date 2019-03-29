@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Breadcrumb,BreadcrumbItem,Form,FormGroup,FormText,Input,Label,TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 
-var host_url = 'http://localhost:8000'
-//var host_url = 'https://project-cmput404.herokuapp.com';
+//var host_url = 'http://localhost:8000'
+var host_url = 'https://project-cmput404.herokuapp.com';
 var post_url = host_url+'/api/authors/';
 var url_follow=host_url+'/api/friendRequest/';
 var url_for_authorId=host_url+'/api/author/profile/';

@@ -2,19 +2,26 @@ import React, { Component } from 'react';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Input, Button, Form, FormGroup, Label, Col, Spinner, Alert } from 'reactstrap';
 
 
+const url="https://project-cmput404.herokuapp.com/api/author/profile"
 class Profile extends Component{
 
     constructor(props) {
         super(props);
         this.state = {
-            author:"",
+            author:null,
             success:null,
             messsage:null
         };
         this.saveProfile = this.saveProfile.bind(this);
+        this.getProfile = this.getProfile.bind(this);
     }
     componentDidMount(){
-        const url="https://project-cmput404.herokuapp.com/api/author/profile"
+        this.getProfile()
+
+        
+    }
+
+    getProfile(){
         fetch(url, {
             method: 'GET',
             headers:{
@@ -27,14 +34,11 @@ class Profile extends Component{
         this.setState({
             author:response
         });
-        document.getElementById("firstName").value=this.state.author.firstName
-        document.getElementById("lastName").value=this.state.author.lastName
-        document.getElementById("userName").value=this.state.author.userName
-        document.getElementById("githubUrl").value=this.state.author.githubUrl
 
         })
         .catch(error => console.error('Error:', error));
     }
+
     saveProfile(){
         var body={
             "firstName": document.getElementById("firstName").value,
@@ -60,12 +64,17 @@ class Profile extends Component{
             document.getElementById('alert').value=response.message
         }
         })
-        .catch(error => console.error('Errror:', error));
+        .catch(error => console.error('Error:', error));
     }
     
 
     render(){
-        
+        if(this.state.author){
+            document.getElementById("firstName").value=this.state.author.firstName
+            document.getElementById("lastName").value=this.state.author.lastName
+            document.getElementById("userName").value=this.state.author.userName
+            document.getElementById("githubUrl").value=this.state.author.githubUrl
+        }
         return(
         <Form>
         <FormGroup>
