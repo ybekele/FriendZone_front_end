@@ -2,11 +2,16 @@ import React, { Component } from 'react';
 import { CardImg, Label, CustomInput, InputGroup, InputGroupAddon, Input, Form, FormGroup, Collapse, Card, CardBody, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import Post from './Post'
 import FileBase64 from 'react-file-base64';
+import base64 from 'react-native-base64'
+
 var host_url = 'http://127.0.0.1:8000';
 host_url = 'https://project-cmput404.herokuapp.com';
 var post_url = host_url+'/api/author/posts/';
 var user_url = host_url+'/api/authors/';
 var getposts_url = host_url+'/api/author/posts/'; 
+
+var foreign_url = 'https://cmput404-front-test.herokuapp.com';
+var getforeignposts_url = foreign_url+'/api/posts/';
 
 var global_state = null;
 class Homepage extends Component{
@@ -17,7 +22,14 @@ class Homepage extends Component{
         this.get_posts = this.get_posts.bind(this);
         this.get_events = this.getGithubEvent.bind(this);
         this.getFiles = this.getFiles.bind(this);
-        this.state = { collapse: false, posts: [], files: [] };
+        this.get_foreignposts = this.get_foreignposts.bind(this);
+        this.state = {
+             collapse: false, 
+             posts: [], 
+             files: [],
+             organized_posts: null 
+             };
+        
         this.get_posts();
     }
 
@@ -90,11 +102,39 @@ class Homepage extends Component{
         })
         .catch(error => console.error('Error:', error));
     }
+
+
+get_foreignposts() {
+    // console.log("in get posts " + this.props.author_state.token); 
+    console.log('Basic ' + base64.encode('yonael_team' + ':' + 'EBXxU&qyW$687cMb%mmB'))
+    fetch("https://cmput404-front-test.herokuapp.com/api/posts", {
+            method: 'GET',
+            headers:{
+                'Content-Type': 'application/json',
+                // 'Origin': 'https://cmput404-front-test.herokuapp.com',
+                // 'X-Request-User-ID': 'https://project-cmput404.herokuapp.com/author/e360bb9d-b63c-4c1b-8648-6019e61fe04f',
+                'Authorization': 'Basic ' + base64.encode('yonael_team' + ':' + 'EBXxU&qyW$687cMb%mmB'),
+            }
+    })
+    .then(res => res.json())
+    .then(response => {
+        console.log('this is the response')
+        console.log(response);
+            for (var i = 0; i< response.posts.length; i++){
+                this.state.posts.push([response.posts[i]]);
+            }
+            this.setState({});
+            // console.log(this.state.comments);
+        })
+        .catch(error => console.error('Error:', error));
     
-    getGithubEvent(){
-        var githubUsername;
+}
+
+    
+    async getGithubEvent(){
+        var githubUsername = 'github';
         // get user profile
-        fetch("https://project-cmput404.herokuapp.com/api/author/profile/", {
+        await fetch("https://project-cmput404.herokuapp.com/api/author/profile/", {
             method: 'GET',
             headers:{
             'Content-Type': 'application/json',
@@ -113,7 +153,7 @@ class Homepage extends Component{
         .catch(error => console.error('Error:', error));
         
 
-        fetch('https://api.github.com/users/abramhindle/events', {
+        fetch('https://api.github.com/users/'+githubUsername+'/events', {
         method: 'GET', // or 'PUT'
         headers:{
           'Content-Type': 'application/json',
@@ -125,7 +165,7 @@ class Homepage extends Component{
         for (var i = 0; i< 10; i++){
             this.state.posts.push([{
                 "postid": "",
-                "publicationDate": "",
+                "publicationDate": response[i].created_at,
                 "title": "Github Event",
                 "source": "",
                 "origin": "",
@@ -146,8 +186,8 @@ class Homepage extends Component{
                 "visibleTo": []
             }]) 
         };
+        this.state.posts.sort(function(a, b){return (new Date(b[0].publicationDate) - new Date(a[0].publicationDate))});
         this.setState({});
-        console.log(this.state.posts);
         })
       . catch(error => console.error('Error:', error));
     }
@@ -236,6 +276,7 @@ class Homepage extends Component{
                     
                     <Button id='get_posts' size='sm' color="primary" onClick={this.get_posts} style={{ marginBottom: '1rem' }}>Get Posts</Button>
                     <Button id='get_stream' size='sm' color="primary" onClick={this.get_events} style={{ marginBottom: '1rem' }}>Get Git Events</Button>
+                    <Button id='get_stream' size='sm' color="primary" onClick={this.get_foreignposts} style={{ marginBottom: '1rem' }}>Get Foreign Posts</Button> 
                     
                     {posts}
                     
