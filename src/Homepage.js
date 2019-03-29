@@ -22,8 +22,13 @@ class Homepage extends Component{
         this.get_posts = this.get_posts.bind(this);
         this.get_events = this.getGithubEvent.bind(this);
         this.getFiles = this.getFiles.bind(this);
-        this.get_foreignposts = this.get_foreignposts.bind(this);
-        this.state = { collapse: false, posts: [], files: [] };
+        this.state = {
+             collapse: false, 
+             posts: [], 
+             files: [],
+             organized_posts: null 
+             };
+        
         this.get_posts();
     }
 
@@ -158,7 +163,7 @@ get_foreignposts() {
         for (var i = 0; i< 10; i++){
             this.state.posts.push([{
                 "postid": "",
-                "publicationDate": "",
+                "publicationDate": response[i].created_at,
                 "title": "Github Event",
                 "source": "",
                 "origin": "",
@@ -179,8 +184,8 @@ get_foreignposts() {
                 "visibleTo": []
             }]) 
         };
+        this.state.posts.sort(function(a, b){return (new Date(b[0].publicationDate) - new Date(a[0].publicationDate))});
         this.setState({});
-        console.log(this.state.posts);
         })
       . catch(error => console.error('Error:', error));
     }
