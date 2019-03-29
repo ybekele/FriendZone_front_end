@@ -125,7 +125,7 @@ get_foreignposts() {
 
     
     async getGithubEvent(){
-        var githubUsername;
+        var githubUsername = 'github';
         // get user profile
         await fetch("https://project-cmput404.herokuapp.com/api/author/profile/", {
             method: 'GET',
