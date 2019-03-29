@@ -6,6 +6,8 @@ import Homepage from './Homepage';
 import Friends from './Friends';
 import Profile from './Profile';
 import Notifications from './Notifications';
+import MyFriends from './MyFriends';
+
 
 
 var host_url = 'http://localhost:8000'
@@ -13,6 +15,8 @@ var host_url = 'http://localhost:8000'
 var login_url = host_url+'/api/auth/login';
 var logout_url = host_url+'/api/auth/logout';
 var register_url = host_url+'/api/auth/register';
+
+
 
 
 class App extends Component {
@@ -29,6 +33,11 @@ class App extends Component {
       githubURL: 'null',
     };
   }
+
+
+
+
+  
   componentDidMount(){
     this.setState({login:false})
   }
@@ -128,6 +137,7 @@ class App extends Component {
         if (this.state.signup){
             return(
                 <center>
+
                   <Col sm="6">
                   <h1>Sign Up</h1>
                     <Form  className='loginForm'>
@@ -207,6 +217,14 @@ class App extends Component {
               Notifications
             </NavLink>
           </NavItem>
+          <NavItem>
+            <NavLink
+              className={classnames({ active: this.state.activeTab === '5' })}
+              onClick={() => { this.toggle('5'); }}
+            >
+              MyFriends
+            </NavLink>
+          </NavItem>
         </Nav>
         <Button outline size='sm' className='logout' color="primary" onClick={()=>{this.trylogout()}}>Logout</Button>{' '}
         <TabContent activeTab={this.state.activeTab}>
@@ -221,6 +239,9 @@ class App extends Component {
           </TabPane>
           <TabPane tabId="4">
             <Notifications author_state={this.state} />
+          </TabPane>
+          <TabPane tabId="5">
+            <MyFriends author_state={this.state} />
           </TabPane>
         </TabContent>
       </div>
