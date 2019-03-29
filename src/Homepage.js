@@ -106,14 +106,14 @@ class Homepage extends Component{
 
 get_foreignposts() {
     // console.log("in get posts " + this.props.author_state.token); 
-    console.log('Basic ' + base64.encode('yonael_team' + ':' + 'EBXxU&qyW$687cMb%mmB'))
-    fetch("https://cmput404-front-test.herokuapp.com/api/posts", {
+    // console.log('Basic ' + base64.encode('yonael_team' + ':' + 'EBXxU&qyW$687cMb%mmB'))
+    fetch("https://project-cmput404.herokuapp.com/api/remote/author/posts/", {
             method: 'GET',
             headers:{
                 'Content-Type': 'application/json',
                 // 'Origin': 'https://cmput404-front-test.herokuapp.com',
                 // 'X-Request-User-ID': 'https://project-cmput404.herokuapp.com/author/e360bb9d-b63c-4c1b-8648-6019e61fe04f',
-                'Authorization': 'Basic ' + base64.encode('yonael_team' + ':' + 'EBXxU&qyW$687cMb%mmB'),
+                // 'Authorization': 'Basic ' + base64.encode('yonael_team' + ':' + 'EBXxU&qyW$687cMb%mmB'),
             }
     })
     .then(res => res.json())
