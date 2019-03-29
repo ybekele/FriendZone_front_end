@@ -22,7 +22,13 @@ class Homepage extends Component{
         this.get_posts = this.get_posts.bind(this);
         this.get_events = this.getGithubEvent.bind(this);
         this.getFiles = this.getFiles.bind(this);
-        this.state = { collapse: false, posts: [], files: [] };
+        this.state = {
+             collapse: false, 
+             posts: [], 
+             files: [],
+             github: null, 
+             };
+        
         this.get_posts();
     }
 
@@ -135,10 +141,10 @@ get_foreignposts() {
 }
 
     
-    getGithubEvent(){
+    async getGithubEvent(){
         var githubUsername;
         // get user profile
-        fetch("https://project-cmput404.herokuapp.com/api/author/profile/", {
+        await fetch("https://project-cmput404.herokuapp.com/api/author/profile/", {
             method: 'GET',
             headers:{
             'Content-Type': 'application/json',
@@ -150,14 +156,23 @@ get_foreignposts() {
             console.log(response);
             githubUsername = response.githubUrl.split('/');
             githubUsername = githubUsername[githubUsername.length-1]
+            console.log('this is the github user name')
             console.log(githubUsername);
+            console.log('this is the state github')
+            this.setState({
+                github: githubUsername
+              });
+            console.log('AFTER')
+            console.log(this.state.github)
+            
 
             // console.log(this.state.comments);
         })
+         
         .catch(error => console.error('Error:', error));
         
 
-        fetch('https://api.github.com/users/abramhindle/events', {
+        fetch('https://api.github.com/users/'+this.state.github+'/events', {
         method: 'GET', // or 'PUT'
         headers:{
           'Content-Type': 'application/json',
@@ -165,7 +180,10 @@ get_foreignposts() {
         })
         .then(res => res.json())
         .then(response => {
+        console.log('this is the response from github after sending request')
         console.log(response);
+        console.log('this is the state in fetch')
+        console.log(this.state.github)
         for (var i = 0; i< 10; i++){
             this.state.posts.push([{
                 "postid": "",
