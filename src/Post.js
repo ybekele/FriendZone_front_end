@@ -118,6 +118,9 @@ class Post extends Component{
                     <CardHeader tag="h3">{this.state.data.title}</CardHeader>
                     <CardBody>
                         <CardText>{"Author: "+this.state.data.author.userName}</CardText> 
+                        <hr></hr>
+                        <CardText>{this.state.data.origin}</CardText>
+                        <hr></hr>
                         <Markdown>{this.state.data.content}</Markdown>
                         {/* <CardText>{JSON.stringify(this.state.comments)}</CardText> */}
                         <CardText>{"Publication Date: " + this.state.data.publicationDate}</CardText>

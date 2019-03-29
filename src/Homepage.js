@@ -22,6 +22,7 @@ class Homepage extends Component{
         this.get_posts = this.get_posts.bind(this);
         this.get_events = this.getGithubEvent.bind(this);
         this.getFiles = this.getFiles.bind(this);
+        this.get_foreignposts = this.get_foreignposts.bind(this);
         this.state = { collapse: false, posts: [], files: [] };
         this.get_posts();
     }
@@ -99,39 +100,27 @@ class Homepage extends Component{
 
 get_foreignposts() {
     // console.log("in get posts " + this.props.author_state.token); 
-
-    fetch('https://cmput404-front-test.herokuapp.com/api/posts', {
-        method: 'GET',
-        headers:{
-          'Content-Type': 'application/json',
-          'Authorization': 'Basic ' + base64.encode('yonael_team' + ':' + 'EBXxU&qyW$687cMb%mmB'),
-        }
-    })
-    .then(res => res.json())
-    .then(response => {
-    console.log('this is the response from teh foreign server');   
-    console.log(response);
-    //console.log('exact number = ' + response.posts.length);
-    if (response.hasOwnProperty("posts")){
-        console.log('it has its own property posts');
-        this.setState({
-            foreign_posts: response.posts
-                 
-        });
-        // this.state.posts = 
-        console.log('this is the foreign posts prop');
-        console.log(this.foreign_posts)
-    }
+    console.log('Basic ' + base64.encode('yonael_team' + ':' + 'EBXxU&qyW$687cMb%mmB'))
+    fetch("https://cmput404-front-test.herokuapp.com/api/posts", {
+            method: 'GET',
+            headers:{
+                'Content-Type': 'application/json',
+                // 'Origin': 'https://cmput404-front-test.herokuapp.com',
+                // 'X-Request-User-ID': 'https://project-cmput404.herokuapp.com/author/e360bb9d-b63c-4c1b-8648-6019e61fe04f',
+                'Authorization': 'Basic ' + base64.encode('yonael_team' + ':' + 'EBXxU&qyW$687cMb%mmB'),
+            }
+        })
+        .then(res => res.json())
+        .then(response => {
+            console.log(response);
+            for (var i = 0; i< response.posts.length; i++){
+                this.state.posts.push([response.posts[i]]);
+            }
+            this.setState({});
+            // console.log(this.state.comments);
+        })
+        .catch(error => console.error('Error:', error));
     
-
-    else{
-        console.log('failed to retrieve')
-        console.log(response);
-        //this.setState({foreign_posts: []})
-    }
-
-    })
-    .catch(error => console.error('Error:', error));
 }
 
     
@@ -280,7 +269,7 @@ get_foreignposts() {
                     
                     <Button id='get_posts' size='sm' color="primary" onClick={this.get_posts} style={{ marginBottom: '1rem' }}>Get Posts</Button>
                     <Button id='get_stream' size='sm' color="primary" onClick={this.get_events} style={{ marginBottom: '1rem' }}>Get Git Events</Button>
-                    <Button id='get_stream' size='sm' color="primary" onClick={this.get_foreignposts} style={{ marginBottom: '1rem' }}>Get Foreign Posts</Button> <Button id='get_stream' size='sm' color="primary" onClick={this.get_foreignposts} style={{ marginBottom: '1rem' }}>Get Foreign Posts</Button>
+                    <Button id='get_stream' size='sm' color="primary" onClick={this.get_foreignposts} style={{ marginBottom: '1rem' }}>Get Foreign Posts</Button> 
                     
                     {posts}
                     
