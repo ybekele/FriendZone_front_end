@@ -22,6 +22,7 @@ class Homepage extends Component{
         this.get_posts = this.get_posts.bind(this);
         this.get_events = this.getGithubEvent.bind(this);
         this.getFiles = this.getFiles.bind(this);
+        this.get_foreignposts = this.get_foreignposts.bind(this);
         this.state = {
              collapse: false, 
              posts: [], 
@@ -114,10 +115,11 @@ get_foreignposts() {
                 // 'X-Request-User-ID': 'https://project-cmput404.herokuapp.com/author/e360bb9d-b63c-4c1b-8648-6019e61fe04f',
                 'Authorization': 'Basic ' + base64.encode('yonael_team' + ':' + 'EBXxU&qyW$687cMb%mmB'),
             }
-        })
-        .then(res => res.json())
-        .then(response => {
-            console.log(response);
+    })
+    .then(res => res.json())
+    .then(response => {
+        console.log('this is the response')
+        console.log(response);
             for (var i = 0; i< response.posts.length; i++){
                 this.state.posts.push([response.posts[i]]);
             }
