@@ -124,10 +124,10 @@ get_foreignposts() {
 }
 
     
-    getGithubEvent(){
+    async getGithubEvent(){
         var githubUsername;
         // get user profile
-        fetch("https://project-cmput404.herokuapp.com/api/author/profile/", {
+        await fetch("https://project-cmput404.herokuapp.com/api/author/profile/", {
             method: 'GET',
             headers:{
             'Content-Type': 'application/json',
@@ -146,7 +146,7 @@ get_foreignposts() {
         .catch(error => console.error('Error:', error));
         
 
-        fetch('https://api.github.com/users/abramhindle/events', {
+        fetch('https://api.github.com/users/'+githubUsername+'/events', {
         method: 'GET', // or 'PUT'
         headers:{
           'Content-Type': 'application/json',
