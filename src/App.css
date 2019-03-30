@@ -15,8 +15,9 @@
   margin-top: 20px;
   margin-bottom: 20px;
   padding: 20px;
-  border: solid 1px rgb(71, 74, 255);
+  border: solid 1px rgb(71, 157, 255);
   border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .loginbuttons{

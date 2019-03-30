@@ -22,34 +22,19 @@ class Homepage extends Component{
         this.get_posts = this.get_posts.bind(this);
         this.get_events = this.getGithubEvent.bind(this);
         this.getFiles = this.getFiles.bind(this);
+        this.get_foreignposts = this.get_foreignposts.bind(this);
         this.state = {
              collapse: false, 
              posts: [], 
              files: [],
-             github: null, 
              organized_posts: null 
              };
         
         this.get_posts();
     }
 
-    
-
     getFiles(files){
         this.setState({ files: files })
-    }
-
-    organize_posts(posts) {
-        this.state.organized_posts = posts
-        this.setState({
-            posts: this.state.organized_posts.sort((a,b) => a.publicationDate > b.publicationDate)
-        })
-        console.log('this is organized post after')
-        console.log(this.state.organized_posts)
-        console.log('this is posts after')
-        console.log(this.state.posts)
-
-
     }
 
     send_post(){
@@ -121,44 +106,33 @@ class Homepage extends Component{
 
 get_foreignposts() {
     // console.log("in get posts " + this.props.author_state.token); 
-
-    fetch('https://cmput404-front-test.herokuapp.com/api/posts', {
-        method: 'GET',
-        headers:{
-          'Content-Type': 'application/json',
-          'Authorization': 'Basic ' + base64.encode('yonael_team' + ':' + 'EBXxU&qyW$687cMb%mmB'),
-        }
+    console.log('Basic ' + base64.encode('yonael_team' + ':' + 'EBXxU&qyW$687cMb%mmB'))
+    fetch("https://cmput404-front-test.herokuapp.com/api/posts", {
+            method: 'GET',
+            headers:{
+                'Content-Type': 'application/json',
+                // 'Origin': 'https://cmput404-front-test.herokuapp.com',
+                // 'X-Request-User-ID': 'https://project-cmput404.herokuapp.com/author/e360bb9d-b63c-4c1b-8648-6019e61fe04f',
+                'Authorization': 'Basic ' + base64.encode('yonael_team' + ':' + 'EBXxU&qyW$687cMb%mmB'),
+            }
     })
     .then(res => res.json())
     .then(response => {
-    console.log('this is the response from teh foreign server');   
-    console.log(response);
-    //console.log('exact number = ' + response.posts.length);
-    if (response.hasOwnProperty("posts")){
-        console.log('it has its own property posts');
-        this.setState({
-            foreign_posts: response.posts
-                 
-        });
-        // this.state.posts = 
-        console.log('this is the foreign posts prop');
-        console.log(this.foreign_posts)
-    }
-    
-
-    else{
-        console.log('failed to retrieve')
+        console.log('this is the response')
         console.log(response);
-        //this.setState({foreign_posts: []})
-    }
-
-    })
-    .catch(error => console.error('Error:', error));
+            for (var i = 0; i< response.posts.length; i++){
+                this.state.posts.push([response.posts[i]]);
+            }
+            this.setState({});
+            // console.log(this.state.comments);
+        })
+        .catch(error => console.error('Error:', error));
+    
 }
 
     
     async getGithubEvent(){
-        var githubUsername;
+        var githubUsername = 'github';
         // get user profile
         await fetch("https://project-cmput404.herokuapp.com/api/author/profile/", {
             method: 'GET',
@@ -172,23 +146,14 @@ get_foreignposts() {
             console.log(response);
             githubUsername = response.githubUrl.split('/');
             githubUsername = githubUsername[githubUsername.length-1]
-            console.log('this is the github user name')
             console.log(githubUsername);
-            console.log('this is the state github')
-            this.setState({
-                github: githubUsername
-              });
-            console.log('AFTER')
-            console.log(this.state.github)
-            
 
             // console.log(this.state.comments);
         })
-         
         .catch(error => console.error('Error:', error));
         
 
-        fetch('https://api.github.com/users/'+this.state.github+'/events', {
+        fetch('https://api.github.com/users/'+githubUsername+'/events', {
         method: 'GET', // or 'PUT'
         headers:{
           'Content-Type': 'application/json',
@@ -196,14 +161,11 @@ get_foreignposts() {
         })
         .then(res => res.json())
         .then(response => {
-        console.log('this is the response from github after sending request')
         console.log(response);
-        console.log('this is the state in fetch')
-        console.log(this.state.github)
         for (var i = 0; i< 10; i++){
             this.state.posts.push([{
                 "postid": "",
-                "publicationDate": "",
+                "publicationDate": response[i].created_at,
                 "title": "Github Event",
                 "source": "",
                 "origin": "",
@@ -224,11 +186,8 @@ get_foreignposts() {
                 "visibleTo": []
             }]) 
         };
+        this.state.posts.sort(function(a, b){return (new Date(b[0].publicationDate) - new Date(a[0].publicationDate))});
         this.setState({});
-        console.log(this.state.posts);
-        {this.organize_posts(this.state.posts)};
-        console.log('this organizes the posts');
-        console.log(this.state.organized_posts);
         })
       . catch(error => console.error('Error:', error));
     }
@@ -317,7 +276,7 @@ get_foreignposts() {
                     
                     <Button id='get_posts' size='sm' color="primary" onClick={this.get_posts} style={{ marginBottom: '1rem' }}>Get Posts</Button>
                     <Button id='get_stream' size='sm' color="primary" onClick={this.get_events} style={{ marginBottom: '1rem' }}>Get Git Events</Button>
-                    <Button id='get_stream' size='sm' color="primary" onClick={this.get_foreignposts} style={{ marginBottom: '1rem' }}>Get Foreign Posts</Button> <Button id='get_stream' size='sm' color="primary" onClick={this.get_foreignposts} style={{ marginBottom: '1rem' }}>Get Foreign Posts</Button>
+                    <Button id='get_stream' size='sm' color="primary" onClick={this.get_foreignposts} style={{ marginBottom: '1rem' }}>Get Foreign Posts</Button> 
                     
                     {posts}
                     

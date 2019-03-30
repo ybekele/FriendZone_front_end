@@ -118,9 +118,12 @@ class Post extends Component{
                     <CardHeader tag="h3">{this.state.data.title}</CardHeader>
                     <CardBody>
                         <CardText>{"Author: "+this.state.data.author.userName}</CardText> 
+                        <hr></hr>
+                        <CardText>{this.state.data.origin}</CardText>
+                        <hr></hr>
                         <Markdown>{this.state.data.content}</Markdown>
-                        {/* <CardText>{JSON.stringify(this.state.comments)}</CardText> */}
-                        <CardText>{"Publication Date: " + this.state.data.publicationDate}</CardText>
+                        <CardText>{(new Date(this.state.data.publicationDate)).toDateString()}</CardText>
+                        <CardText>{(new Date(this.state.data.publicationDate)).toTimeString()}</CardText>
                         <CommentList comments = {this.state.comments} />
                         <InputGroup>
                             <Input type="textarea" name="text" id={this.state.data.postid} placeholder="Leave a comment!" />
@@ -135,9 +138,13 @@ class Post extends Component{
             return (
                 <Card>
                     {/* <CardImg top width="100%" src="https://github.githubassets.com/images/modules/open_graph/github-mark.png" alt="Card image cap" /> */}
-                    <CardHeader tag="h3">{this.state.data.title}</CardHeader>
+                    <CardHeader tag="h3"><i style={{ fontSize: 30, width:60}} class="fab fa-github"></i>{this.state.data.title}</CardHeader>
                     <CardBody>
                         <CardText>{"Author: "+this.state.data.author.userName}</CardText> 
+                        <hr></hr>
+                        <CardText>{(new Date(this.state.data.publicationDate)).toDateString()}</CardText>
+                        <CardText>{(new Date(this.state.data.publicationDate)).toTimeString()}</CardText>
+                        <hr></hr>
                         <CardText>{this.state.data.content}</CardText>
                     </CardBody>
                 </Card>
