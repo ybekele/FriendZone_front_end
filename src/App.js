@@ -175,11 +175,13 @@ class App extends Component {
     return (
       <div>
         <Nav tabs className='navtab'>
+          <i style={{ fontSize: 40, width:50, marginLeft:10, marginTop:2 }} class="fas fa-user-circle"></i>
           <NavItem>
+            
             <NavLink
               className={classnames({ active: this.state.activeTab === '1' })}
               onClick={() => { this.toggle('1'); }}
-            >
+            ><i style={{ fontSize: 20, width:30}} class="fas fa-home"></i>
               Homepage
             </NavLink>
           </NavItem>
@@ -187,7 +189,7 @@ class App extends Component {
             <NavLink
               className={classnames({ active: this.state.activeTab === '2' })}
               onClick={() => { this.toggle('2'); }}
-            >
+            ><i style={{ fontSize: 20, width:30}} class="fas fa-user-friends"></i>
               Friends & Requests
             </NavLink>
           </NavItem>
@@ -195,7 +197,7 @@ class App extends Component {
             <NavLink
               className={classnames({ active: this.state.activeTab === '3' })}
               onClick={() => { this.toggle('3'); }}
-            >
+            ><i style={{ fontSize: 20, width:30}} class="fas fa-id-card"></i>
               MyProfile
             </NavLink>
           </NavItem>
@@ -203,7 +205,7 @@ class App extends Component {
             <NavLink
               className={classnames({ active: this.state.activeTab === '4' })}
               onClick={() => { this.toggle('4'); }}
-            >
+            ><i style={{ fontSize: 20, width:30}} class="fas fa-bell"></i>
               Notifications
             </NavLink>
           </NavItem>
