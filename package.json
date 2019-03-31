@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "antd": "^3.15.2",
     "bootstrap": "^4.3.1",
     "cors": "^2.8.5",
     "express": "^4.16.4",
@@ -16,6 +17,7 @@
     "react-dom": "^16.8.3",
     "react-file-base64": "^1.0.3",
     "react-native-base64": "0.0.2",
+    "react-particles-js": "^2.5.1",
     "react-scripts": "2.1.5",
     "reactstrap": "^7.1.0",
     "yarn": "^1.13.0"

@@ -269,10 +269,14 @@ get_foreignposts() {
                             </InputGroup> 
                         </FormGroup>
                     </Form>
+
+                   
+                    
                     
                     </Collapse>
+                    
+                    
 
-                    <h4>Your Stream:</h4>
                     
                     <Button id='get_posts' size='sm' color="primary" onClick={this.get_posts} style={{ marginBottom: '1rem' }}>Get Posts</Button>
                     <Button id='get_stream' size='sm' color="primary" onClick={this.get_events} style={{ marginBottom: '1rem' }}>Get Git Events</Button>

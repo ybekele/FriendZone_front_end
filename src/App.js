@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Layout, Menu, Breadcrumb } from 'antd';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Input, Button, Form, FormGroup, Label, Col, Spinner, Alert } from 'reactstrap';
 import './App.css';
 import classnames from 'classnames';
@@ -6,6 +7,8 @@ import Homepage from './Homepage';
 import Friends from './Friends';
 import Profile from './Profile';
 import Notifications from './Notifications';
+import Logo from './logoback.png';
+import Particles from 'react-particles-js';
 
 
 //var host_url = 'http://localhost:8000'
@@ -14,7 +17,7 @@ var login_url = host_url+'/api/auth/login';
 var logout_url = host_url+'/api/auth/logout';
 var register_url = host_url+'/api/auth/register';
 
-
+const { Header, Content, Footer } = Layout;
 class App extends Component {
   constructor(props) {
     super(props);
@@ -124,10 +127,12 @@ class App extends Component {
   }
   
   render() {
+    document.body.style = 'background: #77dd77;'
     if (!this.state.login){
         if (this.state.signup){
             return(
                 <center>
+                  
                   <Col sm="6">
                   <h1>Sign Up</h1>
                     <Form  className='loginForm'>
@@ -153,9 +158,14 @@ class App extends Component {
         };
       return(
         <center>
+          
+
           <Col sm="6">
-            <Form  className='loginForm'>
-              <Spinner type="grow" color="primary" />
+          
+          
+            <Form  className='loginForm' >
+              {/* <Spinner type="grow" color="primary" /> */}
+              <img src={require('./logoback.png')} width='50%' height="50%" alt="cam"/>
               <FormGroup>
                 <Label for="usernameText">User name</Label>
                 <Input name="text" id="usernameText" placeholder="Enter your user name" />
@@ -173,9 +183,10 @@ class App extends Component {
       );
     };
     return (
+      
       <div>
         <Nav tabs className='navtab'>
-          <i style={{ fontSize: 40, width:50, marginLeft:10, marginTop:2 }} class="fas fa-user-circle"></i>
+          {/* <i style={{ fontSize: 40, width:50, marginLeft:10, marginTop:2 }} class="fas fa-user-circle"></i> */}
           <NavItem>
             
             <NavLink
@@ -226,6 +237,10 @@ class App extends Component {
           </TabPane>
         </TabContent>
       </div>
+
+    
+      
+    
     );
   }
 }
