@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { CardImg, CardSubtitle, CustomInput, InputGroup, InputGroupAddon, Input, Form, FormGroup, CardHeader, Card, CardBody, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
+import { CardImg, CardSubtitle, Collapse, InputGroup, InputGroupAddon, Input, Form, FormGroup, CardHeader, Card, CardBody, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import Markdown from 'markdown-to-jsx';
 
 var host_url = 'https://project-cmput404.herokuapp.com';
@@ -22,6 +22,7 @@ class Post extends Component{
     constructor(props) {
         super(props);
         this.postComment = this.postComment.bind(this);
+        this.toggle = this.toggle.bind(this);
         this.state = {
             data:{
                 "postid": "",
@@ -40,7 +41,7 @@ class Post extends Component{
                   "githubUrl": ""
                 },
                 "content": "content",
-                "images":[],
+                "images":[{'img': ''}],
                 "permission": "",
                 "categories": [],
                 "comments": [],
@@ -53,6 +54,11 @@ class Post extends Component{
         };
     }
     
+    toggle() {
+        this.setState(state => ({ collapse: !state.collapse }));
+    }
+    
+
     postComment(){
         // console.log(document.getElementById("commentText").value);
         var data = {
@@ -87,7 +93,7 @@ class Post extends Component{
         // this.setState({data: this.props.value});
         this.state.data = this.props.value;
         this.state.author_state = this.props.author_state;
-        // console.log(this.state.data)
+        // console.log(this.state.data.images.length)
         if (this.state.useOldComments){
             this.state.comments = this.props.value.comments;
         }
@@ -112,9 +118,21 @@ class Post extends Component{
             .catch(error => console.error('Error:', error));
         }
         if (this.state.data.title !== "Github Event"){
+            if (this.state.data.images.length > 0){
+                var image = (
+                    <div>
+                        <Button color="secondary" onClick={this.toggle} size="sm" block>⇩ ⇩ ⇩ Click to show picture ⇩ ⇩ ⇩</Button>
+                        <Collapse isOpen={this.state.collapse}>
+                            <CardImg top width="100%" src={this.state.data.images[0].img} alt="Card image cap" />
+                        </Collapse>
+                    </div>
+                );
+            }
             return (
                 <Card>
-                    {/* <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" /> */}
+                    
+                    {image}
+                    
                     <CardHeader tag="h3">{this.state.data.title}</CardHeader>
                     <CardBody>
                         <CardText>{"Author: "+this.state.data.author.userName}</CardText> 
