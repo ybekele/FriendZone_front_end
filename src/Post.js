@@ -139,7 +139,7 @@ class Post extends Component{
             return (
                 <Card>
                     {/* <CardImg top width="100%" src="https://github.githubassets.com/images/modules/open_graph/github-mark.png" alt="Card image cap" /> */}
-                    <CardHeader tag="h3">{this.state.data.title}</CardHeader>
+                    <CardHeader tag="h3"><i style={{ fontSize: 30, width:60}} class="fab fa-github"></i>{this.state.data.title}</CardHeader>
                     <CardBody>
                         <CardText>{"Author: "+this.state.data.author.userName}</CardText> 
                         <hr></hr>

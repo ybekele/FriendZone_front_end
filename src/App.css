@@ -4,10 +4,28 @@
   top: 5px;
 }
 
+.logo { 
+  text-align: left;
+  align-content: left; 
+  padding-top: 5px; 
+  padding-bottom: 5px; 
+
+}
+
+
+
+.buttons { 
+  padding: 20px; 
+  padding-top: 20px; 
+  margin-top: 15px;
+}
 .loginForm {
- margin-top: 100px;
+ margin-top: 50px;
+ margin-bottom:50px; 
  padding: 20px;
- border: solid 1px gray;
+ padding-bottom: 20px; 
+ border: solid 1px black;
+ background: #F5F5F5;
  border-radius: 15px;
 }
 
@@ -15,18 +33,26 @@
   margin-top: 20px;
   margin-bottom: 20px;
   padding: 20px;
-  border: solid 1px rgb(71, 74, 255);
+  border: solid 1px rgb(71, 157, 255);
   border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .loginbuttons{
   margin: 20px;
 }
 
+
 #post {
   position: fixed;
   right: 80px;
   top: 5px;
+}
+
+#search { 
+  position: fixed; 
+  right: 70px; 
+  top: 5px; 
 }
 
 .cardstyle {
