@@ -216,7 +216,7 @@ class Friends extends Component{
 
 
 
-
+    document.body.style = 'background: #bdc3c7;'
       return(
         
         <center>

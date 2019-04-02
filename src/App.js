@@ -8,7 +8,7 @@ import Friends from './Friends';
 import Profile from './Profile';
 import Notifications from './Notifications';
 import Logo from './logoback.png';
-import Particles from 'react-particles-js';
+
 
 
 //var host_url = 'http://localhost:8000'
@@ -30,13 +30,31 @@ class App extends Component {
       signup: false,
       username: 'null',
       githubURL: 'null',
+      loading : false
     };
   }
   componentDidMount(){
     this.setState({login:false})
+    
+  }
+
+  startloading() { 
+    this.setState({loading : true})
+    setTimeout(
+      function() {
+          this.setState({loading : false });
+      }
+      .bind(this),
+      5000
+  );
+  }
+
+  doneloading() {
+    this.setState({loading : false})
   }
 
   trylogin(){
+    
     console.log("this should be user name in app")
     console.log(document.getElementById("usernameText").value)
     // console.log(this.state);
@@ -127,7 +145,10 @@ class App extends Component {
   }
   
   render() {
-    document.body.style = 'background: #77dd77;'
+    // #bdc3c7, #2c3e50
+    // document.body.style.backgroundColor = 'linear-gradient(#green, #2c3e50);'
+    document.body.style = 'background: linear-gradient(#bdc3c7, #2c3e50);'
+    
     if (!this.state.login){
         if (this.state.signup){
             return(
@@ -186,9 +207,9 @@ class App extends Component {
       
       <div>
         <Nav tabs className='navtab'>
+          
           {/* <i style={{ fontSize: 40, width:50, marginLeft:10, marginTop:2 }} class="fas fa-user-circle"></i> */}
           <NavItem>
-            
             <NavLink
               className={classnames({ active: this.state.activeTab === '1' })}
               onClick={() => { this.toggle('1'); }}
