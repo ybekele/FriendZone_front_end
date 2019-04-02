@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Layout, Menu, Breadcrumb } from 'antd';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Input, Button, Form, FormGroup, Label, Col, Spinner, Alert } from 'reactstrap';
 import './App.css';
 import classnames from 'classnames';
@@ -8,6 +9,8 @@ import Profile from './Profile';
 import Notifications from './Notifications';
 import MyFriends from './MyFriends';
 import MyPosts from './MyPosts';
+import Logo from './logoback.png';
+
 
 
 
@@ -17,8 +20,7 @@ var login_url = host_url+'/api/auth/login';
 var logout_url = host_url+'/api/auth/logout';
 var register_url = host_url+'/api/auth/register';
 
-
-
+const { Header, Content, Footer } = Layout;
 
 class App extends Component {
   constructor(props) {
@@ -32,6 +34,7 @@ class App extends Component {
       signup: false,
       username: 'null',
       githubURL: 'null',
+      loading : false
     };
   }
 
@@ -41,9 +44,26 @@ class App extends Component {
   
   componentDidMount(){
     this.setState({login:false})
+    
+  }
+
+  startloading() { 
+    this.setState({loading : true})
+    setTimeout(
+      function() {
+          this.setState({loading : false });
+      }
+      .bind(this),
+      5000
+  );
+  }
+
+  doneloading() {
+    this.setState({loading : false})
   }
 
   trylogin(){
+    
     console.log("this should be user name in app")
     console.log(document.getElementById("usernameText").value)
     // console.log(this.state);
@@ -134,6 +154,10 @@ class App extends Component {
   }
   
   render() {
+    // #bdc3c7, #2c3e50
+    // document.body.style.backgroundColor = 'linear-gradient(#green, #2c3e50);'
+    document.body.style = 'background: linear-gradient(#bdc3c7, #2c3e50);'
+    
     if (!this.state.login){
         if (this.state.signup){
             return(
@@ -164,9 +188,14 @@ class App extends Component {
         };
       return(
         <center>
+          
+
           <Col sm="6">
-            <Form  className='loginForm'>
-              <Spinner type="grow" color="primary" />
+          
+          
+            <Form  className='loginForm' >
+              {/* <Spinner type="grow" color="primary" /> */}
+              <img src={require('./logoback.png')} width='50%' height="50%" alt="cam"/>
               <FormGroup>
                 <Label for="usernameText">User name</Label>
                 <Input name="text" id="usernameText" placeholder="Enter your user name" />
@@ -184,13 +213,16 @@ class App extends Component {
       );
     };
     return (
+      
       <div>
         <Nav tabs className='navtab'>
+          
+          {/* <i style={{ fontSize: 40, width:50, marginLeft:10, marginTop:2 }} class="fas fa-user-circle"></i> */}
           <NavItem>
             <NavLink
               className={classnames({ active: this.state.activeTab === '1' })}
               onClick={() => { this.toggle('1'); }}
-            >
+            ><i style={{ fontSize: 20, width:30}} class="fas fa-home"></i>
               Homepage
             </NavLink>
           </NavItem>
@@ -198,7 +230,7 @@ class App extends Component {
             <NavLink
               className={classnames({ active: this.state.activeTab === '2' })}
               onClick={() => { this.toggle('2'); }}
-            >
+            ><i style={{ fontSize: 20, width:30}} class="fas fa-user-friends"></i>
               Friends & Requests
             </NavLink>
           </NavItem>
@@ -206,7 +238,7 @@ class App extends Component {
             <NavLink
               className={classnames({ active: this.state.activeTab === '3' })}
               onClick={() => { this.toggle('3'); }}
-            >
+            ><i style={{ fontSize: 20, width:30}} class="fas fa-id-card"></i>
               MyProfile
             </NavLink>
           </NavItem>
@@ -214,7 +246,7 @@ class App extends Component {
             <NavLink
               className={classnames({ active: this.state.activeTab === '4' })}
               onClick={() => { this.toggle('4'); }}
-            >
+            ><i style={{ fontSize: 20, width:30}} class="fas fa-bell"></i>
               Notifications
             </NavLink>
           </NavItem>
@@ -257,6 +289,10 @@ class App extends Component {
           </TabPane>
         </TabContent>
       </div>
+
+    
+      
+    
     );
   }
 }
