@@ -14,8 +14,8 @@ import Logo from './logoback.png';
 
 
 
-var host_url = 'http://localhost:8000'
-//var host_url = 'https://project-cmput404.herokuapp.com';
+// var host_url = 'http://localhost:8000'
+var host_url = 'https://project-cmput404.herokuapp.com';
 var login_url = host_url+'/api/auth/login';
 var logout_url = host_url+'/api/auth/logout';
 var register_url = host_url+'/api/auth/register';
@@ -230,15 +230,15 @@ class App extends Component {
             <NavLink
               className={classnames({ active: this.state.activeTab === '2' })}
               onClick={() => { this.toggle('2'); }}
-            ><i style={{ fontSize: 20, width:30}} class="fas fa-user-friends"></i>
-              Friends & Requests
+            ><i style={{ fontSize: 20, width:30}} class="fas fa-search"></i>
+              Search Friends
             </NavLink>
           </NavItem>
           <NavItem>
             <NavLink
               className={classnames({ active: this.state.activeTab === '3' })}
               onClick={() => { this.toggle('3'); }}
-            ><i style={{ fontSize: 20, width:30}} class="fas fa-id-card"></i>
+            ><i style={{ fontSize: 20, width:30}} class="fas fa-user-edit"></i>
               MyProfile
             </NavLink>
           </NavItem>
@@ -254,7 +254,7 @@ class App extends Component {
             <NavLink
               className={classnames({ active: this.state.activeTab === '5' })}
               onClick={() => { this.toggle('5'); }}
-            >
+              ><i style={{ fontSize: 20, width:30}} class="fas fa-user-friends"></i>
               MyFriends
             </NavLink>
           </NavItem>
@@ -262,7 +262,7 @@ class App extends Component {
             <NavLink
               className={classnames({ active: this.state.activeTab === '6' })}
               onClick={() => { this.toggle('6'); }}
-            >
+              ><i style={{ fontSize: 20, width:30}} class=" fas fa-pen"></i>
               MyPosts
             </NavLink>
           </NavItem>

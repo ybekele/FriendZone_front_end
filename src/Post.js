@@ -3,7 +3,7 @@ import { CardImg, CardSubtitle, CustomInput, InputGroup, InputGroupAddon, Input,
 import Markdown from 'markdown-to-jsx';
 
 var host_url = 'https://project-cmput404.herokuapp.com';
-host_url = 'http://127.0.0.1:8000';
+//host_url = 'http://127.0.0.1:8000';
 
 function CommentList(props){
     const comments = props.comments;
@@ -114,13 +114,13 @@ class Post extends Component{
         }
         if (this.state.data.title !== "Github Event"){
             return (
-                <Card>
+                <Card body inverse color="primary">
                     {/* <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" /> */}
                     <CardHeader tag="h3">{this.state.data.title}</CardHeader>
                     <CardBody>
-                        <CardText>{"Author: "+this.state.data.author.userName}</CardText> 
+                        <CardSubtitle>{"Author: "+this.state.data.author.userName}</CardSubtitle> 
                         <hr></hr>
-                        <CardText>{this.state.data.origin}</CardText>
+                        <CardSubtitle>{this.state.data.origin}</CardSubtitle>
                         <hr></hr>
                         <Markdown>{this.state.data.content}</Markdown>
                         <CardText>{(new Date(this.state.data.publicationDate)).toDateString()}</CardText>
@@ -137,7 +137,8 @@ class Post extends Component{
             )
         } else {
             return (
-                <Card>
+                <Card body inverse style={{ backgroundColor: '#8A2BE2', borderColor: 'black' }}>
+                    
                     {/* <CardImg top width="100%" src="https://github.githubassets.com/images/modules/open_graph/github-mark.png" alt="Card image cap" /> */}
                     <CardHeader tag="h3"><i style={{ fontSize: 30, width:60}} class="fab fa-github"></i>{this.state.data.title}</CardHeader>
                     <CardBody>

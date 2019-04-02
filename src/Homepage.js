@@ -5,7 +5,7 @@ import FileBase64 from 'react-file-base64';
 import base64 from 'react-native-base64'
 
 var host_url = 'http://127.0.0.1:8000';
-//host_url = 'https://project-cmput404.herokuapp.com';
+var host_url = 'https://project-cmput404.herokuapp.com';
 var post_url = host_url+'/api/author/posts/';
 var user_url = host_url+'/api/authors/';
 var getposts_url = host_url+'/api/author/posts/'; 
@@ -226,6 +226,7 @@ class Homepage extends Component{
         })
         .then(res => res.json())
         .then(response => {
+        console.log('these are all the posts we')
         console.log(response);
         if (response.hasOwnProperty("posts")){
             // console.log(response);
