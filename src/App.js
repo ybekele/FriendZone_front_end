@@ -212,16 +212,16 @@ class App extends Component {
         </Nav>
         <Button outline size='sm' className='logout' color="primary" onClick={()=>{this.trylogout()}}>Logout</Button>{' '}
         <TabContent activeTab={this.state.activeTab}>
-          <TabPane tabId="1">
-            <Homepage author_state={this.state}/>
+          <TabPane className='content' tabId="1">
+            <Homepage style={{marginTop: 30}} author_state={this.state}/>
           </TabPane>
-          <TabPane tabId="2">
+          <TabPane className='content' tabId="2">
             <Friends author_state={this.state}/>
           </TabPane>
-          <TabPane tabId="3">
+          <TabPane className='content' tabId="3">
             <Profile author_state={this.state} />
           </TabPane>
-          <TabPane tabId="4">
+          <TabPane className='content' tabId="4">
             <Notifications author_state={this.state} />
           </TabPane>
         </TabContent>

@@ -218,11 +218,12 @@ get_foreignposts() {
         }
         return(
             <center>
-                <Button id='post' size='sm' color="primary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>Make Post!</Button>
+                <Button id='post' size='sm' color="primary" onClick={this.toggle} style={{ marginBottom: '1rem', zIndex:2 }}>Make Post!</Button>
                
                 
                 <Col sm="9">
                     <Collapse isOpen={this.state.collapse}>
+                    <div style={{paddingTop:20}}></div>
                     <Form className="postForm">
                         <FormGroup>
                             <Label for="exampleCustomFileBrowser">File Browser</Label>

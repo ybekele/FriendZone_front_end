@@ -2,6 +2,7 @@
   position: fixed;
   right: 10px;
   top: 5px;
+  z-index: 2;
 }
 
 .loginForm {
@@ -10,7 +11,17 @@
  border: solid 1px gray;
  border-radius: 15px;
 }
+.navtab {
+  position: fixed;
+  z-index: 2;
+  background-color: white;
+  width: 100%;
+  margin-top: -40px;
+}
 
+.content{
+  margin-top: 40px;
+}
 .postForm{
   margin-top: 20px;
   margin-bottom: 20px;
