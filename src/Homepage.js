@@ -4,7 +4,7 @@ import Post from './Post'
 import FileBase64 from 'react-file-base64';
 import base64 from 'react-native-base64'
 
-var host_url = 'http://127.0.0.1:8000';
+// var host_url = 'http://127.0.0.1:8000';
 var host_url = 'https://project-cmput404.herokuapp.com';
 var post_url = host_url+'/api/author/posts/';
 var user_url = host_url+'/api/authors/';
