@@ -7,11 +7,12 @@ import Friends from './Friends';
 import Profile from './Profile';
 import Notifications from './Notifications';
 import MyFriends from './MyFriends';
+import MyPosts from './MyPosts';
 
 
 
-//var host_url = 'http://localhost:8000'
-var host_url = 'https://project-cmput404.herokuapp.com';
+var host_url = 'http://localhost:8000'
+//var host_url = 'https://project-cmput404.herokuapp.com';
 var login_url = host_url+'/api/auth/login';
 var logout_url = host_url+'/api/auth/logout';
 var register_url = host_url+'/api/auth/register';
@@ -225,6 +226,14 @@ class App extends Component {
               MyFriends
             </NavLink>
           </NavItem>
+          <NavItem>
+            <NavLink
+              className={classnames({ active: this.state.activeTab === '6' })}
+              onClick={() => { this.toggle('6'); }}
+            >
+              MyPosts
+            </NavLink>
+          </NavItem>
         </Nav>
         <Button outline size='sm' className='logout' color="primary" onClick={()=>{this.trylogout()}}>Logout</Button>{' '}
         <TabContent activeTab={this.state.activeTab}>
@@ -242,6 +251,9 @@ class App extends Component {
           </TabPane>
           <TabPane tabId="5">
             <MyFriends author_state={this.state} />
+          </TabPane>
+          <TabPane tabId="6">
+            <MyPosts author_state={this.state} />
           </TabPane>
         </TabContent>
       </div>
