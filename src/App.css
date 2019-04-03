@@ -22,7 +22,7 @@
 }
 .loginForm {
  margin-top: 80px;
- margin-bottom:120px; 
+ /* margin-bottom:120px;  */
  padding: 20px;
  padding-bottom: 20px; 
  border: solid 1px black;
