@@ -100,7 +100,7 @@ class MyPosts extends Component{
         button_show_hide.style.display="block";
         save_button.style.display="none";
         delete_button.style.display="none";
-        document.getElementById(id).disabled=true;
+        // document.getElementById(id).disabled=true;
         console.log("heres the post info")
         console.log(post_info.postid);
 
