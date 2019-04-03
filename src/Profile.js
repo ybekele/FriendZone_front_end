@@ -48,7 +48,7 @@ class Profile extends Component{
             "username": document.getElementById("userName").value,
             "githubUrl":document.getElementById("githubUrl").value
         }
-        fetch(this.state.author.url, {
+        fetch(this.state.author.url+'/', {
             method: 'PUT',
             body: JSON.stringify(body),
             headers:{
