@@ -118,6 +118,7 @@ class Post extends Component{
             .catch(error => console.error('Error:', error));
         }
         if (this.state.data.title !== "Github Event"){
+            var content = (<Markdown>{this.state.data.content}</Markdown>);
             if (this.state.data.images.length > 0){
                 var image = (
                     <div>
@@ -127,6 +128,7 @@ class Post extends Component{
                         </Collapse>
                     </div>
                 );
+                var content = (<div></div>);
             }
             return (
                 <Card>
@@ -139,7 +141,7 @@ class Post extends Component{
                         <hr></hr>
                         <CardText>{this.state.data.origin}</CardText>
                         <hr></hr>
-                        <Markdown>{this.state.data.content}</Markdown>
+                        {content}
                         <CardText>{(new Date(this.state.data.publicationDate)).toDateString()}</CardText>
                         <CardText>{(new Date(this.state.data.publicationDate)).toTimeString()}</CardText>
                         <CommentList comments = {this.state.comments} />
