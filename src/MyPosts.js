@@ -201,6 +201,12 @@ class MyPosts extends Component{
             //match1 if(!this.state.can_edit){
         
         var list_of_posts = requests.map((request,i) => 
+        // {(request.contentType === "application/base64" || request.contentType === "image/png;base64" || request.contentType === "image/jpeg;base64") &&    
+        
+        //     <div></div>
+        
+        // },
+
         <Card style={{ textAlign: 'center', marginTop:20}}>
         <CardHeader tag="h3">{request.title}</CardHeader>
         <CardBody>
