@@ -65,6 +65,7 @@ class Profile extends Component{
             this.setState({success:false,message:response.message})
             document.getElementById('alert').value=response.message
         }
+         this.getProfile();
         })
         .catch(error => console.error('Error:', error));
     }
