@@ -121,7 +121,7 @@ class MyFriends extends Component{
             console.log(requests.authors)
         var list_of_pple = requests.authors.map((request) => 
             <tr>
-                <th scope="row">{request.userName}</th>
+                <th scope="row">{request.username}</th>
                 <td>   
                 {/* <Button id="unfollow_button" onClick={()=> {this.unfollow(request.author_id)}}>Unfollow This Author</Button> */}
                 <Button id="unfollow_button" onClick={()=> {this.unfollow(request.author_id)}}>Unfollow This Author</Button>

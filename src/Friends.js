@@ -164,7 +164,7 @@ class Friends extends Component{
            <Col class="flex" sm="8" md={{size:8,offset:2}}>
               
                <Card body>
-                 <CardTitle><h1>{ajax_response[to_display].userName}</h1></CardTitle>
+                 <CardTitle><h1>{ajax_response[to_display].username}</h1></CardTitle>
                  <CardText>{ajax_response[to_display].firstName} {ajax_response[to_display].lastName}</CardText>
                  <Button id="folow_button" onClick={()=> {this.follows(ajax_response[to_display].author_id)}}>Follow</Button>
                </Card>

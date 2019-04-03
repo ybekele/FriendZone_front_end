@@ -37,7 +37,7 @@ class Post extends Component{
                   "author_id": "",
                   "firstName": null,
                   "lastName": "",
-                  "userName": "",
+                  "username": "",
                   "hostName": "",
                   "githubUrl": ""
                 },
@@ -94,7 +94,7 @@ class Post extends Component{
         // this.setState({data: this.props.value});
         this.state.data = this.props.value;
         this.state.author_state = this.props.author_state;
-        // console.log(this.state.data.images.length)
+        // console.log(this.props);
         if (this.state.useOldComments){
             this.state.comments = this.props.value.comments;
         }
@@ -120,12 +120,12 @@ class Post extends Component{
         }
         if (this.state.data.title !== "Github Event"){
             var content = (<Markdown>{this.state.data.content}</Markdown>);
-            if (this.state.data.images.length > 0){
+            if (this.state.data.contentType == "application/base64" || this.state.data.contentType == "image/png;base64" || this.state.data.contentType == "image/jpeg;base64"){
                 var image = (
                     <div>
                         <Button color="secondary" onClick={this.toggle} size="sm" block>⇩ ⇩ ⇩ Click to show picture ⇩ ⇩ ⇩</Button>
                         <Collapse isOpen={this.state.collapse}>
-                            <CardImg top width="100%" src={this.state.data.images[0].img} alt="Card image cap" />
+                            <CardImg top width="100%" src={this.state.data.content} alt="Card image cap" />
                         </Collapse>
                     </div>
                 );
@@ -138,7 +138,7 @@ class Post extends Component{
                     
                     <CardHeader tag="h3">{this.state.data.title}</CardHeader>
                     <CardBody>
-                        <CardText>{"Author: "+this.state.data.author.userName}</CardText> 
+                        <CardText>{"Author: "+this.state.data.author.username}</CardText> 
                         <hr></hr>
                         <CardText>{this.state.data.origin}</CardText>
                         <hr></hr>

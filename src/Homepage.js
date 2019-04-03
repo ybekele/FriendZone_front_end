@@ -33,7 +33,7 @@ class Homepage extends Component{
              collapse: false, 
              collapse_search: false, 
              posts: [], 
-             files: [],
+             files: {},
              organized_posts: null 
              };
         
@@ -159,6 +159,7 @@ class Homepage extends Component{
 
 
     getFiles(files){
+        console.log(files);
         this.setState({ files: files })
     }
 
@@ -178,7 +179,7 @@ class Homepage extends Component{
         
         if (this.state.files){
             console.log(this.state.files)
-            data['images']=this.state.files
+            data['content']=this.state.files.base64;
         }
         // console.log(data);
         // console.log("this is the token " + this.props.author_state.token);
@@ -259,7 +260,7 @@ get_foreignposts() {
         console.log('this is the response')
         console.log(response);
             for (var i = 0; i< response.posts.length; i++){
-                this.state.posts.push([response.posts[i]]);
+                this.state.posts.push(response.posts[i]);
             }
             this.setState({});
             // console.log(this.state.comments);
@@ -381,7 +382,7 @@ get_foreignposts() {
                     <Form className="postForm">
                         <FormGroup>
                             <Label for="exampleCustomFileBrowser">File Browser</Label>
-                            <FileBase64 multiple={ true } onDone={ this.getFiles.bind(this)} />
+                            <FileBase64 multiple={ false } onDone={ this.getFiles.bind(this)} />
                         </FormGroup>
                         <FormGroup>
                             <CustomInput type="select" id="exampleCustomSelect" name="customSelect" >

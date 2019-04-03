@@ -45,7 +45,7 @@ class Profile extends Component{
         var body={
             "firstName": document.getElementById("firstName").value,
             "lastName": document.getElementById("lastName").value,
-            "userName": document.getElementById("userName").value,
+            "username": document.getElementById("userName").value,
             "githubUrl":document.getElementById("githubUrl").value
         }
         fetch(this.state.author.url, {
@@ -75,7 +75,7 @@ class Profile extends Component{
         if(this.state.author){
             document.getElementById("firstName").value=this.state.author.firstName
             document.getElementById("lastName").value=this.state.author.lastName
-            document.getElementById("userName").value=this.state.author.userName
+            document.getElementById("userName").value=this.state.author.username
             document.getElementById("githubUrl").value=this.state.author.githubUrl
         }
         return(

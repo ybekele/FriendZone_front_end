@@ -204,7 +204,7 @@ class MyPosts extends Component{
         <Card style={{ textAlign: 'center', marginTop:20}}>
         <CardHeader tag="h3">{request.title}</CardHeader>
         <CardBody>
-            <CardText>{request.author.userName}</CardText> 
+            <CardText>{request.author.username}</CardText> 
             <hr></hr>
             <CardText>{request.origin}</CardText>
             <hr></hr>
