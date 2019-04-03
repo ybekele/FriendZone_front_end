@@ -28,7 +28,7 @@ class Homepage extends Component{
         this.get_events = this.getGithubEvent.bind(this);
         this.getFiles = this.getFiles.bind(this);
         this.get_foreignposts = this.get_foreignposts.bind(this);
-        this.permissionOnChange = this.permissionOnChange.bind(this);
+        this.typeOnChange = this.typeOnChange.bind(this);
         this.state = {
              collapse: false, 
              collapse_search: false, 
@@ -177,9 +177,10 @@ class Homepage extends Component{
             "contentType":document.getElementById("textType").value
         };
         
-        if (this.state.files){
-            console.log(this.state.files)
-            data['content']=this.state.files.base64;
+        if (document.getElementById("textType").value === "application/base64" || document.getElementById("textType").value === "image/png;base64" || document.getElementById("textType").value === "image/jpeg;base64"){
+            document.getElementById("contentText").value = 'image';
+            document.getElementById("contentText").disabled = true;
+            data.content = this.state.files.base64;
         }
         // console.log(data);
         // console.log("this is the token " + this.props.author_state.token);
@@ -269,12 +270,11 @@ get_foreignposts() {
     
 }
 
-    permissionOnChange(){
-        if (document.getElementById("textType").value == "application/base64" || document.getElementById("textType").value == "image/png;base64" || document.getElementById("textType").value == "image/jpeg;base64"){
+    typeOnChange(){
+        if (document.getElementById("textType").value === "application/base64" || document.getElementById("textType").value === "image/png;base64" || document.getElementById("textType").value === "image/jpeg;base64"){
             document.getElementById("contentText").value = 'image';
             document.getElementById("contentText").disabled = true;
         } else{
-            document.getElementById("contentText").value = '';
             document.getElementById("contentText").disabled = false;
         }
     }    
@@ -404,7 +404,7 @@ get_foreignposts() {
                             </CustomInput>
                         </FormGroup>
                         <FormGroup>
-                            <CustomInput type="select" id="textType" name="customSelect" onChange={this.permissionOnChange}>
+                            <CustomInput type="select" id="textType" name="customSelect" onChange={this.typeOnChange}>
                                 <option value="">Type of Post?</option>
                                 <option value="text/plain">Simple Plain Text</option>
                                 <option value="text/markdown">Markdown</option>
