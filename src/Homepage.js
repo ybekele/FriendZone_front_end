@@ -366,7 +366,7 @@ get_foreignposts() {
             )})
         }
         else{
-            document.body.style = 'background: linear-gradient(#bdc3c7, #2c3e50);'
+            // document.body.style = 'background: linear-gradient(#bdc3c7, #2c3e50);'
             var posts="NO POSTS";
         }
         this.state.posts.sort(function(a, b){return (new Date(b.publicationDate) - new Date(a.publicationDate))});

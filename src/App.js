@@ -154,7 +154,7 @@ class App extends Component {
   render() {
     // #bdc3c7, #2c3e50
     // document.body.style.backgroundColor = 'linear-gradient(#green, #2c3e50);'
-    document.body.style = 'background: linear-gradient(#bdc3c7, #2c3e50);'
+    // document.body.style = 'background: linear-gradient(#bdc3c7, #2c3e50)'
     
     if (!this.state.login){
         if (this.state.signup){
