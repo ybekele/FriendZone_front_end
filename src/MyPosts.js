@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Breadcrumb,BreadcrumbItem,Form,FormGroup,FormText,Input,Label,TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
+import { CardImg,BreadcrumbItem,Form,FormGroup,FormText,Input,Label,TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import { Table } from 'reactstrap';
 import Markdown from 'markdown-to-jsx';
 import { CardHeader,CardBody,InputGroup,InputGroupAddon} from 'reactstrap';
+import FileBase64 from 'react-file-base64';
 
 var host_url = 'http://localhost:8000'
 var host_url = 'https://project-cmput404.herokuapp.com';
@@ -30,7 +31,8 @@ class MyPosts extends Component{
             can_edit:false,
             text:true,
             trick:true,
-            messsage:null
+            messsage:null,
+            files:{},
         };
         
     }
@@ -88,8 +90,10 @@ class MyPosts extends Component{
             "content": document.getElementById(id).value,
             "permission": post_info.permission,
             "unlisted": false,
-          };
-
+        };
+        if (post_info.contentType == "application/base64" || post_info.contentType === "image/png;base64" || post_info.contentType === "image/jpeg;base64"){
+            data.content = this.state.files.base64
+        }
         var button_show_hide = document.getElementById((id.toString())+"edit_button");
         var save_button = document.getElementById((id.toString())+"s");
         var delete_button = document.getElementById((id.toString())+"d");
@@ -175,7 +179,11 @@ class MyPosts extends Component{
 
 
     
-
+        getFiles(files){
+            console.log(files);
+            // document.getElementById(id).value = files.base64;
+            this.setState({ files: files })
+        }
     
 
 
@@ -210,11 +218,16 @@ class MyPosts extends Component{
         <Card style={{ textAlign: 'center', marginTop:20}}>
         <CardHeader tag="h3">{request.title}</CardHeader>
         <CardBody>
+            <CardImg hidden={!(request.contentType === "application/base64" || request.contentType === "image/png;base64" || request.contentType === "image/jpeg;base64" )} top width="100%" src={request.content} alt="Card image cap" />
             <CardText>{request.author.username}</CardText> 
             <hr></hr>
             <CardText>{request.origin}</CardText>
             <hr></hr>
-            <textarea id={i} disabled={(this.state.text)}>{request.content}</textarea>
+            <textarea id={i} disabled={(request.contentType === "application/base64" || request.contentType === "image/png;base64" || request.contentType === "image/jpeg;base64" )}>{request.content}</textarea>
+            <FormGroup hidden={!(request.contentType === "application/base64" || request.contentType === "image/png;base64" || request.contentType === "image/jpeg;base64" )}>
+                <Label for="exampleCustomFileBrowser">File Browser</Label>
+                <FileBase64 multiple={ false } onDone={ this.getFiles.bind(this)}/>
+            </FormGroup>
             <CardText>{(new Date(request.publicationDate)).toDateString()}</CardText>
             <CardText>{(new Date(request.publicationDate)).toTimeString()}</CardText>
             <InputGroup>
