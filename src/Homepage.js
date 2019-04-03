@@ -33,7 +33,8 @@ class Homepage extends Component{
              collapse_search: false, 
              posts: [], 
              files: [],
-             organized_posts: null 
+             organized_posts: null
+            //  getPosts2: null, 
              };
         
         this.get_posts();
@@ -111,6 +112,28 @@ class Homepage extends Component{
           })
           .catch(error => console.error('Error:', error));
     }
+
+    // async getPosts2(){
+    //     var user_data = {
+    //         "author_id": this.state.author.author_id,
+    //       };
+    //        await fetch(getposts_url, {
+    //             method: 'POST',
+    //             body:JSON.stringify(user_data),
+    //             headers:{
+    //             'Content-Type': 'application/json',
+    //             'Authorization': 'token '+this.props.author_state.token,
+    //             }
+    //         })
+    //         .then(res => res.json())
+    //         .then(response => {
+    //             console.log(response)
+    //             requests=response;
+    
+    
+    //         })
+    //         .catch(error => console.error('Error:', error));
+    //     }
     
       follows(userToFollow){
     
@@ -226,7 +249,7 @@ class Homepage extends Component{
         })
         .then(res => res.json())
         .then(response => {
-        console.log('these are all the posts we')
+        console.log('these are all the posts we');
         console.log(response);
         if (response.hasOwnProperty("posts")){
             // console.log(response);
@@ -234,6 +257,9 @@ class Homepage extends Component{
             // this.state.posts = 
         }
         else{
+            console.log("can't retrieve teh posts ");
+            console.log('this is the response for get posts');
+            console.log(response); 
             this.setState({posts: []})
         }
     
