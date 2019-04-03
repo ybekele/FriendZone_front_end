@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Layout, Menu, Breadcrumb } from 'antd';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Input, Button, Form, FormGroup, Label, Col, Spinner, Alert } from 'reactstrap';
 import './App.css';
 import classnames from 'classnames';
@@ -20,7 +19,7 @@ var login_url = host_url+'/api/auth/login';
 var logout_url = host_url+'/api/auth/logout';
 var register_url = host_url+'/api/auth/register';
 
-const { Header, Content, Footer } = Layout;
+//const { Header, Content, Footer } = Layout;
 
 class App extends Component {
   constructor(props) {

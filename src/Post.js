@@ -11,7 +11,7 @@ function CommentList(props){
         (comment) =>
         <li className="comment" >
             <p>{"Author: "+comment.author}</p>
-            <p>{"Comment: "+ comment.comment}</p>
+            <p>{"Comment: "+ comment.comment}</p> 
         </li>
     );
     return(
