@@ -79,29 +79,34 @@ class Profile extends Component{
             document.getElementById("githubUrl").value=this.state.author.githubUrl
         }
         return(
-        <Form>
-        <FormGroup>
-          <Label for="firstName">FirstName</Label>
-          <Input name="firstName" id="firstName" placeholder="Please Enter Your FirstName" />
-        </FormGroup>
-        <FormGroup>
-          <Label for="lastName">LastName</Label>
-          <Input  name="lastName" id="lastName" placeholder="Please Enter Your LastName" />
-        </FormGroup>
-        <FormGroup>
-          <Label for="userName">UserName</Label>
-          <Input  name="userName" id="userName" placeholder="Please Enter Your UserName" />
-        </FormGroup>
-        <FormGroup>
-          <Label for="githubUrl">Github Url</Label>
-          <Input  name="githubUrl" id="githubUrl" placeholder="Please Enter Your Github Url" />
-        </FormGroup>
-        <Button onClick={this.saveProfile}>Save</Button>
-        {this.state.success &&
-        <Alert color="primary" id="text">
-         Successfully Updated</Alert>
-        }
-        </Form>
+            <center>
+                 <Col sm="9">
+                    <Form style={{paddingTop:20}}>
+                        <FormGroup>
+                        <Label for="firstName">FirstName</Label>
+                        <Input name="firstName" id="firstName" placeholder="Please Enter Your FirstName" />
+                        </FormGroup>
+                        <FormGroup>
+                        <Label for="lastName">LastName</Label>
+                        <Input  name="lastName" id="lastName" placeholder="Please Enter Your LastName" />
+                        </FormGroup>
+                        <FormGroup>
+                        <Label for="userName">UserName</Label>
+                        <Input  name="userName" id="userName" placeholder="Please Enter Your UserName" />
+                        </FormGroup>
+                        <FormGroup>
+                        <Label for="githubUrl">Github Url</Label>
+                        <Input  name="githubUrl" id="githubUrl" placeholder="Please Enter Your Github Url" />
+                        </FormGroup>
+                        <Button onClick={this.saveProfile}>Save</Button>
+                        {this.state.success &&
+                        <Alert color="primary" id="text">
+                        Successfully Updated</Alert>
+                        }
+                    </Form>
+                 </Col>
+            </center>
+        
         
         )
         

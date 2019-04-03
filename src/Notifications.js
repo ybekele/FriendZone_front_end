@@ -183,20 +183,20 @@ class Notifications extends Component{
 
 
       return(
-        
-        <Table hover>
-        <thead>
-          <tr>
-            <th>User Name</th>
-          </tr>
-        </thead>
-        <tbody>
-
-            
-            {list_of_pple}
-            
-            </tbody>
-        </Table>
+          <center>
+              <Col sm="9">
+                    <Table hover>
+                    <thead>
+                        <tr>
+                            <th>User Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {list_of_pple}
+                    </tbody>
+                    </Table>
+                </Col>
+          </center>
         
         );
 

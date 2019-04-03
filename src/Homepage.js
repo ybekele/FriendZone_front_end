@@ -425,35 +425,7 @@ get_foreignposts() {
                         </FormGroup>
                     </Form>                    
                     </Collapse>
-                    
                 </Col>
-
-                
-                
-                <div classname = 'showContent'>
-                    <Col sm="9">
-                        <FormGroup style={{width:"300px"}} >
-                            <Label for="exampleSearch" >Search</Label>
-                            <Input
-                            type="search"
-                            name="search_for_author"
-                            id="search_for_author"
-                            placeholder="Search for Author"
-
-                            />
-                            {/* <Button onClick={()=> {this.search()}} color="secondary" size="lg">search</Button> */}
-                        </FormGroup>
-                        </Col>
-                </div>
-                
-                    
-                        
-                    
-                    
-
-                    <div classname = 'logo'>
-                        {/* <img src={require('./logoback.png')} width='30%' height="20%" alt="cam"/>    */}
-                    </div>
 
                     <div classname = 'buttons'>
                         <Button id='get_posts' size='sm' color="primary" onClick={this.get_posts} style={{ marginBottom: '1rem' }}>Get Posts</Button>

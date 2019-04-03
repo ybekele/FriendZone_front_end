@@ -201,7 +201,7 @@ class MyPosts extends Component{
             //match1 if(!this.state.can_edit){
         
         var list_of_posts = requests.map((request,i) => 
-        <Card style={{ textAlign: 'center'}}>
+        <Card style={{ textAlign: 'center', marginTop:20}}>
         <CardHeader tag="h3">{request.title}</CardHeader>
         <CardBody>
             <CardText>{request.author.userName}</CardText> 

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Layout, Menu, Breadcrumb } from 'antd';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Input, Button, Form, FormGroup, Label, Col, Spinner, Alert } from 'reactstrap';
 import './App.css';
 import classnames from 'classnames';
@@ -20,7 +19,6 @@ var login_url = host_url+'/api/auth/login';
 var logout_url = host_url+'/api/auth/logout';
 var register_url = host_url+'/api/auth/register';
 
-const { Header, Content, Footer } = Layout;
 
 class App extends Component {
   constructor(props) {
@@ -161,7 +159,7 @@ class App extends Component {
     if (!this.state.login){
         if (this.state.signup){
             return(
-                <center>
+                <center >
 
                   <Col sm="6">
                   <h1>Sign Up</h1>
@@ -230,8 +228,8 @@ class App extends Component {
             <NavLink
               className={classnames({ active: this.state.activeTab === '2' })}
               onClick={() => { this.toggle('2'); }}
-            ><i style={{ fontSize: 20, width:30}} class="fas fa-user-friends"></i>
-              Friends & Requests
+            ><i style={{ fontSize: 20, width:30}} class="fas fa-binoculars"></i>
+              Find Friends
             </NavLink>
           </NavItem>
           <NavItem>
@@ -254,7 +252,7 @@ class App extends Component {
             <NavLink
               className={classnames({ active: this.state.activeTab === '5' })}
               onClick={() => { this.toggle('5'); }}
-            >
+            ><i style={{ fontSize: 20, width:30}} class="fas fa-user-friends"></i>
               MyFriends
             </NavLink>
           </NavItem>
@@ -262,7 +260,7 @@ class App extends Component {
             <NavLink
               className={classnames({ active: this.state.activeTab === '6' })}
               onClick={() => { this.toggle('6'); }}
-            >
+            ><i style={{ fontSize: 20, width:30}} class="fas fa-edit"></i>
               MyPosts
             </NavLink>
           </NavItem>
@@ -281,10 +279,10 @@ class App extends Component {
           <TabPane className='content' tabId="4">
             <Notifications author_state={this.state} />
           </TabPane>
-          <TabPane tabId="5">
+          <TabPane className='content' tabId="5">
             <MyFriends author_state={this.state} />
           </TabPane>
-          <TabPane tabId="6">
+          <TabPane className='content' tabId="6">
             <MyPosts author_state={this.state} />
           </TabPane>
         </TabContent>

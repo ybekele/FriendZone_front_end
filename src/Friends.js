@@ -223,7 +223,7 @@ class Friends extends Component{
         
         <center>
 
-          <FormGroup style={{width:"300px"}} >
+          <FormGroup style={{width:"300px", paddingTop:20}} >
             <Label for="exampleSearch" >Search</Label>
             <Input
               type="search"
@@ -232,7 +232,7 @@ class Friends extends Component{
               placeholder="Search for Author"
 
             />
-            <Button onClick={()=> {this.search()}} color="secondary" size="lg">search</Button>
+            <Button style={{marginTop:20}} onClick={()=> {this.search()}} color="secondary" size="lg">search</Button>
           </FormGroup>
 
 
