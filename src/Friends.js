@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Breadcrumb,BreadcrumbItem,Form,FormGroup,FormText,Input,Label,TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 
-//var host_url = 'http://localhost:8000'
+var host_url = 'http://localhost:8000'
 var host_url = 'https://project-cmput404.herokuapp.com';
 var post_url = host_url+'/api/authors/';
 var url_follow=host_url+'/api/friendRequest/';
@@ -86,6 +86,8 @@ class Friends extends Component{
 }
 
   follows(userToFollow){
+    document.getElementById("folow_button").disabled = true;
+
 
     var user_data = {
         "to_author": userToFollow,
@@ -164,7 +166,7 @@ class Friends extends Component{
                <Card body>
                  <CardTitle><h1>{ajax_response[to_display].userName}</h1></CardTitle>
                  <CardText>{ajax_response[to_display].firstName} {ajax_response[to_display].lastName}</CardText>
-                 <Button onClick={()=> {this.follows(ajax_response[to_display].author_id)}}>Follow</Button>
+                 <Button id="folow_button" onClick={()=> {this.follows(ajax_response[to_display].author_id)}}>Follow</Button>
                </Card>
                <br/>
              </Col>
@@ -216,7 +218,7 @@ class Friends extends Component{
 
 
 
-
+    document.body.style = 'background: #bdc3c7;'
       return(
         
         <center>

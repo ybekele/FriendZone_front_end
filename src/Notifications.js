@@ -52,6 +52,8 @@ class Notifications extends Component{
 
 
     accept_request(follower){
+        document.getElementById("rej_button").disabled = true;
+        document.getElementById("accept_button").disabled = true;
         var user_data = {
             "from_author": follower,
             "to_author": this.state.author.author_id,
@@ -84,6 +86,7 @@ class Notifications extends Component{
     reject_request(follower){
 
         document.getElementById("rej_button").disabled = true;
+        document.getElementById("accept_button").disabled = true;
 
         var user_data = {
             "from_author": follower,

@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Input, Button, Form, FormGroup, Label, Col, Spinner, Alert } from 'reactstrap';
 
 
-const url="https://project-cmput404.herokuapp.com/api/author/profile"
+var url="https://project-cmput404.herokuapp.com/api/author/profile/"
+//url='http://localhost:8000/api/author/profile/'
 class Profile extends Component{
 
     constructor(props) {
@@ -16,6 +17,7 @@ class Profile extends Component{
         this.getProfile = this.getProfile.bind(this);
     }
     componentDidMount(){
+        console.log(this.props.author_state.token)
         this.getProfile()
 
         
@@ -69,6 +71,7 @@ class Profile extends Component{
     
 
     render(){
+        console.log(this.state.author)
         if(this.state.author){
             document.getElementById("firstName").value=this.state.author.firstName
             document.getElementById("lastName").value=this.state.author.lastName

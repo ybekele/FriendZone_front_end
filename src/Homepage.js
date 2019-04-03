@@ -9,9 +9,13 @@ host_url = 'https://project-cmput404.herokuapp.com';
 var post_url = host_url+'/api/author/posts/';
 var user_url = host_url+'/api/authors/';
 var getposts_url = host_url+'/api/author/posts/'; 
+var url_for_authorId=host_url+'/api/author/profile/';
+var url_follow=host_url+'/api/friendRequest/';
 
+var ajax_response=["","asdf","uuu","asdf","uuu","asdf","uuu","asdf","uuu","asdf","uuu","asdf",];
 var foreign_url = 'https://cmput404-front-test.herokuapp.com';
 var getforeignposts_url = foreign_url+'/api/posts/';
+var options=[];
 
 var global_state = null;
 class Homepage extends Component{
@@ -19,6 +23,7 @@ class Homepage extends Component{
     constructor(props) {
         super(props);
         this.toggle = this.toggle.bind(this);
+        this.toggleContent = this.toggleContent.bind(this);
         this.get_posts = this.get_posts.bind(this);
         this.get_events = this.getGithubEvent.bind(this);
         this.getFiles = this.getFiles.bind(this);
@@ -26,6 +31,7 @@ class Homepage extends Component{
         this.permissionOnChange = this.permissionOnChange.bind(this);
         this.state = {
              collapse: false, 
+             collapse_search: false, 
              posts: [], 
              files: [],
              organized_posts: null 
@@ -34,8 +40,130 @@ class Homepage extends Component{
         this.get_posts();
     }
 
+    componentDidMount(){
+        this.setState({users_token:this.props.author_state.token})
+        fetch(url_for_authorId, {
+          method: 'GET',
+          headers:{
+          'Content-Type': 'application/json',
+          'Authorization': 'token '+this.props.author_state.token,
+          }
+      })
+      .then(res => res.json())
+      .then(response => {
+        console.log(response.author_id)
+        this.setState({
+          authorsId:response.author_id
+      });
+    
+    
+      })
+      .catch(error => console.error('Error:', error));
+    
+    
+      }
+
+      search(){
+        console.log("her eis the passwed username")
+        console.log(this.props.username);
+        this.state = {
+          users_token: this.props.author_state.token,
+          ajax_response:[],
+          usersname:this.props.author_state.username,
+          authorsId:"",
+        };
+    
+        console.log(this.state.usersname)
+        console.log(this.state.users_token)
+        var user_data = {
+            "users_search": document.getElementById("search_for_author").value,
+            "firstName": document.getElementById("search_for_author").value,
+            "githubUrl": 'http://github.com/kkk',
+            "hostName": 'http://127.0.0.1:8000',
+            "lastName": document.getElementById("search_for_author").value,
+            "userName": this.state.usersname,
+          };
+          console.log(user_data);
+    
+          fetch(post_url, {
+            method: 'POST', // or 'PUT'
+            body: JSON.stringify(user_data), // data can be `string` or {object}!
+            headers:{
+              'Content-Type': 'application/json',
+              'Authorization': 'token '+this.state.users_token,
+            }
+          })
+          .then(res => res.json())
+          .then(response => {
+            // console.log('Success:', JSON.stringify(response));
+    
+            //if (response.hasOwnProperty("success")){
+              console.log("here is the response from server")
+              console.log(response);
+              ajax_response=response;
+              console.log("this is the first ajax response")
+              console.log(ajax_response)
+              this.setState({ajax_response:response})
+              //this.setState.ajax_response=response
+    
+    
+            //}
+    
+          })
+          .catch(error => console.error('Error:', error));
+    }
+    
+      follows(userToFollow){
+    
+        var user_data = {
+            "to_author": userToFollow,
+            "from_author":this.state.authorsId,
+          };
+          console.log(this.state.authorsId);
+          console.log("here is the token");
+          console.log(this.state.users_token);
+          console.log("here is the token from props");
+          console.log(this.props.author_state.token);
+    
+          fetch(url_follow, {
+            method: 'POST', // or 'PUT'
+            body: JSON.stringify(user_data), // data can be `string` or {object}!
+            headers:{
+              'Content-Type': 'application/json',
+              'Authorization': 'token '+this.props.author_state.token,
+            }
+          })
+          .then(res => res.text())
+          .then(response => {
+            // console.log('Success:', JSON.stringify(response));
+    
+            //if (response.hasOwnProperty("success")){
+              console.log("here is the response for follow")
+              console.log(response);
+    
+    
+    
+              //this.setState.ajax_response=response
+    
+    
+            //}
+    
+          })
+          .catch(error => console.error('Error:', error));
+       
+    
+      
+    
+    }
+
+
+
     getFiles(files){
         this.setState({ files: files })
+    }
+
+    toggleContent (event) { 
+        event.prevenDefault()
     }
 
     send_post(){
@@ -78,6 +206,15 @@ class Homepage extends Component{
         .catch(error => console.error('Error:', error));
     }
 
+    do_all() { 
+        if (this.githubURL != 'null') {
+            this.getGithubEvent()
+        }
+        this.get_posts()
+        this.get_foreignposts()
+        
+    }
+
     get_posts() {
         // console.log("in get posts " + this.props.author_state.token); 
     
@@ -107,14 +244,14 @@ class Homepage extends Component{
 
 get_foreignposts() {
     // console.log("in get posts " + this.props.author_state.token); 
-    console.log('Basic ' + base64.encode('yonael_team' + ':' + 'EBXxU&qyW$687cMb%mmB'))
-    fetch("https://cmput404-front-test.herokuapp.com/api/posts", {
+    // console.log('Basic ' + base64.encode('yonael_team' + ':' + 'EBXxU&qyW$687cMb%mmB'))
+    fetch("https://project-cmput404.herokuapp.com/api/remote/author/posts/", {
             method: 'GET',
             headers:{
                 'Content-Type': 'application/json',
                 // 'Origin': 'https://cmput404-front-test.herokuapp.com',
                 // 'X-Request-User-ID': 'https://project-cmput404.herokuapp.com/author/e360bb9d-b63c-4c1b-8648-6019e61fe04f',
-                'Authorization': 'Basic ' + base64.encode('yonael_team' + ':' + 'EBXxU&qyW$687cMb%mmB'),
+                // 'Authorization': 'Basic ' + base64.encode('yonael_team' + ':' + 'EBXxU&qyW$687cMb%mmB'),
             }
     })
     .then(res => res.json())
@@ -208,6 +345,11 @@ get_foreignposts() {
         this.setState(state => ({ collapse: !state.collapse }));
     }
 
+    toggle_search() {
+        window.scrollTo(0, 0);
+        this.setState(state => ({ collapse: !state.collapse_search }));
+    }
+
     render(){
         // console.log("this is the prop")
         // console.log(this.props.author_state.token)
@@ -224,6 +366,7 @@ get_foreignposts() {
             )})
         }
         else{
+            document.body.style = 'background: linear-gradient(#bdc3c7, #2c3e50);'
             var posts="NO POSTS";
         }
         this.state.posts.sort(function(a, b){return (new Date(b.publicationDate) - new Date(a.publicationDate))});
@@ -280,20 +423,53 @@ get_foreignposts() {
                                 </InputGroupAddon>
                             </InputGroup> 
                         </FormGroup>
-                    </Form>
-                    
+                    </Form>                    
                     </Collapse>
-
-                    <h4>Your Stream:</h4>
-                    
-                    <Button id='get_posts' size='sm' color="primary" onClick={this.get_posts} style={{ marginBottom: '1rem' }}>Get Posts</Button>
-                    <Button id='get_stream' size='sm' color="primary" onClick={this.get_events} style={{ marginBottom: '1rem' }}>Get Git Events</Button>
-                    <Button id='get_stream' size='sm' color="primary" onClick={this.get_foreignposts} style={{ marginBottom: '1rem' }}>Get Foreign Posts</Button> 
-                    
-                    {posts}
                     
                 </Col>
+
+                
+                
+                <div classname = 'showContent'>
+                    <Col sm="9">
+                        <FormGroup style={{width:"300px"}} >
+                            <Label for="exampleSearch" >Search</Label>
+                            <Input
+                            type="search"
+                            name="search_for_author"
+                            id="search_for_author"
+                            placeholder="Search for Author"
+
+                            />
+                            {/* <Button onClick={()=> {this.search()}} color="secondary" size="lg">search</Button> */}
+                        </FormGroup>
+                        </Col>
+                </div>
+                
+                    
+                        
+                    
+                    
+
+                    <div classname = 'logo'>
+                        {/* <img src={require('./logoback.png')} width='30%' height="20%" alt="cam"/>    */}
+                    </div>
+
+                    <div classname = 'buttons'>
+                        <Button id='get_posts' size='sm' color="primary" onClick={this.get_posts} style={{ marginBottom: '1rem' }}>Get Posts</Button>
+                        <Button id='get_stream' size='sm' color="primary" onClick={this.get_events} style={{ marginBottom: '1rem' }}>Get Git Events</Button>
+                        <Button id='get_stream' size='sm' color="primary" onClick={this.get_foreignposts} style={{ marginBottom: '1rem' }}>Get Foreign Posts</Button> 
+                    </div>
+                    
+                    
+                    {/* <Button id='get_stream' size='sm' color="primary" onClick={this.do_all} onClick={this.get_posts} onClick={this.getGithubEvent} style={{ marginBottom: '1rem' }}>Refresh!</Button>  */}
+                                                                       
+                    {posts}
+                    
+               
             </center>
+
+
             
         );
         

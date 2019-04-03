@@ -3,6 +3,7 @@ import { CardImg, CardSubtitle, Collapse, InputGroup, InputGroupAddon, Input, Fo
 import Markdown from 'markdown-to-jsx';
 
 var host_url = 'https://project-cmput404.herokuapp.com';
+//host_url = 'http://127.0.0.1:8000';
 
 function CommentList(props){
     const comments = props.comments;
