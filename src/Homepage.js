@@ -233,6 +233,16 @@ class Homepage extends Component{
         if (response.hasOwnProperty("posts")){
             // console.log(response);
             this.setState({posts: response.posts});
+            console.log("this is in get posts not ordered")
+            console.log(this.state.posts)
+            var current_posts = this.state.posts; 
+            current_posts.sort(function(a, b){return (new Date(a.publicationDate) - new Date(b.publicationDate))});
+            console.log('this is state after one way ')
+            console.log(current_posts)
+            this.setState({posts: current_posts}); 
+            current_posts.sort(function(a, b){return (new Date(b.publicationDate) - new Date(a.publicationDate))});
+            console.log('another way ')
+            console.log(current_posts)
             // this.state.posts = 
         }
         else{
@@ -370,7 +380,7 @@ get_foreignposts() {
             // document.body.style = 'background: linear-gradient(#bdc3c7, #2c3e50);'
             var posts="NO POSTS";
         }
-        this.state.posts.sort(function(a, b){return (new Date(b.publicationDate) - new Date(a.publicationDate))});
+        this.state.posts.sort(function(a, b){return (new Date(a.publicationDate) - new Date(b.publicationDate))});
         return(
             <center>
                 <Button id='post' size='sm' color="primary" onClick={this.toggle} style={{ marginBottom: '1rem', zIndex:2 }}>Make Post!</Button>
