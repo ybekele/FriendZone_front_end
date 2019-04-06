@@ -3,7 +3,7 @@ import { TabContent, TabPane, Nav, NavItem, NavLink, Input, Button, Form, FormGr
 
 
 var url="https://project-cmput404.herokuapp.com/api/author/profile/"
-//url='http://localhost:8000/api/author/profile/'
+url='http://localhost:8000/api/author/profile/'
 class Profile extends Component{
 
     constructor(props) {
