@@ -42,6 +42,7 @@ class Profile extends Component{
     }
 
     saveProfile(){
+        console.log(this.state.author.url)
         var body={
             "firstName": document.getElementById("firstName").value,
             "lastName": document.getElementById("lastName").value,
@@ -65,8 +66,11 @@ class Profile extends Component{
             this.setState({success:false,message:response.message})
             document.getElementById('alert').value=response.message
         }
+        this.getProfile();
         })
         .catch(error => console.error('Error:', error));
+
+
     }
     
 
