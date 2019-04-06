@@ -2,6 +2,7 @@
   position: fixed;
   right: 10px;
   top: 5px;
+  z-index: 2;
 }
 
 .logo { 
@@ -21,14 +22,24 @@
 }
 .loginForm {
  margin-top: 80px;
- margin-bottom:80px; 
+ /* margin-bottom:120px;  */
  padding: 20px;
  padding-bottom: 20px; 
  border: solid 1px black;
  background: #F5F5F5;
  border-radius: 15px;
 }
+.navtab {
+  position: fixed;
+  z-index: 2;
+  background-color: white;
+  width: 100%;
+  margin-top: -40px;
+}
 
+.content{
+  margin-top: 40px;
+}
 .postForm{
   margin-top: 20px;
   margin-bottom: 20px;

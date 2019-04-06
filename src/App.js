@@ -155,12 +155,12 @@ class App extends Component {
   render() {
     // #bdc3c7, #2c3e50
     // document.body.style.backgroundColor = 'linear-gradient(#green, #2c3e50);'
-    document.body.style = 'background: linear-gradient(#bdc3c7, #2c3e50);'
+    // document.body.style = 'background: linear-gradient(#bdc3c7, #2c3e50)'
     
     if (!this.state.login){
         if (this.state.signup){
             return(
-                <center>
+                <center >
 
                   <Col sm="6">
                   <h1>Sign Up</h1>
@@ -229,8 +229,8 @@ class App extends Component {
             <NavLink
               className={classnames({ active: this.state.activeTab === '2' })}
               onClick={() => { this.toggle('2'); }}
-            ><i style={{ fontSize: 20, width:30}} class="fas fa-user-friends"></i>
-              Friends & Requests
+            ><i style={{ fontSize: 20, width:30}} class="fas fa-binoculars"></i>
+              Find Friends
             </NavLink>
           </NavItem>
           <NavItem>
@@ -253,7 +253,7 @@ class App extends Component {
             <NavLink
               className={classnames({ active: this.state.activeTab === '5' })}
               onClick={() => { this.toggle('5'); }}
-            >
+            ><i style={{ fontSize: 20, width:30}} class="fas fa-user-friends"></i>
               MyFriends
             </NavLink>
           </NavItem>
@@ -261,29 +261,29 @@ class App extends Component {
             <NavLink
               className={classnames({ active: this.state.activeTab === '6' })}
               onClick={() => { this.toggle('6'); }}
-            >
+            ><i style={{ fontSize: 20, width:30}} class="fas fa-edit"></i>
               MyPosts
             </NavLink>
           </NavItem>
         </Nav>
         <Button outline size='sm' className='logout' color="primary" onClick={()=>{this.trylogout()}}>Logout</Button>{' '}
         <TabContent activeTab={this.state.activeTab}>
-          <TabPane tabId="1">
-            <Homepage author_state={this.state}/>
+          <TabPane className='content' tabId="1">
+            <Homepage style={{marginTop: 30}} author_state={this.state}/>
           </TabPane>
-          <TabPane tabId="2">
+          <TabPane className='content' tabId="2">
             <Friends author_state={this.state}/>
           </TabPane>
-          <TabPane tabId="3">
+          <TabPane className='content' tabId="3">
             <Profile author_state={this.state} />
           </TabPane>
-          <TabPane tabId="4">
+          <TabPane className='content' tabId="4">
             <Notifications author_state={this.state} />
           </TabPane>
-          <TabPane tabId="5">
+          <TabPane className='content' tabId="5">
             <MyFriends author_state={this.state} />
           </TabPane>
-          <TabPane tabId="6">
+          <TabPane className='content' tabId="6">
             <MyPosts author_state={this.state} />
           </TabPane>
         </TabContent>

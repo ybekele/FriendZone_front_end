@@ -42,13 +42,14 @@ class Profile extends Component{
     }
 
     saveProfile(){
+        console.log(this.state.author.url)
         var body={
             "firstName": document.getElementById("firstName").value,
             "lastName": document.getElementById("lastName").value,
-            "userName": document.getElementById("userName").value,
+            "username": document.getElementById("userName").value,
             "githubUrl":document.getElementById("githubUrl").value
         }
-        fetch(this.state.author.url, {
+        fetch(this.state.author.url+'/', {
             method: 'PUT',
             body: JSON.stringify(body),
             headers:{
@@ -65,8 +66,11 @@ class Profile extends Component{
             this.setState({success:false,message:response.message})
             document.getElementById('alert').value=response.message
         }
+        this.getProfile();
         })
         .catch(error => console.error('Error:', error));
+
+
     }
     
 
@@ -75,33 +79,38 @@ class Profile extends Component{
         if(this.state.author){
             document.getElementById("firstName").value=this.state.author.firstName
             document.getElementById("lastName").value=this.state.author.lastName
-            document.getElementById("userName").value=this.state.author.userName
+            document.getElementById("userName").value=this.state.author.username
             document.getElementById("githubUrl").value=this.state.author.githubUrl
         }
         return(
-        <Form>
-        <FormGroup>
-          <Label for="firstName">FirstName</Label>
-          <Input name="firstName" id="firstName" placeholder="Please Enter Your FirstName" />
-        </FormGroup>
-        <FormGroup>
-          <Label for="lastName">LastName</Label>
-          <Input  name="lastName" id="lastName" placeholder="Please Enter Your LastName" />
-        </FormGroup>
-        <FormGroup>
-          <Label for="userName">UserName</Label>
-          <Input  name="userName" id="userName" placeholder="Please Enter Your UserName" />
-        </FormGroup>
-        <FormGroup>
-          <Label for="githubUrl">Github Url</Label>
-          <Input  name="githubUrl" id="githubUrl" placeholder="Please Enter Your Github Url" />
-        </FormGroup>
-        <Button onClick={this.saveProfile}>Save</Button>
-        {this.state.success &&
-        <Alert color="primary" id="text">
-         Successfully Updated</Alert>
-        }
-        </Form>
+            <center>
+                 <Col sm="9">
+                    <Form style={{paddingTop:20}}>
+                        <FormGroup>
+                        <Label for="firstName">FirstName</Label>
+                        <Input name="firstName" id="firstName" placeholder="Please Enter Your FirstName" />
+                        </FormGroup>
+                        <FormGroup>
+                        <Label for="lastName">LastName</Label>
+                        <Input  name="lastName" id="lastName" placeholder="Please Enter Your LastName" />
+                        </FormGroup>
+                        <FormGroup>
+                        <Label for="userName">UserName</Label>
+                        <Input  name="userName" id="userName" placeholder="Please Enter Your UserName" />
+                        </FormGroup>
+                        <FormGroup>
+                        <Label for="githubUrl">Github Url</Label>
+                        <Input  name="githubUrl" id="githubUrl" placeholder="Please Enter Your Github Url" />
+                        </FormGroup>
+                        <Button onClick={this.saveProfile}>Save</Button>
+                        {this.state.success &&
+                        <Alert color="primary" id="text">
+                        Successfully Updated</Alert>
+                        }
+                    </Form>
+                 </Col>
+            </center>
+        
         
         )
         
