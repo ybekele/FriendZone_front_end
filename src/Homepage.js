@@ -244,6 +244,7 @@ class Homepage extends Component{
             console.log('another way ')
             console.log(current_posts)
             // this.state.posts = 
+            this.setState({posts: current_posts}); 
         }
         else{
             this.setState({posts: []})
