@@ -5,11 +5,13 @@ import { Table } from 'reactstrap';
 
 var host_url = 'http://localhost:8000'
 var host_url = 'https://project-cmput404.herokuapp.com';
-var post_url = host_url+'/api/authors/';
+var remote_url = host_url+'/api/remote/authors/';
+var remoteFriend_url = host_url+'/api/remote/friendRequest/';
 var url_follow=host_url+'/api/author/profile/';
 var url_for_friends=host_url+'/api/authors/';
 var url_for_unfriend=host_url+'/api/unfriend/';
 var requests;
+var remote_authors;
 
 
 var ajax_response=["","asdf","uuu","asdf","uuu","asdf","uuu","asdf","uuu","asdf","uuu","asdf",];
@@ -49,18 +51,32 @@ class MyFriends extends Component{
         })
         .catch(error => console.error('Error:', error));
 
+        /*second ajax to get remote authors*/
+
+        
+
     }
 
-    unfollow(friend){
+    follow(author_data){
 
         //document.getElementById("unfollow_button").disabled = true;
 
         var user_data = {
-            "from_author": friend,
-            "to_author": this.state.author.author_id,
+            "query":"friendrequest",
+            "author": {"host":host_url,
+            "id":host_url+'/api/authors/'+this.state.author.author_id,
+            "displayName":this.state.author.username,
+            "url":host_url+'/api/authors/'+this.state.author.author_id
+            },
+            "friend": {"host":author_data.hostName,
+            "id":author_data.url+'/'+author_data.author_id,
+            "displayName":author_data.username,
+            "url":author_data.url
+            },
           };
 
-        fetch(url_for_unfriend, {
+        console.log(user_data)
+        fetch(remoteFriend_url, {
             method: 'POST',
             body:JSON.stringify(user_data),
             headers:{
@@ -88,11 +104,12 @@ class MyFriends extends Component{
 
     render(){
         console.log("hers is the toek in myfrinds");
+        console.log(this.state.author.author_id)
         
 
         if(this.props.author_state.token!=null){
             console.log(this.props.author_state.token);
-            fetch(url_for_friends+this.state.author.author_id+"/local_friends/", {
+            fetch(remote_url, {
                 method: 'GET',
                 headers:{
                 'Content-Type': 'application/json',
@@ -102,29 +119,26 @@ class MyFriends extends Component{
             .then(res => res.json())
             .then(response => {
                 console.log(response)
-                requests=response;
+                remote_authors=response;
             
 
 
             })
             .catch(error => console.error('Error:', error));
 
-        console.log("here is request before the time delay");
-        console.log(requests);
-
-
-          console.log("here is requests")
-          console.log(requests)
+          console.log("here is remote authors")
+          console.log(remote_authors)
         
         try{
-        if(requests!=null || requests.detail!="Invalid token."){
-            console.log(requests.authors)
-        var list_of_pple = requests.authors.map((request) => 
+            console.log("asdfasdfasdfsadfa")
+        if(remote_authors!=null){
+            console.log(remote_authors.username)
+        var list_of_pple = remote_authors.map((request) => 
             <tr>
                 <th scope="row">{request.username}</th>
                 <td>   
                 {/* <Button id="unfollow_button" onClick={()=> {this.unfollow(request.author_id)}}>Unfollow This Author</Button> */}
-                <Button id="unfollow_button" onClick={()=> {this.unfollow(request.author_id)}}>Unfollow This Author</Button>
+                <Button id="follow" onClick={()=> {this.follow(request)}}>Send a Follow</Button>
                 </td>
             </tr>
         
@@ -140,7 +154,7 @@ class MyFriends extends Component{
         }
     }
     catch(err) {
-        {}
+        {console.log(err)}
       }    
 
 
