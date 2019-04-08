@@ -7,7 +7,7 @@ import { CardHeader,CardBody,InputGroup,InputGroupAddon} from 'reactstrap';
 import FileBase64 from 'react-file-base64';
 
 var host_url = 'http://localhost:8000'
-var host_url = 'https://project-cmput404.herokuapp.com';
+var host_url = 'http://copyfriendzonebackend.herokuapp.com/';
 var post_url = host_url+'/api/authors/';
 var url_follow=host_url+'/api/author/profile/';
 var url_for_notification=host_url+'/api/notifications/';

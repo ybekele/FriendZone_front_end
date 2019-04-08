@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Input, Button, Form, FormGroup, Label, Col, Spinner, Alert } from 'reactstrap';
 
 
-var url="https://project-cmput404.herokuapp.com/api/author/profile/"
+var url="http://copyfriendzonebackend.herokuapp.com/api/author/profile/"
 //url='http://localhost:8000/api/author/profile/'
 class Profile extends Component{
 

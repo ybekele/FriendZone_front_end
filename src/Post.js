@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { CardImg, CardSubtitle, Collapse, InputGroup, InputGroupAddon, Input, Form, FormGroup, CardHeader, Card, CardBody, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import Markdown from 'markdown-to-jsx';
 
-var host_url = 'https://project-cmput404.herokuapp.com';
+var host_url = 'http://copyfriendzonebackend.herokuapp.com/';
 //host_url = 'http://127.0.0.1:8000';
 
 function CommentList(props){
