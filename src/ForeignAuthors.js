@@ -4,7 +4,7 @@ import { ListGroup, ListGroupItem } from 'reactstrap';
 import { Table } from 'reactstrap';
 
 var host_url = 'http://localhost:8000'
-var host_url = 'https://project-cmput404.herokuapp.com';
+var host_url = 'https://copyfriendzonebackend.herokuapp.com';
 var remote_url = host_url+'/api/remote/authors/';
 var remoteFriend_url = host_url+'/api/remote/friendRequest/';
 var url_follow=host_url+'/api/author/profile/';
